@@ -1,8 +1,8 @@
 # CSC 207 Project: Spotify Recommendation and Companion App
 
 ## Software Specification
-The software is a dashboard from the extension of a user’s Spotify account. 
-This dashboard is a program that should visualize user listening patterns, 
+The software will be made through Java Swing and act as an extension of a user’s Spotify account. 
+This program that will visualize user listening patterns, 
 suggest new or related songs for their preferences, search songs by certain 
 lyrics and keywords that the user gives, and find users with similar preferences. 
 It is going to be a general extension to the overall Spotify experience.

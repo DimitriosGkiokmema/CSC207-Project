@@ -15,11 +15,11 @@ Yanki Cer -> yankicer <br />
 Dimitrios Gkiokmema -> DimitriosGkiokmema <br />
 Quinn Reynolds -> Reyno256 <br />
 Ksenia Tkaczyk -> KseniaTk <br />
-Yicheng (Ethan) Wang -> jcal13
+Yicheng (Ethan) Wang -> eulogizee
 
 ## Phase 1 Project Blueprint
 We made six initial user stories; one for each of us to work on independently, and one to collaborate on as a team.
-John wants to sign in to / log out of the app (Team)
+* John wants to sign in to / log out of the app (Team)
 
 * John wants to get song recommendations based on his music preferences. He can click the “For You” button to get a 
 list of recommendations based on his preferences. (Dimitrios)

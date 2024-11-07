@@ -32,4 +32,7 @@ suggestions. (Ethan)
 
 * John wants to see what his top tracks are. (Yanki)
 
-* John wants to find other individuals that have a similar music preference. (Ksenia) 
+* John wants to find other individuals that have a similar music preference. (Ksenia)
+
+Below is a UI sketch that outlines what our project will look like.
+![Project UI](Images/CSC207 Project Wireframe.png)

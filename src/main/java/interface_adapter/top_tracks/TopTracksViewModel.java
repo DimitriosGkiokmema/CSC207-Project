@@ -1,4 +1,4 @@
 package interface_adapter.top_tracks;
 
-public class TopTracksViewModel {
+public class TopTracksViewModel{
 }

@@ -16,12 +16,11 @@ public class LoginController {
 
     /**
      * Executes the Login Use Case.
-     * @param username the username of the user logging in
-     * @param password the password of the user logging in
+     * @param loginToken the username of the user logging in
      */
-    public void execute(String username, String password) {
+    public void execute(String loginToken) {
         final LoginInputData loginInputData = new LoginInputData(
-                username, password);
+                loginToken);
 
         loginUseCaseInteractor.execute(loginInputData);
     }

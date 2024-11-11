@@ -30,7 +30,6 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     private final JLabel usernameErrorField = new JLabel();
 
     private final JButton logIn;
-    private final JButton cancel;
     private LoginController loginController;
 
     public LoginView(LoginViewModel loginViewModel) {
@@ -47,8 +46,6 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         final JPanel buttons = new JPanel();
         logIn = new JButton("log in");
         buttons.add(logIn);
-        cancel = new JButton("cancel");
-        buttons.add(cancel);
 
         logIn.addActionListener(
                 new ActionListener() {
@@ -63,8 +60,6 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                     }
                 }
         );
-
-        cancel.addActionListener(this);
 
         loginTokenInputField.getDocument().addDocumentListener(new DocumentListener() {
 
@@ -115,6 +110,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
     private void setFields(LoginState state) {
         loginTokenInputField.setText(state.getLoginToken());
+
     }
 
     public String getViewName() {

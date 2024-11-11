@@ -30,11 +30,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     private final JTextField loginTokenInputField = new JTextField(15);
     private final JLabel usernameErrorField = new JLabel();
 
-    // private final JPasswordField passwordInputField = new JPasswordField(15);
-    // private final JLabel passwordErrorField = new JLabel();
-
     private final JButton logIn;
-    private final JButton cancel;
     private LoginController loginController;
 
     public LoginView(LoginViewModel loginViewModel) {
@@ -47,14 +43,10 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
         final LabelTextPanel usernameInfo = new LabelTextPanel(
                 new JLabel("Login Token"), loginTokenInputField);
-        // final LabelTextPanel passwordInfo = new LabelTextPanel(
-                // new JLabel("Password"), passwordInputField);
 
         final JPanel buttons = new JPanel();
         logIn = new JButton("log in");
         buttons.add(logIn);
-        cancel = new JButton("cancel");
-        buttons.add(cancel);
 
         logIn.addActionListener(
                 new ActionListener() {
@@ -64,14 +56,11 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
                             loginController.execute(
                                     currentState.getLoginToken()
-                                    // currentState.getPassword()
                             );
                         }
                     }
                 }
         );
-
-        cancel.addActionListener(this);
 
         loginTokenInputField.getDocument().addDocumentListener(new DocumentListener() {
 
@@ -99,34 +88,9 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        /* loginTokenInputField.getDocument().addDocumentListener(new DocumentListener() {
-
-            private void documentListenerHelper() {
-                final LoginState currentState = loginViewModel.getState();
-                currentState.setLoginToken(new String(loginTokenInputField.getText()));
-                loginViewModel.setState(currentState);
-            }
-
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                documentListenerHelper();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                documentListenerHelper();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                documentListenerHelper();
-            }
-        }); */
-
         this.add(title);
         this.add(usernameInfo);
         this.add(usernameErrorField);
-        // this.add(passwordInfo);
         this.add(buttons);
     }
 

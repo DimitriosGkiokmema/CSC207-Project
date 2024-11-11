@@ -16,13 +16,11 @@ public class SignupController {
 
     /**
      * Executes the Signup Use Case.
-     * @param username the username to sign up
-     * @param password1 the password
-     * @param password2 the password repeated
+     * @param accessToken the username to sign up
      */
-    public void execute(String username, String password1, String password2) {
+    public void execute(String accessToken) {
         final SignupInputData signupInputData = new SignupInputData(
-                username, password1, password2);
+                accessToken);
 
         userSignupUseCaseInteractor.execute(signupInputData);
     }

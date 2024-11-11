@@ -29,7 +29,7 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
 
     @Override
     public void save(User user) {
-        users.put(user.getName(), user);
+        users.put(user.getAccessToken(), user);
     }
 
     @Override
@@ -40,16 +40,16 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     @Override
     public void changePassword(User user) {
         // Replace the old entry with the new password
-        users.put(user.getName(), user);
+        users.put(user.getAccessToken(), user);
     }
 
     @Override
-    public void setCurrentUsername(String name) {
+    public void setCurrentAccessToken(String name) {
         this.currentUsername = name;
     }
 
     @Override
-    public String getCurrentUsername() {
+    public String getCurrentAccessToken() {
         return this.currentUsername;
     }
 }

@@ -66,9 +66,9 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                             final SignupState currentState = signupViewModel.getState();
 
                             signupController.execute(
-                                    currentState.getUsername(),
-                                    currentState.getPassword(),
-                                    currentState.getRepeatPassword()
+                                    currentState.getAccessToken()
+                                    // currentState.getPassword(),
+                                    // currentState.getRepeatPassword()
                             );
                         }
                     }
@@ -86,8 +86,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         cancel.addActionListener(this);
 
         addUsernameListener();
-        addPasswordListener();
-        addRepeatPasswordListener();
+        // addPasswordListener();
+        // addRepeatPasswordListener();
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -103,7 +103,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
             private void documentListenerHelper() {
                 final SignupState currentState = signupViewModel.getState();
-                currentState.setUsername(usernameInputField.getText());
+                currentState.setAccessToken(usernameInputField.getText());
                 signupViewModel.setState(currentState);
             }
 
@@ -124,12 +124,12 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         });
     }
 
-    private void addPasswordListener() {
+    /* private void addPasswordListener() {
         passwordInputField.getDocument().addDocumentListener(new DocumentListener() {
 
             private void documentListenerHelper() {
                 final SignupState currentState = signupViewModel.getState();
-                currentState.setPassword(new String(passwordInputField.getPassword()));
+                // currentState.setPassword(new String(passwordInputField.getPassword()));
                 signupViewModel.setState(currentState);
             }
 
@@ -174,7 +174,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 documentListenerHelper();
             }
         });
-    }
+    } */
 
     @Override
     public void actionPerformed(ActionEvent evt) {
@@ -184,8 +184,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         final SignupState state = (SignupState) evt.getNewValue();
-        if (state.getUsernameError() != null) {
-            JOptionPane.showMessageDialog(this, state.getUsernameError());
+        if (state.getAccessTokenError() != null) {
+            JOptionPane.showMessageDialog(this, state.getAccessTokenError());
         }
     }
 

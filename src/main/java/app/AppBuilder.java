@@ -22,7 +22,7 @@ import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
 import use_case.change_password.ChangePasswordInputBoundary;
-import use_case.change_password.ChangePasswordInteractor;
+// import use_case.change_password.ChangePasswordInteractor;
 import use_case.change_password.ChangePasswordOutputBoundary;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
@@ -138,7 +138,7 @@ public class AppBuilder {
      * Adds the Change Password Use Case to the application.
      * @return this builder
      */
-    public AppBuilder addChangePasswordUseCase() {
+    /* public AppBuilder addChangePasswordUseCase() {
         final ChangePasswordOutputBoundary changePasswordOutputBoundary =
                 new ChangePasswordPresenter(loggedInViewModel);
 
@@ -149,7 +149,7 @@ public class AppBuilder {
                 new ChangePasswordController(changePasswordInteractor);
         loggedInView.setChangePasswordController(changePasswordController);
         return this;
-    }
+    } */
 
     /**
      * Adds the Logout Use Case to the application.

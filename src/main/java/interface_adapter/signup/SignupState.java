@@ -4,22 +4,22 @@ package interface_adapter.signup;
  * The state for the Signup View Model.
  */
 public class SignupState {
-    private String username = "";
-    private String usernameError;
-    private String password = "";
-    private String passwordError;
-    private String repeatPassword = "";
-    private String repeatPasswordError;
+    private String accessToken = "";
+    private String accessTokenError;
+    // private String password = "";
+    // private String passwordError;
+    // private String repeatPassword = "";
+    // private String repeatPasswordError;
 
-    public String getUsername() {
-        return username;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public String getUsernameError() {
-        return usernameError;
+    public String getAccessTokenError() {
+        return accessTokenError;
     }
 
-    public String getPassword() {
+    /* public String getPassword() {
         return password;
     }
 
@@ -33,17 +33,17 @@ public class SignupState {
 
     public String getRepeatPasswordError() {
         return repeatPasswordError;
+    } */
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setAccessTokenError(String acessTokenError) {
+        this.accessTokenError = acessTokenError;
     }
 
-    public void setUsernameError(String usernameError) {
-        this.usernameError = usernameError;
-    }
-
-    public void setPassword(String password) {
+   /*  public void setPassword(String password) {
         this.password = password;
     }
 
@@ -57,14 +57,12 @@ public class SignupState {
 
     public void setRepeatPasswordError(String repeatPasswordError) {
         this.repeatPasswordError = repeatPasswordError;
-    }
+    } */
 
     @Override
     public String toString() {
         return "SignupState{"
-                + "username='" + username + '\''
-                + ", password='" + password + '\''
-                + ", repeatPassword='" + repeatPassword + '\''
+                + "username='" + accessToken + '\''
                 + '}';
     }
 }

@@ -36,14 +36,14 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         this.loginViewModel.addPropertyChangeListener(this);
 
         final LabelTextPanel usernameInfo = new LabelTextPanel(
-                new JLabel("Login Token"), loginTokenInputField);
+                new JLabel("Access Token"), loginTokenInputField);
 
         final JPanel buttons = new JPanel();
         logIn = new JButton("log in");
         buttons.add(logIn);
 
         final Image spotifyImage = spotifyIcon.getImage();
-        final Image finalImage = spotifyImage.getScaledInstance(80, 80, java.awt.Image.SCALE_SMOOTH);
+        final Image finalImage = spotifyImage.getScaledInstance(100, 80, java.awt.Image.SCALE_SMOOTH);
         spotifyIcon = new ImageIcon(finalImage);
         final JLabel spotifylabel = new JLabel(spotifyIcon);
         spotifylabel.setAlignmentX(Component.CENTER_ALIGNMENT);

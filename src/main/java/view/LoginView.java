@@ -1,16 +1,12 @@
 package view;
 
-import java.awt.Component;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -29,6 +25,8 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     private final JTextField loginTokenInputField = new JTextField(15);
     private final JLabel usernameErrorField = new JLabel();
 
+    private ImageIcon spotifyIcon = new ImageIcon("images/spotify2.png");
+
     private final JButton logIn;
     private LoginController loginController;
 
@@ -46,6 +44,12 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         final JPanel buttons = new JPanel();
         logIn = new JButton("log in");
         buttons.add(logIn);
+
+        final Image spotifyImage = spotifyIcon.getImage();
+        final Image finalImage = spotifyImage.getScaledInstance(80, 80, java.awt.Image.SCALE_SMOOTH);
+        spotifyIcon = new ImageIcon(finalImage);
+        final JLabel spotifylabel = new JLabel(spotifyIcon);
+        spotifylabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         logIn.addActionListener(
                 new ActionListener() {
@@ -88,6 +92,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
+        this.add(spotifylabel);
         this.add(usernameInfo);
         this.add(usernameErrorField);
         this.add(buttons);

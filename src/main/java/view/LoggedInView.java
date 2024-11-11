@@ -44,9 +44,9 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         logOut = new JButton("Log Out");
         profile.add(logOut);
 
-        final JButton description = new JButton("Describe a song");
+        final JButton description = new JButton("Search song by description");
         searchButtons.add(description);
-        final JButton lyrics = new JButton("Search song lyrics");
+        final JButton lyrics = new JButton("Search song by lyrics");
         searchButtons.add(lyrics);
 
         final JButton home = new JButton("Home");
@@ -135,9 +135,9 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         return viewName;
     }
 
-    public void setChangePasswordController(ChangePasswordController changePasswordController) {
-        this.changePasswordController = changePasswordController;
-    }
+//    public void setChangePasswordController(ChangePasswordController changePasswordController) {
+//        this.changePasswordController = changePasswordController;
+//    }
 
     public void setLogoutController(LogoutController logoutController) {
         this.logoutController = logoutController;

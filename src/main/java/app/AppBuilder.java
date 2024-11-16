@@ -15,14 +15,21 @@ import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.logout.LogoutPresenter;
+import interface_adapter.recommend.RecommendController;
+import interface_adapter.recommend.RecommendPresenter;
+import interface_adapter.recommend.RecommendViewModel;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
 import use_case.logout.LogoutInputBoundary;
 import use_case.logout.LogoutInteractor;
 import use_case.logout.LogoutOutputBoundary;
+import use_case.recommend.RecommendInputBoundary;
+import use_case.recommend.RecommendInteractor;
+import use_case.recommend.RecommendOutputBoundary;
 import view.LoggedInView;
 import view.LoginView;
+import view.RecommendationsView;
 import view.ViewManager;
 
 /**
@@ -47,28 +54,16 @@ public class AppBuilder {
     // thought question: is the hard dependency below a problem?
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
 
-//    Will remove since our project does not cover signing up, only logging in
-//    private SignupView signupView;
-//    private SignupViewModel signupViewModel;
     private LoginViewModel loginViewModel;
     private LoggedInViewModel loggedInViewModel;
+    private RecommendViewModel recommendViewModel;
     private LoggedInView loggedInView;
     private LoginView loginView;
+    private RecommendationsView recommendationsView;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
     }
-
-    /**
-     * Adds the Signup View to the application.
-     * @return this builder
-     */
-//    public AppBuilder addSignupView() {
-//        signupViewModel = new SignupViewModel();
-//        signupView = new SignupView(signupViewModel);
-//        cardPanel.add(signupView, signupView.getViewName());
-//        return this;
-//    }
 
     /**
      * Adds the Login View to the application.
@@ -123,19 +118,18 @@ public class AppBuilder {
     }
 
     /**
-     * Adds the Change Password Use Case to the application.
+     * Adds the Recommend Use Case to the application.
      * @return this builder
      */
-//    public AppBuilder addChangePasswordUseCase() {
-//        final ChangePasswordOutputBoundary changePasswordOutputBoundary =
-//                new ChangePasswordPresenter(loggedInViewModel);
+//    public AppBuilder addRecommendUseCase() {
+//        final RecommendOutputBoundary recommendOutputBoundary =
+//                new RecommendPresenter(loggedInViewModel);
 //
-//        final ChangePasswordInputBoundary changePasswordInteractor =
-//                new ChangePasswordInteractor(userDataAccessObject, changePasswordOutputBoundary, userFactory);
+//        final RecommendInputBoundary recommendInteractor =
+//                new RecommendInteractor(userDataAccessObject, recommendOutputBoundary, userFactory);
 //
-//        final ChangePasswordController changePasswordController =
-//                new ChangePasswordController(changePasswordInteractor);
-//        loggedInView.setChangePasswordController(changePasswordController);
+//        final RecommendController recommendController = new RecommendController(recommendInteractor);
+//        recommendationsView.setRecommendController(recommendController);
 //        return this;
 //    }
 
@@ -165,6 +159,7 @@ public class AppBuilder {
 
 //        Trying to set default size to app, but its not working
 //        application.setSize(Constants.APP_WIDTH, Constants.APP_HEIGHT);
+//        application.setMinimumSize(new Dimension(Constants.MIN_WIDTH, MIN_HEIGHT));
 
         application.add(cardPanel);
 

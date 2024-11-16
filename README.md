@@ -35,4 +35,10 @@ suggestions. (Ethan)
 * John wants to find other individuals that have a similar music preference. (Ksenia)
 
 Below is a UI sketch that outlines what our project will look like.
-![Project UI](images/CSC207%20Project%20Wireframe.png)
+![Project UI](images/CSC207%20Project%20Wireframe.png) <br />
+### Login Screen <br />
+![Login Screen](images/login_screen.png) <br />
+### Home Screen <br />
+![Home Screen](images/home_screen.png) <br />
+### Recommendations Screen <br />
+![Recommendations Screen](images/recommendations_screen.png) <br />

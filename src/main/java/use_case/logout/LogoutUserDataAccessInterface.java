@@ -9,11 +9,11 @@ public interface LogoutUserDataAccessInterface {
      * Returns the username of the curren user of the application.
      * @return the username of the current user
      */
-    String getCurrentUsername();
+    String getCurrentAccessToken();
 
     /**
      * Sets the username indicating who is the current user of the application.
-     * @param username the new current username
+     * @param accessToken the new current username
      */
-    void setCurrentUsername(String username);
+    void setCurrentAccessToken(String accessToken);
 }

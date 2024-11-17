@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import interface_adapter.change_password.LoggedInState;
 import interface_adapter.change_password.LoggedInViewModel;
 import interface_adapter.logout.LogoutController;
+import interface_adapter.search.SearchController;
 
 /**
  * The View for when the user is logged into the program.
@@ -22,6 +23,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private final String viewName = "logged in";
     private final LoggedInViewModel loggedInViewModel;
     private LogoutController logoutController;
+    private SearchController searchController;
 
     private final JLabel username;
     private final JButton logOut;
@@ -107,6 +109,17 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                     }
                 }
         );
+        description.addActionListener(
+                // This creates an anonymous subclass of ActionListener and instantiates it.
+                evt -> {
+                    if (evt.getSource().equals(description)) {
+                        // 1. get the state out of the loggedInViewModel. It contains the username.
+                        final String name = loggedInViewModel.getState().getUsername();
+                        // 2. Execute the logout Controller.
+                        searchController.execute(name);
+                    }
+                }
+        );
 
         this.add(title);
         this.add(usernameInfo);
@@ -139,5 +152,9 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
     public void setLogoutController(LogoutController logoutController) {
         this.logoutController = logoutController;
+    }
+
+    public void setSearchController(SearchController searchController) {
+        this.searchController = searchController;
     }
 }

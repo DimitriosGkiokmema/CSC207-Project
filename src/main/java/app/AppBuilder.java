@@ -15,12 +15,17 @@ import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.logout.LogoutPresenter;
+import interface_adapter.search.SearchController;
+import interface_adapter.search.SearchPresenter;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
 import use_case.logout.LogoutInputBoundary;
 import use_case.logout.LogoutInteractor;
 import use_case.logout.LogoutOutputBoundary;
+import use_case.search.SearchInputBoundary;
+import use_case.search.SearchInteractor;
+import use_case.search.SearchOutputBoundary;
 import view.LoggedInView;
 import view.LoginView;
 import view.ViewManager;
@@ -152,6 +157,22 @@ public class AppBuilder {
 
         final LogoutController logoutController = new LogoutController(logoutInteractor);
         loggedInView.setLogoutController(logoutController);
+        return this;
+    }
+
+    /**
+     * Adds the Logout Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addSearchUseCase() {
+        final SearchOutputBoundary searchOutputBoundary = new SearchPresenter(viewManagerModel,
+                loggedInViewModel, loginViewModel);
+
+        final SearchInputBoundary searchInteractor =
+                new SearchInteractor(userDataAccessObject, searchOutputBoundary);
+
+        final SearchController searchController = new SearchController(searchInteractor);
+        loggedInView.setSearchController(searchController);
         return this;
     }
 

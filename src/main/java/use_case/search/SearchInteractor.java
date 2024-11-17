@@ -2,28 +2,27 @@ package use_case.search;
 
 import data_access.InMemoryUserDataAccessObject;
 import use_case.login.LoginInputData;
+import use_case.logout.LogoutOutputData;
 
 /**
  * The Search Interactor.
  */
 public class SearchInteractor implements SearchInputBoundary {
 
-    private final InMemoryUserDataAccessObject userDataAccessObject;
-    private final SearchOutputBoundary searchOutputBoundary;
+    private final SearchOutputBoundary searchPresenter;
 
     /**
      * The Search Interactor constructor.
-     * @param userDataAccessObject abstract data acess object
-     * @param searchOutputBoundary output information
+     * @param searchPresenter output information
      */
-    public SearchInteractor(InMemoryUserDataAccessObject userDataAccessObject,
-                            SearchOutputBoundary searchOutputBoundary) {
-        this.userDataAccessObject = userDataAccessObject;
-        this.searchOutputBoundary = searchOutputBoundary;
+    public SearchInteractor(SearchOutputBoundary searchPresenter) {
+
+        this.searchPresenter = searchPresenter;
     }
 
     @Override
-    public void execute(LoginInputData loginInputData) {
-
+    public void execute() {
+        final SearchOutputData search = new SearchOutputData(false);
+        searchPresenter.prepareSuccessView(search);
     }
 }

@@ -1,13 +1,14 @@
 package interface_adapter.search;
 
-import interface_adapter.change_password.LoggedInState;
-import view.SearchView;
+import interface_adapter.ViewModel;
 
-public class SearchViewModel {
-    public void addPropertyChangeListener(SearchView searchView) {
-    }
+/**
+* The view model for the Search use case.
+ */
+public class SearchViewModel extends ViewModel<SearchState> {
 
-    public LoggedInState getState() {
-        return null;
+    public SearchViewModel() {
+        super("search");
+        setState(new SearchState());
     }
 }

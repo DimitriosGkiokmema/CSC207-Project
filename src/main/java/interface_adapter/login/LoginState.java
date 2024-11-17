@@ -22,8 +22,4 @@ public class LoginState {
     public void setLoginError(String usernameError) {
         this.loginError = usernameError;
     }
-
-    public String getModelResponse() {
-        return "not yet implemented";
-    }
 }

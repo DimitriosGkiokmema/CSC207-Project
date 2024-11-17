@@ -1,14 +1,11 @@
 package use_case.search;
 
-import use_case.login.LoginInputData;
-
 /**
- * Input Boundary for actions which are related to logging in.
+ * Input Boundary for actions which are going to the search page.
  */
 public interface SearchInputBoundary {
     /**
-     * Executes the login use case.
-     * @param loginInputData the input data
+     * Executes the Search use case.
      */
-    void execute(LoginInputData loginInputData);
+    void execute();
 }

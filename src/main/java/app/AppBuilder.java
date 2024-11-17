@@ -17,6 +17,7 @@ import interface_adapter.logout.LogoutController;
 import interface_adapter.logout.LogoutPresenter;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchPresenter;
+import interface_adapter.search.SearchViewModel;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
@@ -28,6 +29,7 @@ import use_case.search.SearchInteractor;
 import use_case.search.SearchOutputBoundary;
 import view.LoggedInView;
 import view.LoginView;
+import view.SearchView;
 import view.ViewManager;
 
 /**
@@ -57,8 +59,10 @@ public class AppBuilder {
 //    private SignupViewModel signupViewModel;
     private LoginViewModel loginViewModel;
     private LoggedInViewModel loggedInViewModel;
+    private SearchViewModel searchViewModel;
     private LoggedInView loggedInView;
     private LoginView loginView;
+    private SearchView searchView;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -83,6 +87,17 @@ public class AppBuilder {
         loginViewModel = new LoginViewModel();
         loginView = new LoginView(loginViewModel);
         cardPanel.add(loginView, loginView.getViewName());
+        return this;
+    }
+
+    /**
+     * Adds the Search View to the application.
+     * @return this builder
+     */
+    public AppBuilder addSearchView() {
+        searchViewModel = new SearchViewModel();
+        searchView = new SearchView(searchViewModel);
+        cardPanel.add(searchView, searchView.getViewName());
         return this;
     }
 
@@ -166,10 +181,10 @@ public class AppBuilder {
      */
     public AppBuilder addSearchUseCase() {
         final SearchOutputBoundary searchOutputBoundary = new SearchPresenter(viewManagerModel,
-                loggedInViewModel, loginViewModel);
+                loggedInViewModel, searchViewModel);
 
         final SearchInputBoundary searchInteractor =
-                new SearchInteractor(userDataAccessObject, searchOutputBoundary);
+                new SearchInteractor(searchOutputBoundary);
 
         final SearchController searchController = new SearchController(searchInteractor);
         loggedInView.setSearchController(searchController);

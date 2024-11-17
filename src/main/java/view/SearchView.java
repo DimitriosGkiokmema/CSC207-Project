@@ -17,7 +17,7 @@ import java.beans.PropertyChangeListener;
  */
 public class SearchView extends JPanel implements PropertyChangeListener {
 
-    private final String viewName = "logged in";
+    private final String viewName = "search";
     private final SearchViewModel searchViewModel;
     private SearchController searchController;
 
@@ -49,7 +49,7 @@ public class SearchView extends JPanel implements PropertyChangeListener {
         searchResult.setAlignmentX(Component.RIGHT_ALIGNMENT);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
+        /* this block of code is to be finished after a discussion about a unified return home use case.
         returnHome.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 evt -> {
@@ -57,10 +57,10 @@ public class SearchView extends JPanel implements PropertyChangeListener {
                         // 1. get the state out of the searchViewModel. It contains the username.
                         final String name = searchViewModel.getState().getUsername();
                         // 2. Execute the search Controller.
-                        searchController.execute(name);
+                        loginController.execute();
                     }
                 }
-        );
+        );*/
 
         this.add(title);
         this.add(searchButtons);

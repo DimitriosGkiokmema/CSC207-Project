@@ -1,18 +1,38 @@
 package interface_adapter.search;
 
-/*
-    The state for the SearchViewModel
+import interface_adapter.change_password.LoggedInState;
+
+/**
+ * The state for the SearchViewModel.
  */
 public class SearchState {
-    public String getUsername() {
-        return "not yet implemented";
+
+    private String query;
+    private String modelResponse;
+
+    public SearchState(SearchState copy) {
+        query = copy.query;
+        modelResponse = copy.modelResponse;
+    }
+
+    // Because of the previous copy constructor, the default constructor must be explicit.
+    public SearchState() {
+
     }
 
     public String getQuery() {
-        return "not yet implemented";
+        return query;
     }
 
     public String getModelResponse() {
-        return "not yet implemented";
+        return modelResponse;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
+    }
+
+    public void setModelResponse(String modelResponse) {
+        this.modelResponse = modelResponse;
     }
 }

@@ -18,12 +18,8 @@ public class SearchController {
 
     /**
      * Executes the Search Use Case.
-     * @param loginToken the username of the user logging in
      */
-    public void execute(String loginToken) {
-        final LoginInputData loginInputData = new LoginInputData(
-                loginToken);
-
-        searchUseCaseInteractor.execute(loginInputData);
+    public void execute() {
+        searchUseCaseInteractor.execute();
     }
 }

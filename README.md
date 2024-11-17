@@ -42,3 +42,10 @@ Below is a UI sketch that outlines what our project will look like.
 ![Home Screen](images/home_screen.png) <br />
 ### Recommendations Screen <br />
 ![Recommendations Screen](images/recommendations_screen.png) <br />
+### Description Search Screen <br />
+![Description Search Screen](images/csc207_progress1_quinn.png) <br />
+### Keyword Search Screen <br />
+![Keyword Search Screen](images/csc207_progress1_ethan.png) <br />
+### Analytics Screen <br />
+![Analytics Screen](images/csc207_progress1_yanki.png) <br />
+

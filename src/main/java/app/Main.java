@@ -18,6 +18,7 @@ public class Main {
                 .addTopTracksAndArtistsView()
                 .addLoginUseCase()
                 .addLogoutUseCase()
+                .addTopTracksAndArtistsUseCase()
                 .build();
 
         application.pack();

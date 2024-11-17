@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class TopTracksState {
     private List<String> tracks = new ArrayList<>();
-    private List<String> tracksError;
+    private String tracksError;
 
     public TopTracksState(TopTracksState copy) {
         tracks = copy.tracks;
@@ -24,7 +24,7 @@ public class TopTracksState {
         return tracks;
     }
 
-    public List<String> getTracksError() {
+    public String getTracksError() {
         return tracksError;
     }
 
@@ -32,7 +32,7 @@ public class TopTracksState {
         this.tracks = tracks;
     }
 
-    public void setTracksError(List<String> tracksError) {
+    public void setTracksError(String tracksError) {
         this.tracksError = tracksError;
     }
 }

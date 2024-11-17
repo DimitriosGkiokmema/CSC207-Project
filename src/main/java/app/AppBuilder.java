@@ -15,6 +15,7 @@ import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.logout.LogoutPresenter;
+import interface_adapter.top_tracks.TopTracksController;
 import interface_adapter.top_tracks.TopTracksPresenter;
 import interface_adapter.top_tracks.TopTracksViewModel;
 import use_case.login.LoginInputBoundary;
@@ -191,6 +192,22 @@ public class AppBuilder {
     }
 
     /**
+     * Adds the Logout Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addTopTracksAndArtistsUseCase() {
+        final TopTracksOutputBoundary topTracksOutputBoundary = new TopTracksPresenter(viewManagerModel,
+                topTracksAndArtistsViewModel);
+
+        final TopTracksInputBoundary topTracksInputBoundary =
+                new TopTracksInteractor(userDataAccessObject, topTracksOutputBoundary);
+
+        final TopTracksController topTracksController = new TopTracksController(topTracksInputBoundary);
+        loggedInView.setTopTracksController(topTracksController);
+        return this;
+    }
+
+    /**
      * Creates the JFrame for the application and initially sets the SignupView to be displayed.
      * @return the application
      */
@@ -203,7 +220,7 @@ public class AppBuilder {
 
         application.add(cardPanel);
 
-        viewManagerModel.setState(topTracksAndArtistsViewModel.getViewName());
+        viewManagerModel.setState(loggedInViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
 
         return application;

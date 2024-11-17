@@ -1,86 +1,70 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class SpotifyCompanionUI {
+public class Keyword {
     public static void main(String[] args) {
         // Create the main frame
         JFrame frame = new JFrame("CSC207 Project: Spotify Companion");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600, 450);
-        frame.setLayout(null); // Absolute layout for positioning
+        frame.setSize(800, 500); // Increased size for better layout
+        frame.setLayout(null);
 
-        // Title label
-        JLabel titleLabel = new JLabel("CSC207 Project: Spotify Companion", SwingConstants.LEFT);
-        titleLabel.setBounds(10, 10, 400, 30);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        frame.add(titleLabel);
+        // Create a panel for the profile icon
+        JPanel profilePanel = new JPanel();
+        profilePanel.setBounds(20, 20, 60, 60);
+        JLabel profileIcon = new JLabel(new ImageIcon(new ImageIcon("path/to/profile/icon.png").getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
+        profilePanel.add(profileIcon);
+        frame.add(profilePanel);
 
-        // Profile icon (placeholder circle)
-        JLabel profileIcon = new JLabel("👤", SwingConstants.CENTER);
-        profileIcon.setBounds(20, 50, 50, 50);
-        frame.add(profileIcon);
-
-        // Input fields and labels
+        // Artist and Keyword Labels and Text Fields
         JLabel artistLabel = new JLabel("Artist Name:");
-        artistLabel.setBounds(80, 50, 100, 30);
+        artistLabel.setBounds(100, 30, 100, 20);
         frame.add(artistLabel);
 
         JTextField artistField = new JTextField();
-        artistField.setBounds(180, 50, 250, 30);
+        artistField.setBounds(200, 30, 400, 20); // Adjusted width for better fit
         frame.add(artistField);
 
-        JLabel lyricsLabel = new JLabel("Lyrics:");
-        lyricsLabel.setBounds(80, 90, 100, 30);
-        frame.add(lyricsLabel);
-
-        JTextField lyricsField = new JTextField();
-        lyricsField.setBounds(180, 90, 250, 30);
-        frame.add(lyricsField);
-
         JLabel keywordLabel = new JLabel("Keyword:");
-        keywordLabel.setBounds(80, 130, 100, 30);
+        keywordLabel.setBounds(100, 70, 100, 20); // Adjusted positioning
         frame.add(keywordLabel);
 
         JTextField keywordField = new JTextField();
-        keywordField.setBounds(180, 130, 250, 30);
+        keywordField.setBounds(200, 70, 400, 20); // Adjusted width for better fit
         frame.add(keywordField);
 
-        // Search button (magnifying glass icon placeholder)
-        JButton searchButton = new JButton("🔍");
-        searchButton.setBounds(440, 50, 50, 110);
+        // Search Button
+        JButton searchButton = new JButton("Search");
+        searchButton.setBounds(620, 30, 100, 40); // Adjusted positioning
         frame.add(searchButton);
 
-        // Divider line
-        JSeparator separator = new JSeparator();
-        separator.setBounds(20, 180, 560, 10);
-        frame.add(separator);
+        // Results Area
+        JTextArea resultsArea = new JTextArea("Song1\nSong2\n...");
+        resultsArea.setBounds(100, 110, 600, 200); // Adjusted height for better fit
+        resultsArea.setEditable(false);
+        frame.add(resultsArea);
 
-        // Songs list area
-        JTextArea songsListArea = new JTextArea("Song1\nSong2\n...");
-        songsListArea.setBounds(50, 200, 500, 150);
-        songsListArea.setEditable(false);
-        songsListArea.setBackground(Color.LIGHT_GRAY);
-        frame.add(songsListArea);
+        // Create a panel to center the bottom buttons
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 0)); // 20px horizontal gap between buttons
+        buttonPanel.setBounds(100, 370, 600, 50); // Adjusted positioning and size
 
-        // Bottom buttons
+        // Home, For You, Top Tracks, and Find Similar Listeners Buttons
         JButton homeButton = new JButton("Home");
-        homeButton.setBounds(50, 370, 80, 30);
-        homeButton.setBorder(BorderFactory.createDashedBorder(Color.BLACK));
-        frame.add(homeButton);
-
         JButton forYouButton = new JButton("For You");
-        forYouButton.setBounds(160, 370, 80, 30);
-        frame.add(forYouButton);
-
         JButton topTracksButton = new JButton("Top Tracks");
-        topTracksButton.setBounds(270, 370, 100, 30);
-        frame.add(topTracksButton);
-
         JButton findListenersButton = new JButton("Find Similar Listeners");
-        findListenersButton.setBounds(400, 370, 150, 30);
-        frame.add(findListenersButton);
 
-        // Set frame visibility
+        // Add buttons to the panel
+        buttonPanel.add(homeButton);
+        buttonPanel.add(forYouButton);
+        buttonPanel.add(topTracksButton);
+        buttonPanel.add(findListenersButton);
+
+        // Add the button panel to the frame
+        frame.add(buttonPanel);
+
+        // Set frame visible
         frame.setVisible(true);
     }
 }

@@ -15,14 +15,20 @@ import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.logout.LogoutPresenter;
+import interface_adapter.top_tracks.TopTracksPresenter;
+import interface_adapter.top_tracks.TopTracksViewModel;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
 import use_case.logout.LogoutInputBoundary;
 import use_case.logout.LogoutInteractor;
 import use_case.logout.LogoutOutputBoundary;
+import use_case.top_tracks.TopTracksInputBoundary;
+import use_case.top_tracks.TopTracksInteractor;
+import use_case.top_tracks.TopTracksOutputBoundary;
 import view.LoggedInView;
 import view.LoginView;
+import view.TopTracksAndArtistsView;
 import view.ViewManager;
 
 /**
@@ -52,8 +58,11 @@ public class AppBuilder {
 //    private SignupViewModel signupViewModel;
     private LoginViewModel loginViewModel;
     private LoggedInViewModel loggedInViewModel;
+    private TopTracksViewModel topTracksAndArtistsViewModel;
+
     private LoggedInView loggedInView;
     private LoginView loginView;
+    private TopTracksAndArtistsView topTracksAndArtistsView;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -93,6 +102,17 @@ public class AppBuilder {
     }
 
     /**
+     * Adds the Top Tracks and Artists View to the application.
+     * @return this builder
+     */
+    public AppBuilder addTopTracksAndArtistsView() {
+        topTracksAndArtistsViewModel = new TopTracksViewModel();
+        topTracksAndArtistsView = new TopTracksAndArtistsView(topTracksAndArtistsViewModel);
+        cardPanel.add(topTracksAndArtistsView, topTracksAndArtistsView.getViewName());
+        return this;
+    }
+
+    /**
      * Adds the Signup Use Case to the application.
      * @return this builder
      */
@@ -121,6 +141,21 @@ public class AppBuilder {
         loginView.setLoginController(loginController);
         return this;
     }
+
+    /**
+     * Adds the Login Use Case to the application.
+     * @return this builder
+     */
+    /* public AppBuilder addTopTracksandArtistsUseCase() {
+        final TopTracksOutputBoundary topTracksOutputBoundary = new TopTracksPresenter(viewManagerModel,
+                topTracksAndArtistsViewModel, topTracksAndArtistsView);
+        final TopTracksInputBoundary loginInteractor = new TopTracksInteractor(
+                userDataAccessObject, topTracksOutputBoundary);
+
+        final LoginController loginController = new LoginController(loginInteractor);
+        loginView.setLoginController(loginController);
+        return this;
+    } */
 
     /**
      * Adds the Change Password Use Case to the application.
@@ -168,7 +203,7 @@ public class AppBuilder {
 
         application.add(cardPanel);
 
-        viewManagerModel.setState(loggedInView.getViewName());
+        viewManagerModel.setState(topTracksAndArtistsViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
 
         return application;

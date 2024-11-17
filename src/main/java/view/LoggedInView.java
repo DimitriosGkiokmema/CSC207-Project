@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import interface_adapter.change_password.LoggedInState;
 import interface_adapter.change_password.LoggedInViewModel;
 import interface_adapter.logout.LogoutController;
+import interface_adapter.top_tracks.TopTracksController;
 
 /**
  * The View for when the user is logged into the program.
@@ -22,6 +23,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private final String viewName = "logged in";
     private final LoggedInViewModel loggedInViewModel;
     private LogoutController logoutController;
+    // private TopTracksController topTracksController;
 
     private final JLabel username;
     private final JButton logOut;
@@ -104,6 +106,14 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                         final String name = loggedInViewModel.getState().getUsername();
                         // 2. Execute the logout Controller.
                         logoutController.execute(name);
+                    }
+                }
+        );
+
+        topTracks.addActionListener(
+                evt -> {
+                    if (evt.getSource().equals(topTracks)) {
+                       // final String name = topTracksController
                     }
                 }
         );

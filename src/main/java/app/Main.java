@@ -15,8 +15,8 @@ public class Main {
         final JFrame application = appBuilder
                 .addLoginView()
                 .addLoggedInView()
+                .addTopTracksAndArtistsView()
                 .addLoginUseCase()
-
                 .addLogoutUseCase()
                 .build();
 

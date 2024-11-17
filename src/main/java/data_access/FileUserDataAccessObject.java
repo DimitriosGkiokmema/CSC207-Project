@@ -12,15 +12,12 @@ import java.util.Map;
 
 import entity.User;
 import entity.UserFactory;
-import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
-import use_case.signup.SignupUserDataAccessInterface;
 
 /**
  * DAO for user data implemented using a File to persist the data.
  */
-public class FileUserDataAccessObject implements SignupUserDataAccessInterface,
-                                                 LoginUserDataAccessInterface {
+public class FileUserDataAccessObject implements LoginUserDataAccessInterface {
 
     private static final String HEADER = "accessToken";
 

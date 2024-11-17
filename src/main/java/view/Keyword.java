@@ -41,21 +41,9 @@ public class Keyword {
         resultsArea.setEditable(false);
         frame.add(resultsArea);
 
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 0));
-        buttonPanel.setBounds(100, 370, 600, 50);
-
-        JButton homeButton = new JButton("Home");
-        JButton forYouButton = new JButton("For You");
-        JButton topTracksButton = new JButton("Top Tracks");
-        JButton findListenersButton = new JButton("Find Similar Listeners");
-
-        buttonPanel.add(homeButton);
-        buttonPanel.add(forYouButton);
-        buttonPanel.add(topTracksButton);
-        buttonPanel.add(findListenersButton);
-
-        frame.add(buttonPanel);
+        JButton goBackButton = new JButton("Go Back");
+        goBackButton.setBounds(350, 370, 100, 40);
+        frame.add(goBackButton);
 
         frame.setVisible(true);
     }

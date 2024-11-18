@@ -48,7 +48,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
         final JButton description = new JButton("Search song by description");
         searchButtons.add(description);
-        final JButton lyrics = new JButton("Search song by keyword");
+        final JButton keyword = new JButton("Search song by keyword");
         searchButtons.add(keyword);
 
         final JButton home = new JButton("Home");

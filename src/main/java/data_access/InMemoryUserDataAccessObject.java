@@ -14,6 +14,15 @@ import use_case.logout.LogoutUserDataAccessInterface;
 public class InMemoryUserDataAccessObject implements
         LoginUserDataAccessInterface,
         LogoutUserDataAccessInterface {
+    @Override
+    public String getCurrentAccessToken() {
+        return "";
+    }
+
+    @Override
+    public void setCurrentAccessToken(String accessToken) {
+
+    }
 
     private final Map<String, User> users = new HashMap<>();
 

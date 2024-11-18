@@ -1,15 +1,15 @@
-package use_case.top_tracks;
+package use_case.top_items;
 
 /**
  * The output boundary for the Top Tracks Use Case.
  */
-public interface TopTracksOutputBoundary {
+public interface TopItemsOutputBoundary {
 
     /**
      * Prepares the success view for the Login Use Case.
      * @param outputData the output data
      */
-    void prepareSuccessView(TopTracksOutputData outputData);
+    void prepareSuccessView(TopItemsOutputData outputData);
 
     /**
      * Prepares the failure view for the Login Use Case.

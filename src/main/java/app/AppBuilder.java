@@ -5,6 +5,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import data_access.InMemoryUserDataAccessObject;
+import data_access.TopItemsUserDataAccessObject;
 import entity.CommonUserFactory;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
@@ -52,6 +53,7 @@ public class AppBuilder {
 
     // thought question: is the hard dependency below a problem?
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
+    private final TopItemsUserDataAccessObject topItemsUserDataAccessObject = new TopItemsUserDataAccessObject();
 
 //    Will remove since our project does not cover signing up, only logging in
 //    private SignupView signupView;
@@ -199,7 +201,7 @@ public class AppBuilder {
                 topTracksAndArtistsViewModel);
 
         final TopItemsInputBoundary topItemsInputBoundary =
-                new TopItemsInteractor(userDataAccessObject, topItemsOutputBoundary);
+                new TopItemsInteractor(topItemsUserDataAccessObject, topItemsOutputBoundary);
 
         final TopItemsController topItemsController = new TopItemsController(topItemsInputBoundary);
         loggedInView.setTopTracksController(topItemsController);

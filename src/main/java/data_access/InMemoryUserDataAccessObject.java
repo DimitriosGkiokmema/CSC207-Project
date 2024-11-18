@@ -15,7 +15,7 @@ import use_case.top_items.TopItemsUserDataAccessInterface;
  */
 public class InMemoryUserDataAccessObject implements
         LoginUserDataAccessInterface,
-        LogoutUserDataAccessInterface, TopItemsUserDataAccessInterface {
+        LogoutUserDataAccessInterface {
 
     private final Map<String, User> users = new HashMap<>();
 
@@ -46,33 +46,4 @@ public class InMemoryUserDataAccessObject implements
         return this.currentUsername;
     }
 
-    @Override
-    public List<String> getCurrentTopTracks() {
-        return List.of();
-    }
-
-    @Override
-    public void setCurrentTopTracks(List<String> tracks) {
-
-    }
-
-    @Override
-    public List<String> getCurrentTopArtists() {
-        return List.of();
-    }
-
-    @Override
-    public void setCurrentTopArtists(List<String> artists) {
-
-    }
-
-    @Override
-    public List<String> getCurrentTime() {
-        return List.of();
-    }
-
-    @Override
-    public void setCurrentTime(List<String> time) {
-
-    }
 }

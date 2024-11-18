@@ -1,11 +1,13 @@
 package data_access;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import entity.User;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
+import use_case.top_items.TopItemsUserDataAccessInterface;
 
 /**
  * In-memory implementation of the DAO for storing user data. This implementation does
@@ -35,7 +37,7 @@ public class InMemoryUserDataAccessObject implements
 
     @Override
     public void save(User user) {
-        users.put(user.getName(), user);
+        users.put(user.getAccessToken(), user);
     }
 
     @Override
@@ -44,12 +46,13 @@ public class InMemoryUserDataAccessObject implements
     }
 
     @Override
-    public void setCurrentUsername(String name) {
+    public void setCurrentAccessToken(String name) {
         this.currentUsername = name;
     }
 
     @Override
-    public String getCurrentUsername() {
+    public String getCurrentAccessToken() {
         return this.currentUsername;
     }
+
 }

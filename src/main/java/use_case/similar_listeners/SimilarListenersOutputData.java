@@ -4,10 +4,12 @@ import java.util.List;
 
 public class SimilarListenersOutputData {
 
-    private List<String> similarArtists;
+    private final List<String> similarArtists;
+    private final boolean useCaseFailed;
 
-    public SimilarListenersOutputData(List<String> similarArtists) {
+    public SimilarListenersOutputData(List<String> similarArtists, boolean useCaseFailed) {
         this.similarArtists = similarArtists;
+        this.useCaseFailed = useCaseFailed;
     }
 
     public List<String> getSimilarArtists() {

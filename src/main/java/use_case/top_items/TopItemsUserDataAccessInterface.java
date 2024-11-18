@@ -1,11 +1,11 @@
-package use_case.top_tracks;
+package use_case.top_items;
 
 import java.util.List;
 
 /**
  * DAO for the Top Tracks Use Case.
  */
-public interface TopTracksUserDataAccessInterface {
+public interface TopItemsUserDataAccessInterface {
 
     /**
      * Returns the top track List of the current user of the application.

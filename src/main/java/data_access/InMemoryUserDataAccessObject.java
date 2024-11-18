@@ -7,7 +7,7 @@ import java.util.Map;
 import entity.User;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
-import use_case.top_tracks.TopTracksUserDataAccessInterface;
+import use_case.top_items.TopItemsUserDataAccessInterface;
 
 /**
  * In-memory implementation of the DAO for storing user data. This implementation does
@@ -15,7 +15,7 @@ import use_case.top_tracks.TopTracksUserDataAccessInterface;
  */
 public class InMemoryUserDataAccessObject implements
         LoginUserDataAccessInterface,
-        LogoutUserDataAccessInterface, TopTracksUserDataAccessInterface {
+        LogoutUserDataAccessInterface, TopItemsUserDataAccessInterface {
 
     private final Map<String, User> users = new HashMap<>();
 

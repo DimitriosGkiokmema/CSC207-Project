@@ -2,7 +2,7 @@ package view;
 
 import javax.swing.*;
 
-import interface_adapter.top_tracks.TopTracksViewModel;
+import interface_adapter.top_items.TopItemsViewModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -16,8 +16,8 @@ import java.beans.PropertyChangeListener;
 /**
  * The View for when the user is opens TopTracks Menu.
  */
-public class TopTracksAndArtistsView extends JPanel implements PropertyChangeListener {
-    private final TopTracksViewModel topTracksViewModel;
+public class TopItemsView extends JPanel implements PropertyChangeListener {
+    private final TopItemsViewModel topItemsViewModel;
 
     private final String viewName = "Top Tracks";
     private final String topTracks = "Top Tracks";
@@ -28,9 +28,9 @@ public class TopTracksAndArtistsView extends JPanel implements PropertyChangeLis
     DefaultPieDataset<String> dataset1 = new DefaultPieDataset<>();
     DefaultCategoryDataset dataset2 = new DefaultCategoryDataset();
 
-    public TopTracksAndArtistsView(TopTracksViewModel topTracksViewModel) {
-        this.topTracksViewModel = topTracksViewModel;
-        this.topTracksViewModel.addPropertyChangeListener(this);
+    public TopItemsView(TopItemsViewModel topItemsViewModel) {
+        this.topItemsViewModel = topItemsViewModel;
+        this.topItemsViewModel.addPropertyChangeListener(this);
 
         welcomeLabel = new JLabel("Welcome");
         welcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);

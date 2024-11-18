@@ -1,6 +1,5 @@
 package app;
 
-import java.Constants;
 import java.awt.*;
 
 import javax.swing.*;
@@ -15,21 +14,21 @@ import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.logout.LogoutPresenter;
-import interface_adapter.top_tracks.TopTracksController;
-import interface_adapter.top_tracks.TopTracksPresenter;
-import interface_adapter.top_tracks.TopTracksViewModel;
+import interface_adapter.top_items.TopItemsController;
+import interface_adapter.top_items.TopItemsPresenter;
+import interface_adapter.top_items.TopItemsViewModel;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
 import use_case.logout.LogoutInputBoundary;
 import use_case.logout.LogoutInteractor;
 import use_case.logout.LogoutOutputBoundary;
-import use_case.top_tracks.TopTracksInputBoundary;
-import use_case.top_tracks.TopTracksInteractor;
-import use_case.top_tracks.TopTracksOutputBoundary;
+import use_case.top_items.TopItemsInputBoundary;
+import use_case.top_items.TopItemsInteractor;
+import use_case.top_items.TopItemsOutputBoundary;
 import view.LoggedInView;
 import view.LoginView;
-import view.TopTracksAndArtistsView;
+import view.TopItemsView;
 import view.ViewManager;
 
 /**
@@ -59,11 +58,11 @@ public class AppBuilder {
 //    private SignupViewModel signupViewModel;
     private LoginViewModel loginViewModel;
     private LoggedInViewModel loggedInViewModel;
-    private TopTracksViewModel topTracksAndArtistsViewModel;
+    private TopItemsViewModel topTracksAndArtistsViewModel;
 
     private LoggedInView loggedInView;
     private LoginView loginView;
-    private TopTracksAndArtistsView topTracksAndArtistsView;
+    private TopItemsView topItemsView;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -107,9 +106,9 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addTopTracksAndArtistsView() {
-        topTracksAndArtistsViewModel = new TopTracksViewModel();
-        topTracksAndArtistsView = new TopTracksAndArtistsView(topTracksAndArtistsViewModel);
-        cardPanel.add(topTracksAndArtistsView, topTracksAndArtistsView.getViewName());
+        topTracksAndArtistsViewModel = new TopItemsViewModel();
+        topItemsView = new TopItemsView(topTracksAndArtistsViewModel);
+        cardPanel.add(topItemsView, topItemsView.getViewName());
         return this;
     }
 
@@ -196,14 +195,14 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addTopTracksAndArtistsUseCase() {
-        final TopTracksOutputBoundary topTracksOutputBoundary = new TopTracksPresenter(viewManagerModel,
+        final TopItemsOutputBoundary topItemsOutputBoundary = new TopItemsPresenter(viewManagerModel,
                 topTracksAndArtistsViewModel);
 
-        final TopTracksInputBoundary topTracksInputBoundary =
-                new TopTracksInteractor(userDataAccessObject, topTracksOutputBoundary);
+        final TopItemsInputBoundary topItemsInputBoundary =
+                new TopItemsInteractor(userDataAccessObject, topItemsOutputBoundary);
 
-        final TopTracksController topTracksController = new TopTracksController(topTracksInputBoundary);
-        loggedInView.setTopTracksController(topTracksController);
+        final TopItemsController topItemsController = new TopItemsController(topItemsInputBoundary);
+        loggedInView.setTopTracksController(topItemsController);
         return this;
     }
 

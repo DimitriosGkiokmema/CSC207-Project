@@ -71,7 +71,7 @@ public class LanguageModelDataAccessObject implements RecommendLanguageModelData
                 + ", Birds of A Feather by Billie Eilish and Part of Me by Noah Kahan"));
         chatMessages.add(new ChatRequestUserMessage("Is there a song about a house in the south of"
                 + " the US and includes something about the sun?"));
-        chatMessages.add(new ChatRequestUserMessage("House of the Rising Sun by The Animals"));
+        chatMessages.add(new ChatRequestUserMessage("House of the Rising Sun by The Animals."));
         chatMessages.add(new ChatRequestUserMessage(prompt));
 
         final ChatCompletions chatCompletions = client.getChatCompletions("gpt-4",

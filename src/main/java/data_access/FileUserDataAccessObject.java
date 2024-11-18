@@ -12,29 +12,28 @@ import java.util.Map;
 
 import entity.User;
 import entity.UserFactory;
-import use_case.change_password.ChangePasswordUserDataAccessInterface;
+// import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
-import use_case.signup.SignupUserDataAccessInterface;
+// import use_case.signup.SignupUserDataAccessInterface;
 
 /**
  * DAO for user data implemented using a File to persist the data.
  */
-public class FileUserDataAccessObject implements SignupUserDataAccessInterface,
-                                                 LoginUserDataAccessInterface,
-                                                 ChangePasswordUserDataAccessInterface {
+public class FileUserDataAccessObject implements
+                                                 LoginUserDataAccessInterface {
 
-    private static final String HEADER = "username,password";
+    private static final String HEADER = "accessToken";
 
     private final File csvFile;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
     private final Map<String, User> accounts = new HashMap<>();
-    private String currentUsername;
+    private String currentAccessToken;
 
     public FileUserDataAccessObject(String csvPath, UserFactory userFactory) throws IOException {
 
         csvFile = new File(csvPath);
-        headers.put("username", 0);
-        headers.put("password", 1);
+        headers.put("accessToken", 0);
+        // headers.put("password", 1);
 
         if (csvFile.length() == 0) {
             save();
@@ -51,10 +50,10 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface,
                 String row;
                 while ((row = reader.readLine()) != null) {
                     final String[] col = row.split(",");
-                    final String username = String.valueOf(col[headers.get("username")]);
-                    final String password = String.valueOf(col[headers.get("password")]);
-                    final User user = userFactory.create(username, password);
-                    accounts.put(username, user);
+                    final String accessToken = String.valueOf(col[headers.get("accessToken")]);
+                    // final String password = String.valueOf(col[headers.get("password")]);
+                    final User user = userFactory.create(accessToken);
+                    accounts.put(accessToken, user);
                 }
             }
         }
@@ -69,7 +68,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface,
 
             for (User user : accounts.values()) {
                 final String line = String.format("%s,%s",
-                        user.getName(), user.getPassword());
+                        user.getAccessToken());
                 writer.write(line);
                 writer.newLine();
             }
@@ -84,23 +83,23 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface,
 
     @Override
     public void save(User user) {
-        accounts.put(user.getName(), user);
+        accounts.put(user.getAccessToken(), user);
         this.save();
     }
 
     @Override
-    public User get(String username) {
-        return accounts.get(username);
+    public User get(String accessToken) {
+        return accounts.get(accessToken);
     }
 
     @Override
-    public void setCurrentUsername(String name) {
-        this.currentUsername = name;
+    public void setCurrentAccessToken(String accessToken) {
+        this.currentAccessToken = accessToken;
     }
 
     @Override
-    public String getCurrentUsername() {
-        return this.currentUsername;
+    public String getCurrentAccessToken() {
+        return this.currentAccessToken;
     }
 
     @Override
@@ -108,10 +107,10 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface,
         return accounts.containsKey(identifier);
     }
 
-    @Override
+    /* @Override
     public void changePassword(User user) {
         // Replace the User object in the map
         accounts.put(user.getName(), user);
         save();
-    }
+    } */
 }

@@ -1,22 +1,21 @@
 package data_access;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import entity.User;
-import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
-import use_case.signup.SignupUserDataAccessInterface;
+import use_case.top_tracks.TopTracksUserDataAccessInterface;
 
 /**
  * In-memory implementation of the DAO for storing user data. This implementation does
  * NOT persist data between runs of the program.
  */
-public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterface,
+public class InMemoryUserDataAccessObject implements
         LoginUserDataAccessInterface,
-        ChangePasswordUserDataAccessInterface,
-        LogoutUserDataAccessInterface {
+        LogoutUserDataAccessInterface, TopTracksUserDataAccessInterface {
 
     private final Map<String, User> users = new HashMap<>();
 
@@ -29,7 +28,7 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
 
     @Override
     public void save(User user) {
-        users.put(user.getName(), user);
+        users.put(user.getAccessToken(), user);
     }
 
     @Override
@@ -38,18 +37,32 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     }
 
     @Override
-    public void changePassword(User user) {
-        // Replace the old entry with the new password
-        users.put(user.getName(), user);
-    }
-
-    @Override
-    public void setCurrentUsername(String name) {
+    public void setCurrentAccessToken(String name) {
         this.currentUsername = name;
     }
 
     @Override
-    public String getCurrentUsername() {
+    public String getCurrentAccessToken() {
         return this.currentUsername;
+    }
+
+    @Override
+    public List<String> getCurrentTopTracks() {
+        return List.of();
+    }
+
+    @Override
+    public void setCurrentTopTracks(List<String> tracks) {
+
+    }
+
+    @Override
+    public List<String> getCurrentTime() {
+        return List.of();
+    }
+
+    @Override
+    public void setCurrentTime(List<String> time) {
+
     }
 }

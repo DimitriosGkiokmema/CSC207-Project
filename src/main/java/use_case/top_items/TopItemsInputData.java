@@ -9,14 +9,20 @@ public class TopItemsInputData {
 
     private final List<String> tracks;
     private final List<String> time;
+    private final List<String> artists;
 
-    public TopItemsInputData(List<String> tracks, List<String> time) {
+    public TopItemsInputData(List<String> tracks, List<String> artists, List<String> time) {
         this.tracks = tracks;
+        this.artists = artists;
         this.time = time;
     }
 
     List<String> getTracks() {
         return tracks;
+    }
+
+    List<String> getArtists() {
+        return artists;
     }
 
     List<String> getTime() {

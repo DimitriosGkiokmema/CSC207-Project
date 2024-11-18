@@ -57,6 +57,16 @@ public class InMemoryUserDataAccessObject implements
     }
 
     @Override
+    public List<String> getCurrentTopArtists() {
+        return List.of();
+    }
+
+    @Override
+    public void setCurrentTopArtists(List<String> artists) {
+
+    }
+
+    @Override
     public List<String> getCurrentTime() {
         return List.of();
     }

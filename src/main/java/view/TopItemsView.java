@@ -19,14 +19,13 @@ import java.beans.PropertyChangeListener;
 public class TopItemsView extends JPanel implements PropertyChangeListener {
     private final TopItemsViewModel topItemsViewModel;
 
-    private final String viewName = "Top Tracks";
-    private final String topTracks = "Top Tracks";
+    private final String viewName = "Top Items";
 
     private final JLabel welcomeLabel;
     private final JButton goBack;
 
-    DefaultPieDataset<String> dataset1 = new DefaultPieDataset<>();
-    DefaultCategoryDataset dataset2 = new DefaultCategoryDataset();
+    private final DefaultPieDataset<String> dataset1 = new DefaultPieDataset<>();
+    private final DefaultCategoryDataset dataset2 = new DefaultCategoryDataset();
 
     public TopItemsView(TopItemsViewModel topItemsViewModel) {
         this.topItemsViewModel = topItemsViewModel;
@@ -69,7 +68,6 @@ public class TopItemsView extends JPanel implements PropertyChangeListener {
         this.add(welcomeLabel);
         this.add(chartLayoutPanel);
         this.add(goBack);
-
     }
 
     public String getViewName() {

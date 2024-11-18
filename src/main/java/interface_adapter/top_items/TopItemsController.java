@@ -17,13 +17,14 @@ public class TopItemsController {
 
     /**
      * Executes the Logout Use Case.
-     * @param toptracks the username of the user logging in
-     * @param time nfvenprne
+     * @param toptracks the top tracks of the user.
+     * @param time the timespan of the data.
+     * @param topartists the top artists of the user.
      */
-    public void execute(List<String> toptracks, List<String> time) {
+    public void execute(List<String> toptracks, List<String> topartists, List<String> time) {
         // 1. instantiate the `LogoutInputData`, which should contain the username.
         // 2. tell the Interactor to execute.
-        final TopItemsInputData topItemsInputData = new TopItemsInputData(toptracks, time);
+        final TopItemsInputData topItemsInputData = new TopItemsInputData(toptracks, topartists, time);
         topItemsInputBoundary.execute(topItemsInputData);
     }
 }

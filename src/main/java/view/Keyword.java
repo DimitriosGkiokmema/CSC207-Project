@@ -4,9 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Keyword {
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("CSC207 Project: Spotify Companion");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public void show() {
+        JFrame frame = new JFrame("Search Song by Keyword");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(800, 500);
         frame.setLayout(null);
 

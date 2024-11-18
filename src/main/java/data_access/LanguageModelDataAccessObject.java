@@ -23,13 +23,13 @@ import use_case.search.SearchLanguageModelDataAccessInterface;
 /**
  * Data access object to connect to Azure openAI.
  */
-public class LanguageModelDataAcessObject implements RecommendLanguageModelDataAccessInterface,
+public class LanguageModelDataAccessObject implements RecommendLanguageModelDataAccessInterface,
         SearchLanguageModelDataAccessInterface {
 
     private String endpoint = "https://spotifycompanion.openai.azure.com/";
     private String accessToken;
 
-    public LanguageModelDataAcessObject() {
+    public LanguageModelDataAccessObject() {
         accessToken = getKey();
     }
 
@@ -76,8 +76,8 @@ public class LanguageModelDataAcessObject implements RecommendLanguageModelDataA
 
         final ChatCompletions chatCompletions = client.getChatCompletions("gpt-4",
                 new ChatCompletionsOptions(chatMessages));
-
-        return chatCompletions.getChoices().getLast().getMessage().getContent();
+        final int back = chatCompletions.getChoices().size() - 1;
+        return chatCompletions.getChoices().get(back).getMessage().getContent();
 
     }
 }

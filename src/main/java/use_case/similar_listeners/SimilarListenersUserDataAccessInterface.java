@@ -28,5 +28,7 @@ public interface SimilarListenersUserDataAccessInterface {
      */
     List<String> getFollowedArtists();
 
+    void setCurrentFollowedArtists(List<String> followedArtists);
+
 
 }

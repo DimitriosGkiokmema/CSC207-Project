@@ -1,5 +1,7 @@
 package use_case.similar_listeners;
 
+import java.util.List;
+
 public class SimilarListenersInteractor implements SimilarListenersInputBoundary {
     private final SimilarListenersUserDataAccessInterface userDataAccessObject;
     private final SimilarListenersOutputBoundary loginPresenter;
@@ -12,6 +14,7 @@ public class SimilarListenersInteractor implements SimilarListenersInputBoundary
 
     @Override
     public void execute(SimilarListenersInputData similarListenersInputData) {
+
 
     }
 }

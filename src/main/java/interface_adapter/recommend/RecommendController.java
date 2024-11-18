@@ -1,5 +1,7 @@
 package interface_adapter.recommend;
 
+import java.util.Map;
+
 import use_case.recommend.RecommendInputBoundary;
 import use_case.recommend.RecommendInputData;
 
@@ -15,11 +17,11 @@ public class RecommendController {
 
     /**
      * Executes the Recommend Use Case.
-     * @param accessToken the username of the user logging in
+     * @param songRecommendations the map of song recommendations in the form of song, artist
      */
-    public void execute(String accessToken) {
+    public void execute(Map<String, String> songRecommendations) {
         final RecommendInputData recommendInputData = new RecommendInputData(
-                accessToken);
+                songRecommendations);
 
         recommendUseCaseInteractor.execute(recommendInputData);
     }

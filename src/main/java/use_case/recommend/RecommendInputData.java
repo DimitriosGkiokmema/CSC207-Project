@@ -1,17 +1,19 @@
 package use_case.recommend;
 
+import java.util.Map;
+
 /**
  * The Input Data for the Recommend Use Case.
  */
 public class RecommendInputData {
 
-    private final String accessToken;
+    private final Map<String, String> songRecommendations;
 
-    public RecommendInputData(String accessToken) {
-        this.accessToken = accessToken;
+    public RecommendInputData(Map<String, String> songRecommendations) {
+        this.songRecommendations = songRecommendations;
     }
 
-    String getAccessToken() {
-        return accessToken;
+    public Map<String, String> getRecommendations() {
+        return songRecommendations;
     }
 }

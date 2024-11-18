@@ -88,21 +88,6 @@ public class AppBuilder {
     }
 
     /**
-     * Adds the Signup Use Case to the application.
-     * @return this builder
-     */
-//    public AppBuilder addSignupUseCase() {
-//        final SignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel,
-//                signupViewModel, loginViewModel);
-//        final SignupInputBoundary userSignupInteractor = new SignupInteractor(
-//                userDataAccessObject, signupOutputBoundary, userFactory);
-//
-//        final SignupController controller = new SignupController(userSignupInteractor);
-//        signupView.setSignupController(controller);
-//        return this;
-//    }
-
-    /**
      * Adds the Login Use Case to the application.
      * @return this builder
      */
@@ -121,17 +106,17 @@ public class AppBuilder {
      * Adds the Recommend Use Case to the application.
      * @return this builder
      */
-//    public AppBuilder addRecommendUseCase() {
-//        final RecommendOutputBoundary recommendOutputBoundary =
-//                new RecommendPresenter(loggedInViewModel);
-//
-//        final RecommendInputBoundary recommendInteractor =
-//                new RecommendInteractor(userDataAccessObject, recommendOutputBoundary, userFactory);
-//
-//        final RecommendController recommendController = new RecommendController(recommendInteractor);
-//        recommendationsView.setRecommendController(recommendController);
-//        return this;
-//    }
+    public AppBuilder addRecommendUseCase() {
+        final RecommendOutputBoundary recommendOutputBoundary =
+                new RecommendPresenter(viewManagerModel, recommendViewModel);
+
+        final RecommendInputBoundary recommendInteractor =
+                new RecommendInteractor(recommendDataAccessInterface, recommendOutputBoundary);
+
+        final RecommendController recommendController = new RecommendController(recommendInteractor);
+        recommendationsView.setRecommendController(recommendController);
+        return this;
+    }
 
     /**
      * Adds the Logout Use Case to the application.

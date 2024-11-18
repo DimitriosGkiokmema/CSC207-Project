@@ -34,8 +34,8 @@ public interface LoginUserDataAccessInterface {
     String getCurrentAccessToken();
 
     /**
-     * Sets the username indicating who is the current user of the application.
-     * @param accessToken the new current username; null to indicate that no one is currently logged into the
+     * Sets the access token indicating who is the current user of the application.
+     * @param accessToken the new current access token; null to indicate that no one is currently logged into the
      *                    application.
      */
     void setCurrentAccessToken(String accessToken);

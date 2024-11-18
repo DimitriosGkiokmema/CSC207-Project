@@ -17,6 +17,10 @@ public class SimilarListenersPresenter implements SimilarListenersOutputBoundary
 
     @Override
     public void prepareSuccessView(SimilarListenersOutputData similarListenersOutputData) {
+        final SimilarListenersState similarListenersState = similarListenersViewModel.getState();
+        similarListenersState.setSimilarArtists(similarListenersOutputData.getSimilarArtists());
+        this.similarListenersViewModel.setState(similarListenersState);
+        similarListenersViewModel.firePropertyChanged();
 
         this.viewManagerModel.setState(similarListenersViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();

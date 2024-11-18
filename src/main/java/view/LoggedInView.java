@@ -10,8 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import interface_adapter.change_password.LoggedInState;
-import interface_adapter.change_password.LoggedInViewModel;
+import interface_adapter.logged_in.LoggedInState;
+import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.logout.LogoutController;
 
 /**
@@ -46,6 +46,16 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         searchButtons.add(description);
         final JButton keyword = new JButton("Search song by keyword");
         searchButtons.add(keyword);
+
+        // Add an ActionListener to open the Keyword window
+        keyword.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Create and show the Keyword window
+                Keyword keywordWindow = new Keyword();
+                keywordWindow.show();
+            }
+        });
 
         final JButton home = new JButton("Home");
         appButtons.add(home);

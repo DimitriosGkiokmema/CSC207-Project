@@ -5,22 +5,21 @@ package entity;
  */
 public class CommonUser implements User {
 
-    private final String name;
-    private final String password;
+    private final String accessToken;
+    // private final String password;
 
-    public CommonUser(String name, String password) {
-        this.name = name;
-        this.password = password;
+    public CommonUser(String accessToken) {
+        this.accessToken = accessToken;
+        // this.password = password;
     }
 
     @Override
-    public String getName() {
-        return name;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    @Override
+    /* @Override
     public String getPassword() {
         return password;
-    }
-
+    } */
 }

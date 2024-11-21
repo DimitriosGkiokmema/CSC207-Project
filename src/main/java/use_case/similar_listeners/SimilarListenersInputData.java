@@ -2,14 +2,14 @@ package use_case.similar_listeners;
 
 public class SimilarListenersInputData {
 
-    private final String loginToken;
+    private final String accessToken;
 
-    public SimilarListenersInputData(String loginToken) {
-        this.loginToken = loginToken;
+    public SimilarListenersInputData(String accessToken) {
+        this.accessToken = accessToken;
     }
 
     String getLoginToken() {
-        return loginToken;
+        return accessToken;
     }
 
 }

@@ -7,7 +7,7 @@ import java.util.Map;
 import entity.User;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
-import use_case.top_tracks.TopTracksUserDataAccessInterface;
+import use_case.top_items.TopItemsUserDataAccessInterface;
 
 /**
  * In-memory implementation of the DAO for storing user data. This implementation does
@@ -15,7 +15,7 @@ import use_case.top_tracks.TopTracksUserDataAccessInterface;
  */
 public class InMemoryUserDataAccessObject implements
         LoginUserDataAccessInterface,
-        LogoutUserDataAccessInterface, TopTracksUserDataAccessInterface {
+        LogoutUserDataAccessInterface {
 
     private final Map<String, User> users = new HashMap<>();
 
@@ -46,23 +46,4 @@ public class InMemoryUserDataAccessObject implements
         return this.currentUsername;
     }
 
-    @Override
-    public List<String> getCurrentTopTracks() {
-        return List.of();
-    }
-
-    @Override
-    public void setCurrentTopTracks(List<String> tracks) {
-
-    }
-
-    @Override
-    public List<String> getCurrentTime() {
-        return List.of();
-    }
-
-    @Override
-    public void setCurrentTime(List<String> time) {
-
-    }
 }

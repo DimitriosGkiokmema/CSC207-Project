@@ -1,15 +1,17 @@
-package use_case.top_tracks;
+package use_case.top_items;
 
 import java.util.List;
 
-public class TopTracksOutputData {
+public class TopItemsOutputData {
 
     private final List<String> tracks;
     private final List<String> time;
+    private final List<String> artists;
     private final boolean useCaseFailed;
 
-    public TopTracksOutputData(List<String> tracks, List<String> time, boolean useCaseFailed) {
+    public TopItemsOutputData(List<String> tracks, List<String> artists, List<String> time, boolean useCaseFailed) {
         this.tracks = tracks;
+        this.artists = artists;
         this.time = time;
         this.useCaseFailed = useCaseFailed;
     }
@@ -22,4 +24,7 @@ public class TopTracksOutputData {
         return time;
     }
 
+    public List<String> getArtists() {
+        return artists;
+    }
 }

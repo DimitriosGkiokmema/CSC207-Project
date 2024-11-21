@@ -2,6 +2,9 @@ package interface_adapter.similar_listeners;
 
 import java.util.List;
 
+/**
+ * The state for Similar Listeners View Model.
+ */
 public class SimilarListenersState {
     private List<String> similarArtists;
     private String similarArtistsError;

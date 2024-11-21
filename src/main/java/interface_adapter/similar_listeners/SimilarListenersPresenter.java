@@ -4,6 +4,9 @@ import interface_adapter.ViewManagerModel;
 import use_case.similar_listeners.SimilarListenersOutputBoundary;
 import use_case.similar_listeners.SimilarListenersOutputData;
 
+/**
+ * The Presenter for Similar Listeners use case.
+ */
 public class SimilarListenersPresenter implements SimilarListenersOutputBoundary {
     private final SimilarListenersViewModel similarListenersViewModel;
     private final ViewManagerModel viewManagerModel;

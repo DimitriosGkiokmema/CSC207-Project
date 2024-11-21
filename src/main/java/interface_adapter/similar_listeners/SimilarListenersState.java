@@ -1,7 +1,5 @@
 package interface_adapter.similar_listeners;
 
-import interface_adapter.logged_in.LoggedInState;
-
 import java.util.List;
 
 public class SimilarListenersState {

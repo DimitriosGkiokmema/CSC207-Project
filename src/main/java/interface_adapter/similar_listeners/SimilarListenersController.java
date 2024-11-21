@@ -15,11 +15,11 @@ public class SimilarListenersController {
 
     /**
      * Executes the Login Use Case.
-     * @param loginToken the username of the user logging in
+     * @param accessToken the username of the user logging in
      */
-    public void execute(String loginToken) {
+    public void execute(String accessToken) {
         final SimilarListenersInputData similarListenersInputData = new SimilarListenersInputData(
-                loginToken);
+                accessToken);
 
         similarListenersInputBoundary.execute(similarListenersInputData);
     }

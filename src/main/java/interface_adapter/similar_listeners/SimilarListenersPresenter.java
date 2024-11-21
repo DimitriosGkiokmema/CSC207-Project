@@ -29,6 +29,9 @@ public class SimilarListenersPresenter implements SimilarListenersOutputBoundary
 
     @Override
     public void prepareFailView(String errorMessage) {
+        final SimilarListenersState similarListenersState = similarListenersViewModel.getState();
+        similarListenersState.setSimilarArtistsError(errorMessage);
+        similarListenersViewModel.firePropertyChanged();
 
     }
 }

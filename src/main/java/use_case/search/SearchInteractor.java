@@ -10,14 +10,15 @@ import use_case.logout.LogoutOutputData;
  */
 public class SearchInteractor implements SearchInputBoundary {
 
-    private final SearchUserDataAccessInterface userDataAccessObject;
+    private final SearchLanguageModelDataAccessInterface modelDataAccess;
     private final SearchOutputBoundary searchPresenter;
 
     /**
      * The Search Interactor constructor.
      * @param searchPresenter output information
      */
-    public SearchInteractor(SearchOutputBoundary searchPresenter, SearchUserDataAccessInterface) {
+    public SearchInteractor(SearchLanguageModelDataAccessInterface modelDataAccess, SearchOutputBoundary searchPresenter) {
+        this.modelDataAccess = modelDataAccess;
 
         this.searchPresenter = searchPresenter;
     }
@@ -29,7 +30,10 @@ public class SearchInteractor implements SearchInputBoundary {
     }
 
     @Override
-    public void executeSearch(String query){
+    public void executeSearch(String accessToken, String searchText){
+        final SearchOutputData search = new SearchOutputData(accessToken,false);
+        final String response = modelDataAccess.query(searchText);
+        search.setDisplayText(response);
         searchPresenter.prepareSuccessView(search);
     }
 

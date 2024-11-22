@@ -20,7 +20,9 @@ public class SearchState {
 
     }
     public String getDisplayText() {return displayText;}
-    public void setDisplayText(String displayText) {this.displayText = displayText;}
+    public void setDisplayText(String displayText) {
+        this.displayText = displayText;
+    }
 
     public String getAccessToken() {
         return accessToken;

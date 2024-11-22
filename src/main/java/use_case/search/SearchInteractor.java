@@ -21,8 +21,8 @@ public class SearchInteractor implements SearchInputBoundary {
     }
 
     @Override
-    public void execute() {
-        final SearchOutputData search = new SearchOutputData(false);
+    public void execute(String accessToken) {
+        final SearchOutputData search = new SearchOutputData(accessToken,false);
         searchPresenter.prepareSuccessView(search);
     }
 }

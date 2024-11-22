@@ -7,5 +7,5 @@ public interface SearchInputBoundary {
     /**
      * Executes the Search use case.
      */
-    void execute();
+    void execute(String accessToken);
 }

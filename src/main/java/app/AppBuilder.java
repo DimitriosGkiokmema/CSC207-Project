@@ -18,6 +18,9 @@ import interface_adapter.logout.LogoutPresenter;
 import interface_adapter.recommend.RecommendController;
 import interface_adapter.recommend.RecommendPresenter;
 import interface_adapter.recommend.RecommendViewModel;
+import interface_adapter.search.SearchController;
+import interface_adapter.search.SearchPresenter;
+import interface_adapter.search.SearchViewModel;
 import interface_adapter.top_items.TopItemsController;
 import interface_adapter.top_items.TopItemsPresenter;
 import interface_adapter.top_items.TopItemsViewModel;
@@ -31,12 +34,16 @@ import use_case.recommend.RecommendInputBoundary;
 import use_case.recommend.RecommendInteractor;
 import use_case.recommend.RecommendOutputBoundary;
 import use_case.recommend.RecommendUserDataAccessInterface;
+import use_case.search.SearchInputBoundary;
+import use_case.search.SearchInteractor;
+import use_case.search.SearchOutputBoundary;
 import use_case.top_items.TopItemsInputBoundary;
 import use_case.top_items.TopItemsInteractor;
 import use_case.top_items.TopItemsOutputBoundary;
 import view.LoggedInView;
 import view.LoginView;
 import view.RecommendationsView;
+import view.SearchView;
 import view.TopItemsView;
 import view.ViewManager;
 
@@ -68,11 +75,13 @@ public class AppBuilder {
     private LoggedInViewModel loggedInViewModel;
     private TopItemsViewModel topTracksAndArtistsViewModel;
     private RecommendViewModel recommendViewModel;
-
+    private SearchViewModel searchViewModel;
     private LoggedInView loggedInView;
     private LoginView loginView;
+    private SearchView searchView;
     private TopItemsView topItemsView;
     private RecommendationsView recommendationsView;
+
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -86,6 +95,17 @@ public class AppBuilder {
         loginViewModel = new LoginViewModel();
         loginView = new LoginView(loginViewModel);
         cardPanel.add(loginView, loginView.getViewName());
+        return this;
+    }
+
+    /**
+     * Adds the Search View to the application.
+     * @return this builder
+     */
+    public AppBuilder addSearchView() {
+        searchViewModel = new SearchViewModel();
+        searchView = new SearchView(searchViewModel);
+        cardPanel.add(searchView, searchView.getViewName());
         return this;
     }
 
@@ -173,7 +193,22 @@ public class AppBuilder {
     }
 
     /**
-     * Adds the Logout Use Case to the application.
+     * Adds the Search Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addSearchUseCase() {
+        final SearchOutputBoundary searchOutputBoundary = new SearchPresenter(viewManagerModel,
+                loggedInViewModel, searchViewModel);
+
+        final SearchInputBoundary searchInteractor =
+                new SearchInteractor(searchOutputBoundary);
+
+        final SearchController searchController = new SearchController(searchInteractor);
+        loggedInView.setSearchController(searchController);
+        return this;
+    }
+      /**
+     * Adds the Top Tracks and Artists Use Case to the application.
      * @return this builder
      */
     public AppBuilder addTopTracksAndArtistsUseCase() {

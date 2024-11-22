@@ -15,7 +15,10 @@ import javax.swing.JPanel;
 import interface_adapter.logged_in.LoggedInState;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.logout.LogoutController;
+import interface_adapter.search.SearchController;
+
 import interface_adapter.top_items.TopItemsController;
+
 
 /**
  * The View for when the user is logged into the program.
@@ -25,6 +28,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private final String viewName = "logged in";
     private final LoggedInViewModel loggedInViewModel;
     private LogoutController logoutController;
+    private SearchController searchController;
     private TopItemsController topItemsController;
 
     private final JLabel username;
@@ -111,6 +115,15 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                     }
                 }
         );
+        description.addActionListener(
+                // This creates an anonymous subclass of ActionListener and instantiates it.
+                evt -> {
+                    if (evt.getSource().equals(description)) {
+                        // 1. Execute the logout Controller.
+                        searchController.execute();
+                    }
+                }
+        );
 
         topTracks.addActionListener(
                 evt -> {
@@ -156,6 +169,9 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         this.logoutController = logoutController;
     }
 
+    public void setSearchController(SearchController searchController) {
+        this.searchController = searchController;
+    }
     public void setTopTracksController(TopItemsController topItemsController) {
         this.topItemsController = topItemsController;
     }

@@ -17,7 +17,7 @@ public class SearchInteractor implements SearchInputBoundary {
      * The Search Interactor constructor.
      * @param searchPresenter output information
      */
-    public SearchInteractor(SearchOutputBoundary searchPresenter) {
+    public SearchInteractor(SearchOutputBoundary searchPresenter, SearchUserDataAccessInterface) {
 
         this.searchPresenter = searchPresenter;
     }

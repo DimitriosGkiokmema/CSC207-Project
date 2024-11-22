@@ -8,4 +8,9 @@ public interface SearchInputBoundary {
      * Executes the Search use case.
      */
     void execute();
+
+    /**
+     * Executes the Search use case.
+     */
+    void executeSearch(String searchText);
 }

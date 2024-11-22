@@ -15,6 +15,9 @@ import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.logout.LogoutPresenter;
+import interface_adapter.recommend.RecommendController;
+import interface_adapter.recommend.RecommendPresenter;
+import interface_adapter.recommend.RecommendViewModel;
 import interface_adapter.top_items.TopItemsController;
 import interface_adapter.top_items.TopItemsPresenter;
 import interface_adapter.top_items.TopItemsViewModel;
@@ -24,11 +27,16 @@ import use_case.login.LoginOutputBoundary;
 import use_case.logout.LogoutInputBoundary;
 import use_case.logout.LogoutInteractor;
 import use_case.logout.LogoutOutputBoundary;
+import use_case.recommend.RecommendInputBoundary;
+import use_case.recommend.RecommendInteractor;
+import use_case.recommend.RecommendOutputBoundary;
+import use_case.recommend.RecommendUserDataAccessInterface;
 import use_case.top_items.TopItemsInputBoundary;
 import use_case.top_items.TopItemsInteractor;
 import use_case.top_items.TopItemsOutputBoundary;
 import view.LoggedInView;
 import view.LoginView;
+import view.RecommendationsView;
 import view.TopItemsView;
 import view.ViewManager;
 
@@ -53,33 +61,22 @@ public class AppBuilder {
 
     // thought question: is the hard dependency below a problem?
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
+    private final RecommendUserDataAccessInterface recommendUserDataAccessInterface = new RecommendUserDataAccessInterface();
     private final TopItemsUserDataAccessObject topItemsUserDataAccessObject = new TopItemsUserDataAccessObject();
 
-//    Will remove since our project does not cover signing up, only logging in
-//    private SignupView signupView;
-//    private SignupViewModel signupViewModel;
     private LoginViewModel loginViewModel;
     private LoggedInViewModel loggedInViewModel;
     private TopItemsViewModel topTracksAndArtistsViewModel;
+    private RecommendViewModel recommendViewModel;
 
     private LoggedInView loggedInView;
     private LoginView loginView;
     private TopItemsView topItemsView;
+    private RecommendationsView recommendationsView;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
     }
-
-    /**
-     * Adds the Signup View to the application.
-     * @return this builder
-     */
-//    public AppBuilder addSignupView() {
-//        signupViewModel = new SignupViewModel();
-//        signupView = new SignupView(signupViewModel);
-//        cardPanel.add(signupView, signupView.getViewName());
-//        return this;
-//    }
 
     /**
      * Adds the Login View to the application.
@@ -115,21 +112,6 @@ public class AppBuilder {
     }
 
     /**
-     * Adds the Signup Use Case to the application.
-     * @return this builder
-     */
-//    public AppBuilder addSignupUseCase() {
-//        final SignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel,
-//                signupViewModel, loginViewModel);
-//        final SignupInputBoundary userSignupInteractor = new SignupInteractor(
-//                userDataAccessObject, signupOutputBoundary, userFactory);
-//
-//        final SignupController controller = new SignupController(userSignupInteractor);
-//        signupView.setSignupController(controller);
-//        return this;
-//    }
-
-    /**
      * Adds the Login Use Case to the application.
      * @return this builder
      */
@@ -141,6 +123,21 @@ public class AppBuilder {
 
         final LoginController loginController = new LoginController(loginInteractor);
         loginView.setLoginController(loginController);
+        return this;
+    }
+
+    /**
+     * Adds the Recommend Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addRecommendUseCase() {
+        final RecommendOutputBoundary recommendOutputBoundary =
+                new RecommendPresenter(viewManagerModel, recommendViewModel);
+        final RecommendInputBoundary recommendInteractor =
+                new RecommendInteractor(recommendUserDataAccessInterface, recommendOutputBoundary);
+
+        final RecommendController recommendController = new RecommendController(recommendInteractor);
+        recommendationsView.setRecommendController(recommendController);
         return this;
     }
 
@@ -158,23 +155,6 @@ public class AppBuilder {
         loginView.setLoginController(loginController);
         return this;
     } */
-
-    /**
-     * Adds the Change Password Use Case to the application.
-     * @return this builder
-     */
-//    public AppBuilder addChangePasswordUseCase() {
-//        final ChangePasswordOutputBoundary changePasswordOutputBoundary =
-//                new ChangePasswordPresenter(loggedInViewModel);
-//
-//        final ChangePasswordInputBoundary changePasswordInteractor =
-//                new ChangePasswordInteractor(userDataAccessObject, changePasswordOutputBoundary, userFactory);
-//
-//        final ChangePasswordController changePasswordController =
-//                new ChangePasswordController(changePasswordInteractor);
-//        loggedInView.setChangePasswordController(changePasswordController);
-//        return this;
-//    }
 
     /**
      * Adds the Logout Use Case to the application.
@@ -221,7 +201,7 @@ public class AppBuilder {
 
         application.add(cardPanel);
 
-        viewManagerModel.setState(loggedInViewModel.getViewName());
+        viewManagerModel.setState(recommendViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
 
         return application;

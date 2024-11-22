@@ -16,16 +16,6 @@ import use_case.top_items.TopItemsUserDataAccessInterface;
 public class InMemoryUserDataAccessObject implements
         LoginUserDataAccessInterface,
         LogoutUserDataAccessInterface {
-    @Override
-    public String getCurrentAccessToken() {
-        return "";
-    }
-
-    @Override
-    public void setCurrentAccessToken(String accessToken) {
-
-    }
-
     private final Map<String, User> users = new HashMap<>();
 
     private String currentUsername;

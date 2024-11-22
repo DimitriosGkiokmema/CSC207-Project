@@ -17,9 +17,17 @@ public class SearchController {
     }
 
     /**
-     * Executes the Search Use Case.
+     * Goes to the search use case.
      */
     public void execute(String accessToken) {
         searchUseCaseInteractor.execute(accessToken);
+    }
+
+    /**
+     * Executes the Search Use Case.
+     * @param searchText the search the user is inputting.
+     */
+    public void executeSearch(String searchText) {
+        searchUseCaseInteractor.executeSearch(searchText);
     }
 }

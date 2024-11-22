@@ -1,14 +1,14 @@
 package interface_adapter.search;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.change_password.LoggedInViewModel;
+import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginViewModel;
 import use_case.search.SearchOutputBoundary;
 import use_case.search.SearchOutputData;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.change_password.LoggedInState;
-import interface_adapter.change_password.LoggedInViewModel;
+import interface_adapter.logged_in.LoggedInState;
+import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
 import use_case.logout.LogoutOutputBoundary;
@@ -37,6 +37,7 @@ public class SearchPresenter implements SearchOutputBoundary {
     public void prepareSuccessView(SearchOutputData response) {
 
         final SearchState searchState = searchViewModel.getState();
+        searchState.setAccessToken(response.getAccessToken());
         searchViewModel.setState(searchState);
         searchViewModel.firePropertyChanged();
 

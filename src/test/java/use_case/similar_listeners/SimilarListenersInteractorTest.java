@@ -17,7 +17,7 @@ public class SimilarListenersInteractorTest {
     @Test
     void successTest() {
         SimilarListenersInputData inputData = new SimilarListenersInputData("token");
-        SimilarListenersTestDataAccessObject accessObject = new SimilarListenersTestDataAccessObject();
+        SimilarListenersUserDataAccessInterface accessObject = new SimilarListenersTestDataAccessObject();
 
         // For the success test, we need to add Paul to the data access repository before we log in.
         List<String> allfollowedArtists = new ArrayList<>();
@@ -45,6 +45,32 @@ public class SimilarListenersInteractorTest {
 
         SimilarListenersInputBoundary interactor = new SimilarListenersInteractor(accessObject, successPresenter);
         interactor.execute(inputData);
+    }
+
+    @Test
+    void failTest() {
+        SimilarListenersInputData inputData = new SimilarListenersInputData("token");
+        SimilarListenersUserDataAccessInterface accessObject = new SimilarListenersTestDataAccessObject();
+
+        List<String> allfollowedArtists = new ArrayList<>();
+        accessObject.setCurrentFollowedArtists(allfollowedArtists);
+
+        SimilarListenersOutputBoundary successPresenter = new SimilarListenersOutputBoundary() {
+            @Override
+            public void prepareSuccessView(SimilarListenersOutputData outputData) {
+                // check that the output data contains the username of who logged out
+                fail("Use case success is unexpected.");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                assertEquals("You do not follow any artists. "
+                        + "Similar Listeners cannot be determined.", error);
+            }
+        };
+        SimilarListenersInputBoundary interactor = new SimilarListenersInteractor(accessObject, successPresenter);
+        interactor.execute(inputData);
+
     }
 
 }

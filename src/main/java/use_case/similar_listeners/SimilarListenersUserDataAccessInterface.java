@@ -9,7 +9,7 @@ public interface SimilarListenersUserDataAccessInterface {
 
     /**
      * Return the artists that the current user follows.
-     * @return list of artists that this user follows. Return null if there are no followed artists.
+     * @return list of artists that this user follows. Return an empty list if there are no followed artists.
      */
     List<String> getFollowedArtists();
 

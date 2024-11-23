@@ -66,9 +66,9 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface 
             // Using Spotify Wrapper to get the given users top tracks from API
             final Paging<Track> trackPaging = getTopTracksRequest.execute();
 
-            Track[] tracks = trackPaging.getItems();
+            final Track[] tracks = trackPaging.getItems();
 
-            List<String> topTracks = new ArrayList<String>();
+            final List<String> topTracks = new ArrayList<String>();
             for (Track track : tracks) {
                 topTracks.add(track.getName());
             }
@@ -90,9 +90,9 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface 
             // Using Spotify Wrapper to get the given users top artists from API
             final Paging<Artist> artistPaging = getTopArtistsRequest.execute();
 
-            Artist[] artists = artistPaging.getItems();
+            final Artist[] artists = artistPaging.getItems();
 
-            List<String> topArtists = new ArrayList<String>();
+            final List<String> topArtists = new ArrayList<String>();
             for (Artist artist : artists) {
                 topArtists.add(artist.getName());
             }
@@ -132,13 +132,6 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface 
 
     @Override
     public void setCurrentTime(List<String> time) {
-
-    }
-
-    public static void main(String[] args) {
-        SpotifyDataAccessObject spotifyDataAccessObject = new SpotifyDataAccessObject("BQDQP8XOnHL5-1B_9f7dvNJ1eN2Nj1rH6d4SZAjxfkZVZDHS-4R447KFvYGqFY4hhu2WgCscHg_egtYI-069ekDuy_MjFiIx9erWLJRYfg_mBaBwiN_DNfu9N9lUwXbz8OQ_WMnGtD5_GuCwC-b4CodFYQO3fGp1UKkkQbdyM_9qUStbGCnnxhr3IL_pDLJ8ny12eN9Pw5k1e1FjyZpLjjq7-xJV6TU");
-        spotifyDataAccessObject.getUsersTopTracksSync();
-        spotifyDataAccessObject.getUsersTopArtistsSync();
 
     }
 

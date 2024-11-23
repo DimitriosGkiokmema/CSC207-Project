@@ -20,6 +20,9 @@ import se.michaelthelin.spotify.requests.data.personalization.simplified.GetUser
 import se.michaelthelin.spotify.requests.data.personalization.simplified.GetUsersTopTracksRequest;
 import use_case.top_items.TopItemsUserDataAccessInterface;
 
+/**
+ * DAO for getting relevant information from Spotify API.
+ */
 public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface {
 
     private LoginState loginState = new LoginState();
@@ -29,8 +32,21 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface 
     private GetUsersTopTracksRequest getTopTracksRequest;
     private GetUsersTopArtistsRequest getTopArtistsRequest;
 
+    public SpotifyDataAccessObject() {
+        this.accessToken = loginState.getLoginToken();
+        //this.accessToken = accessToken;
+        this.currentUser = new CommonUser(accessToken);
+        this.spotifyApi = new SpotifyApi.Builder()
+                .setAccessToken(accessToken)
+                .build();
+        this.getTopTracksRequest = spotifyApi.getUsersTopTracks()
+                .build();
+        this.getTopArtistsRequest = spotifyApi.getUsersTopArtists()
+                .build();
+    }
+
+    // Constructor used for testing.
     public SpotifyDataAccessObject(String accessToken) {
-        //this.accessToken = loginState.getLoginToken();
         this.accessToken = accessToken;
         this.currentUser = new CommonUser(accessToken);
         this.spotifyApi = new SpotifyApi.Builder()
@@ -117,7 +133,7 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface 
     }
 
     public static void main(String[] args) {
-        SpotifyDataAccessObject spotifyDataAccessObject = new SpotifyDataAccessObject("BQCOFgyHIg-eAjqOM8ITkCEynoZwEoN2__Sccimaakn2rZjBzIBTwSVK391IUAD7umWe6vvEE9MiiqvN6j1jFySdxecxQL0gS1Tt2y3DAlrt6c6XlfD6jEQJPiNqyOHueQr9ZQe4Um0A6Bz2cbKvzi-fW1MQG19K2rmT_Z0rLFQY-p3S9ssF-5213Ol_hAvpB0kORgMoazMdzPYe6A");
+        SpotifyDataAccessObject spotifyDataAccessObject = new SpotifyDataAccessObject("BQDQP8XOnHL5-1B_9f7dvNJ1eN2Nj1rH6d4SZAjxfkZVZDHS-4R447KFvYGqFY4hhu2WgCscHg_egtYI-069ekDuy_MjFiIx9erWLJRYfg_mBaBwiN_DNfu9N9lUwXbz8OQ_WMnGtD5_GuCwC-b4CodFYQO3fGp1UKkkQbdyM_9qUStbGCnnxhr3IL_pDLJ8ny12eN9Pw5k1e1FjyZpLjjq7-xJV6TU");
         spotifyDataAccessObject.getUsersTopTracksSync();
         spotifyDataAccessObject.getUsersTopArtistsSync();
 

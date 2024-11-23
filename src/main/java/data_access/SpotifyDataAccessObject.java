@@ -39,8 +39,10 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface 
                 .setAccessToken(accessToken)
                 .build();
         this.getTopTracksRequest = spotifyApi.getUsersTopTracks()
+                .time_range("short_term")
                 .build();
         this.getTopArtistsRequest = spotifyApi.getUsersTopArtists()
+                .time_range("short_term")
                 .build();
     }
 

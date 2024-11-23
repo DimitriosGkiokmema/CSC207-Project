@@ -19,5 +19,4 @@ public interface SimilarListenersUserDataAccessInterface {
      */
     void setCurrentFollowedArtists(List<String> followedArtists);
 
-
 }

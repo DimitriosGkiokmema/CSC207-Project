@@ -3,7 +3,12 @@ package view;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import javax.swing.*;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 import interface_adapter.recommend.RecommendController;
 import interface_adapter.recommend.RecommendState;
@@ -24,7 +29,7 @@ public class RecommendationsView extends JPanel implements PropertyChangeListene
 
     public RecommendationsView(RecommendViewModel recommendViewModel) {
         this.recommendViewModel = recommendViewModel;
-//        this.recommendViewModel.addPropertyChangeListener(this);
+        this.recommendViewModel.addPropertyChangeListener(this);
 
         final JLabel title = new JLabel("Recommendations");
         final JPanel titlePanel = new JPanel();
@@ -41,7 +46,7 @@ public class RecommendationsView extends JPanel implements PropertyChangeListene
 
         final JPanel songsPanel = new JPanel();
         refreshButton = new JButton("Refresh");
-        songsTextArea = new JTextArea(10, 30);
+        songsTextArea = new JTextArea();
         songsTextArea.setText("TO DO: Get songs to show here");
         final JScrollPane songsScrollPane = new JScrollPane(songsTextArea);
         songsPanel.add(songsScrollPane);
@@ -72,10 +77,12 @@ public class RecommendationsView extends JPanel implements PropertyChangeListene
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals("state")) {
-            final RecommendState state = (RecommendState) evt.getNewValue();
-//            username.setText(state.getUsername());
-        }
+        final RecommendState state = (RecommendState) evt.getNewValue();
+        setFields(state);
+    }
+
+    private void setFields(RecommendState state) {
+        songsTextArea.setText(state.getSongRecommendations());
     }
 
     public String getViewName() {
@@ -87,6 +94,6 @@ public class RecommendationsView extends JPanel implements PropertyChangeListene
     }
 
     public String getArtist() {
-        return "Slipkot";
+        return "INSERT ARTIST";
     }
 }

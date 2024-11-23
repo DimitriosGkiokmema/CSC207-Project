@@ -7,17 +7,22 @@ import java.util.Map;
  */
 public class RecommendInteractor implements RecommendInputBoundary {
     private final RecommendLanguageModelDataAccessInterface recommendDataAccessObject;
+    private final RecommendSpotifyDataAccessInterface spotifyDataAccessObject;
     private final RecommendOutputBoundary recommendationOutputBoundary;
 
     public RecommendInteractor(RecommendLanguageModelDataAccessInterface recommendDataAccessInterface,
-                           RecommendOutputBoundary recommendOutputBoundary) {
+                               RecommendSpotifyDataAccessInterface spotifyDataAccessObject,
+                               RecommendOutputBoundary recommendOutputBoundary) {
         this.recommendDataAccessObject = recommendDataAccessInterface;
+        this.spotifyDataAccessObject = spotifyDataAccessObject;
         this.recommendationOutputBoundary = recommendOutputBoundary;
     }
 
     @Override
     public void execute(RecommendInputData recommendInputData) {
-        final Map<String, String> history = recommendInputData.getListeningHistory();
+        // Calls Spotify API to get user data
+        final Map<String, String> history = spotifyDataAccessObject.getHistory();
+        // Takes user data and asks Azure for recommendations
         final String songRecommendations = recommendDataAccessObject.getRecommendations(history);
 
         final RecommendOutputData outputData = new RecommendOutputData(songRecommendations);

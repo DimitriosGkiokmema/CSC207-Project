@@ -6,6 +6,7 @@ import javax.swing.*;
 
 import data_access.InMemoryUserDataAccessObject;
 import data_access.LanguageModelDataAccessObject;
+import data_access.SpotifyDataAccessObject;
 import data_access.TopItemsUserDataAccessObject;
 import entity.CommonUserFactory;
 import entity.UserFactory;
@@ -69,8 +70,7 @@ public class AppBuilder {
     // thought question: is the hard dependency below a problem?
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
     private final LanguageModelDataAccessObject lmDataAccessObject = new LanguageModelDataAccessObject();
-    // Change below file name to the DAO Ksenia will make, use it to get user listening history in song: artist format
-//    private final SpotifyDataAccessObject spotifyDataAccessObject = new SpotifyDataAccessObject();
+    private final SpotifyDataAccessObject spotifyDataAccessObject = new SpotifyDataAccessObject();
     private final TopItemsUserDataAccessObject topItemsUserDataAccessObject = new TopItemsUserDataAccessObject();
 
     private LoginViewModel loginViewModel;
@@ -166,9 +166,7 @@ public class AppBuilder {
         final RecommendOutputBoundary recommendOutputBoundary =
                 new RecommendPresenter(viewManagerModel, recommendViewModel);
         final RecommendInputBoundary recommendInputBoundary =
-                new RecommendInteractor(lmDataAccessObject, recommendOutputBoundary);
-//        Use line 171 instead of 169
-//                new RecommendInteractor(lmDataAccessObject, spotifyDataAccessObject, recommendOutputBoundary);
+                new RecommendInteractor(lmDataAccessObject, spotifyDataAccessObject, recommendOutputBoundary);
 
         final RecommendController recommendController = new RecommendController(recommendInputBoundary);
         loggedInView.setRecommendController(recommendController);

@@ -1,7 +1,5 @@
 package use_case.recommend;
 
-import java.util.Map;
-
 /**
  * The output data for the Recommend Use Case.
  */

@@ -30,8 +30,6 @@ public class RecommendPresenter implements RecommendOutputBoundary {
 
     @Override
     public void prepareFailView(String errorMessage) {
-        final RecommendState recommendState = recommendViewModel.getState();
-        recommendState.setRecommendationError(errorMessage);
-        recommendViewModel.firePropertyChanged();
+        // No need to add code here, as we assume there won't be an error
     }
 }

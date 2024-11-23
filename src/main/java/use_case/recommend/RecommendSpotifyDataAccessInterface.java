@@ -1,6 +1,6 @@
 package use_case.recommend;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * The recommend DAO for accessing the Spotify api.
@@ -8,7 +8,7 @@ import java.util.List;
 public interface RecommendSpotifyDataAccessInterface {
     /**
      * Sends a query to the Spotify at the API endpoint.
-     * @return a list of songs that the user listened to most recently
+     * @return a map of songs that the user listened to most recently
      */
-    List<String> getHistory();
+    Map<String, String> getHistory();
 }

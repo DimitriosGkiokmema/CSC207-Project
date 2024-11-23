@@ -5,11 +5,8 @@ package interface_adapter.recommend;
  */
 public class RecommendState {
     private String songRecommendations;
-    private String recommendationError;
 
     public RecommendState(RecommendState recommendState) {
-        songRecommendations = recommendState.songRecommendations;
-        recommendationError = recommendState.recommendationError;
     }
 
     // Because of the previous copy constructor, the default constructor must be explicit.
@@ -17,19 +14,11 @@ public class RecommendState {
 
     }
 
-    public String getSongRecommendations() {
-        return songRecommendations;
-    }
-
-    public String getRecommendationError() {
-        return recommendationError;
-    }
-
     public void setSongRecommendations(String songRecommendations) {
         this.songRecommendations = songRecommendations;
     }
 
-    public void setRecommendationError(String recommendationError) {
-        this.recommendationError = recommendationError;
+    public String getSongRecommendations() {
+        return songRecommendations;
     }
 }

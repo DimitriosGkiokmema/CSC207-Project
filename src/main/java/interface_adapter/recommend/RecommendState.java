@@ -1,13 +1,10 @@
 package interface_adapter.recommend;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * The state for the Recommendation View Model.
  */
 public class RecommendState {
-    private Map<String, String> songRecommendations = new HashMap<String, String>();
+    private String songRecommendations;
     private String recommendationError;
 
     public RecommendState(RecommendState recommendState) {
@@ -15,7 +12,12 @@ public class RecommendState {
         recommendationError = recommendState.recommendationError;
     }
 
-    public Map<String, String> getSongRecommendations() {
+    // Because of the previous copy constructor, the default constructor must be explicit.
+    public RecommendState() {
+
+    }
+
+    public String getSongRecommendations() {
         return songRecommendations;
     }
 
@@ -23,7 +25,7 @@ public class RecommendState {
         return recommendationError;
     }
 
-    public void setSongRecommendations(Map<String, String> songRecommendations) {
+    public void setSongRecommendations(String songRecommendations) {
         this.songRecommendations = songRecommendations;
     }
 

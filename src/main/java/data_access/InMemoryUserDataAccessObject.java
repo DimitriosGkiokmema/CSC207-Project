@@ -7,6 +7,7 @@ import java.util.Map;
 import entity.User;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
+import use_case.recommend.RecommendUserDataAccessInterface;
 import use_case.top_items.TopItemsUserDataAccessInterface;
 
 /**
@@ -15,7 +16,8 @@ import use_case.top_items.TopItemsUserDataAccessInterface;
  */
 public class InMemoryUserDataAccessObject implements
         LoginUserDataAccessInterface,
-        LogoutUserDataAccessInterface {
+        LogoutUserDataAccessInterface,
+        RecommendUserDataAccessInterface {
     private final Map<String, User> users = new HashMap<>();
 
     private String currentUsername;
@@ -45,4 +47,13 @@ public class InMemoryUserDataAccessObject implements
         return this.currentUsername;
     }
 
+    @Override
+    public Map<String, String> getSongRecommendations() {
+        return Map.of();
+    }
+
+    @Override
+    public void setSongRecommendations(Map<String, String> songRecommendations) {
+
+    }
 }

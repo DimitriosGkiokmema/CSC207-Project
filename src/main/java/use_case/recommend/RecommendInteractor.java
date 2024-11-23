@@ -6,10 +6,10 @@ import java.util.Map;
  * The Recommendations Interactor.
  */
 public class RecommendInteractor implements RecommendInputBoundary {
-    private final RecommendUserDataAccessInterface recommendDataAccessObject;
+    private final RecommendLanguageModelDataAccessInterface recommendDataAccessObject;
     private final RecommendOutputBoundary recommendationOutputBoundary;
 
-    public RecommendInteractor(RecommendUserDataAccessInterface recommendDataAccessInterface,
+    public RecommendInteractor(RecommendLanguageModelDataAccessInterface recommendDataAccessInterface,
                            RecommendOutputBoundary recommendOutputBoundary) {
         this.recommendDataAccessObject = recommendDataAccessInterface;
         this.recommendationOutputBoundary = recommendOutputBoundary;
@@ -17,10 +17,10 @@ public class RecommendInteractor implements RecommendInputBoundary {
 
     @Override
     public void execute(RecommendInputData recommendInputData) {
-        final Map<String, String> songRecommendations = recommendInputData.getRecommendations();
-        recommendDataAccessObject.setSongRecommendations(songRecommendations);
+        final Map<String, String> history = recommendInputData.getListeningHistory();
+        final String songRecommendations = recommendDataAccessObject.getRecommendations(history);
 
-        final RecommendOutputData outputData = new RecommendOutputData(songRecommendations, false);
+        final RecommendOutputData outputData = new RecommendOutputData(songRecommendations);
         recommendationOutputBoundary.prepareSuccessView(outputData);
     }
 }

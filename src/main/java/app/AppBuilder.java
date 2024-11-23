@@ -5,6 +5,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import data_access.InMemoryUserDataAccessObject;
+import data_access.LanguageModelDataAccessObject;
 import data_access.TopItemsUserDataAccessObject;
 import entity.CommonUserFactory;
 import entity.UserFactory;
@@ -33,7 +34,6 @@ import use_case.logout.LogoutOutputBoundary;
 import use_case.recommend.RecommendInputBoundary;
 import use_case.recommend.RecommendInteractor;
 import use_case.recommend.RecommendOutputBoundary;
-import use_case.recommend.RecommendUserDataAccessInterface;
 import use_case.search.SearchInputBoundary;
 import use_case.search.SearchInteractor;
 import use_case.search.SearchOutputBoundary;
@@ -68,7 +68,9 @@ public class AppBuilder {
 
     // thought question: is the hard dependency below a problem?
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
-    private final RecommendUserDataAccessInterface recommendUserDataAccessInterface = new RecommendUserDataAccessInterface();
+    private final LanguageModelDataAccessObject lmDataAccessObject = new LanguageModelDataAccessObject();
+    // Change below file name to the DAO Ksenia will make, use it to get user listening history in song: artist format
+//    private final SpotifyDataAccessObject spotifyDataAccessObject = new SpotifyDataAccessObject();
     private final TopItemsUserDataAccessObject topItemsUserDataAccessObject = new TopItemsUserDataAccessObject();
 
     private LoginViewModel loginViewModel;
@@ -81,7 +83,6 @@ public class AppBuilder {
     private SearchView searchView;
     private TopItemsView topItemsView;
     private RecommendationsView recommendationsView;
-
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -106,6 +107,17 @@ public class AppBuilder {
         searchViewModel = new SearchViewModel();
         searchView = new SearchView(searchViewModel);
         cardPanel.add(searchView, searchView.getViewName());
+        return this;
+    }
+
+    /**
+     * Adds the Recommendation View to the application.
+     * @return this builder
+     */
+    public AppBuilder addRecommendationsView() {
+        recommendViewModel = new RecommendViewModel();
+        recommendationsView = new RecommendationsView(recommendViewModel);
+        cardPanel.add(recommendationsView, recommendationsView.getViewName());
         return this;
     }
 
@@ -153,11 +165,13 @@ public class AppBuilder {
     public AppBuilder addRecommendUseCase() {
         final RecommendOutputBoundary recommendOutputBoundary =
                 new RecommendPresenter(viewManagerModel, recommendViewModel);
-        final RecommendInputBoundary recommendInteractor =
-                new RecommendInteractor(recommendUserDataAccessInterface, recommendOutputBoundary);
+        final RecommendInputBoundary recommendInputBoundary =
+                new RecommendInteractor(lmDataAccessObject, recommendOutputBoundary);
+//        Use line 171 instead of 169
+//                new RecommendInteractor(lmDataAccessObject, spotifyDataAccessObject, recommendOutputBoundary);
 
-        final RecommendController recommendController = new RecommendController(recommendInteractor);
-        recommendationsView.setRecommendController(recommendController);
+        final RecommendController recommendController = new RecommendController(recommendInputBoundary);
+        loggedInView.setRecommendController(recommendController);
         return this;
     }
 
@@ -207,7 +221,8 @@ public class AppBuilder {
         loggedInView.setSearchController(searchController);
         return this;
     }
-      /**
+
+    /**
      * Adds the Top Tracks and Artists Use Case to the application.
      * @return this builder
      */
@@ -236,7 +251,7 @@ public class AppBuilder {
 
         application.add(cardPanel);
 
-        viewManagerModel.setState(recommendViewModel.getViewName());
+        viewManagerModel.setState(loggedInViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
 
         return application;

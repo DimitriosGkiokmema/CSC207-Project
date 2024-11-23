@@ -1,6 +1,6 @@
 package view;
 
-import interface_adapter.change_password.LoggedInState;
+//import interface_adapter.change_password.LoggedInState;
 import interface_adapter.login.LoginState;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchState;

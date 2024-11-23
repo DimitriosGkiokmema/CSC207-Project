@@ -1,11 +1,8 @@
 package view;
 
-import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.Objects;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import interface_adapter.recommend.RecommendController;
@@ -43,9 +40,7 @@ public class RecommendationsView extends JPanel implements PropertyChangeListene
         homeButtonPanel.add(homeButton);
 
         final JPanel songsPanel = new JPanel();
-        final ImageIcon refreshImg = new ImageIcon(Objects.requireNonNull(getClass().getResource("images/refresh.png")));
         refreshButton = new JButton("Refresh");
-        refreshButton.setIcon(refreshImg);
         songsTextArea = new JTextArea(10, 30);
         songsTextArea.setText("TO DO: Get songs to show here");
         final JScrollPane songsScrollPane = new JScrollPane(songsTextArea);

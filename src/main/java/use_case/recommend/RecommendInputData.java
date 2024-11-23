@@ -13,7 +13,7 @@ public class RecommendInputData {
         this.songRecommendations = songRecommendations;
     }
 
-    public Map<String, String> getRecommendations() {
+    public Map<String, String> getListeningHistory() {
         return songRecommendations;
     }
 }

@@ -6,7 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.azure.ai.openai.OpenAIClient;
 import com.azure.ai.openai.OpenAIClientBuilder;
@@ -32,6 +34,20 @@ public class LanguageModelDataAccessObject implements RecommendLanguageModelData
     public LanguageModelDataAccessObject() {
         accessToken = getKey();
     }
+
+    // Used for testing LLM
+//    public static void main(String[] args) {
+//        final LanguageModelDataAccessObject lmdao = new LanguageModelDataAccessObject();
+//        final Map<String, String> songs = new HashMap<>();
+//        songs.put("(sic)", "Slipknot");
+//        songs.put("Left Behind", "Slipknot");
+//        songs.put("Jumpdafuckup", "Soulfly");
+//        songs.put("Roots Bloody Roots", "Sepultura");
+//        songs.put("Dragula", "Rob Zombie");
+//        songs.put("Spit It Out", "Slipknot");
+//        System.out.println(lmdao.getRecommendations(songs));
+//
+//    }
 
     /**
      * This is a helper method to get the Azure API key.
@@ -78,6 +94,29 @@ public class LanguageModelDataAccessObject implements RecommendLanguageModelData
                 new ChatCompletionsOptions(chatMessages));
         final int back = chatCompletions.getChoices().size() - 1;
         return chatCompletions.getChoices().get(back).getMessage().getContent();
+    }
 
+    @Override
+    public String getRecommendations(Map<String, String> history) {
+        final OpenAIClient client = new OpenAIClientBuilder()
+                .credential(new AzureKeyCredential(accessToken))
+                .endpoint(endpoint)
+                .buildClient();
+        final List<ChatRequestMessage> chatMessages = new ArrayList<>();
+        final List<String> songList = new ArrayList<>();
+        for (String s : history.keySet()) {
+            songList.add(history.get(s));
+            songList.add(s);
+        }
+        chatMessages.add(new ChatRequestSystemMessage("You are a Spotify analyst, you will either send back a "
+                + "list of songs which are similar to a provided list."));
+        chatMessages.add(new ChatRequestUserMessage("Can you help me find songs similar to " + songList
+                + "which is a list of songs where each song is followed by its artist name."));
+        chatMessages.add(new ChatRequestUserMessage(String.valueOf(songList)));
+
+        final ChatCompletions chatCompletions = client.getChatCompletions("gpt-4",
+                new ChatCompletionsOptions(chatMessages));
+        final int back = chatCompletions.getChoices().size() - 1;
+        return chatCompletions.getChoices().get(back).getMessage().getContent();
     }
 }

@@ -1,8 +1,6 @@
 package app;
 
-import javax.swing.*;
-import java.Constants;
-import java.awt.*;
+import javax.swing.JFrame;
 
 /**
  * The Main class of our application.
@@ -18,9 +16,11 @@ public class Main {
         final JFrame application = appBuilder
                 .addLoginView()
                 .addLoginUseCase()
+                .addLoggedInView()
+                .addRecommendationsView()
+                .addRecommendUseCase()
                 .addSearchView()
                 .addTopTracksAndArtistsView()
-                .addLoggedInView()
                 .addLogoutUseCase()
                 .addSearchUseCase()
                 .addTopTracksAndArtistsUseCase()

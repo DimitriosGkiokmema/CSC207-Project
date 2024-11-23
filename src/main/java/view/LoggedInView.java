@@ -4,7 +4,9 @@ import java.awt.Component;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -15,6 +17,7 @@ import javax.swing.JPanel;
 import interface_adapter.logged_in.LoggedInState;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.logout.LogoutController;
+import interface_adapter.recommend.RecommendController;
 import interface_adapter.search.SearchController;
 
 import interface_adapter.top_items.TopItemsController;
@@ -30,6 +33,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private LogoutController logoutController;
     private SearchController searchController;
     private TopItemsController topItemsController;
+    private RecommendController recommendController;
 
     private final JLabel username;
     private final JButton logOut;
@@ -136,6 +140,16 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 }
         );
 
+        recommendations.addActionListener(
+                evt -> {
+                    if (evt.getSource().equals(recommendations)) {
+                        // final String name = topTracksController
+                        final Map<String, String> songRecommendations = new HashMap<>();
+                        recommendController.execute(songRecommendations);
+                    }
+                }
+        );
+
         this.add(title);
         this.add(usernameInfo);
         this.add(username);
@@ -172,7 +186,12 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     public void setSearchController(SearchController searchController) {
         this.searchController = searchController;
     }
+
     public void setTopTracksController(TopItemsController topItemsController) {
         this.topItemsController = topItemsController;
+    }
+
+    public void setRecommendController(RecommendController recommendController) {
+        this.recommendController = recommendController;
     }
 }

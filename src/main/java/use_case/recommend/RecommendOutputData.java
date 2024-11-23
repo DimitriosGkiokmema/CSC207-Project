@@ -6,15 +6,13 @@ import java.util.Map;
  * The output data for the Recommend Use Case.
  */
 public class RecommendOutputData {
-    private final Map<String, String> songRecommendations;
-    private final boolean useCaseFailed;
+    private final String songRecommendations;
 
-    public RecommendOutputData(Map<String, String> songRecommendations, boolean useCaseFailed) {
+    public RecommendOutputData(String songRecommendations) {
         this.songRecommendations = songRecommendations;
-        this.useCaseFailed = useCaseFailed;
     }
 
-    public Map<String, String> getSongRecommendations() {
+    public String getSongRecommendations() {
         return songRecommendations;
     }
 }

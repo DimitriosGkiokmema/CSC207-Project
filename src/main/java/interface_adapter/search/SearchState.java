@@ -1,6 +1,6 @@
 package interface_adapter.search;
 
-import interface_adapter.change_password.LoggedInState;
+//import interface_adapter.change_password.LoggedInState;
 
 /**
  * The state for the SearchViewModel.

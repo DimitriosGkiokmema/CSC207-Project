@@ -34,7 +34,6 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface 
 
     public SpotifyDataAccessObject() {
         this.accessToken = loginState.getLoginToken();
-        //this.accessToken = accessToken;
         this.currentUser = new CommonUser(accessToken);
         this.spotifyApi = new SpotifyApi.Builder()
                 .setAccessToken(accessToken)
@@ -82,6 +81,10 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface 
         }
     }
 
+    /**
+     * A helper method to get the current users top artists.
+     * @return a list of the artist names.
+     */
     private List<String> getUsersTopArtistsSync() {
         try {
             // Using Spotify Wrapper to get the given users top artists from API

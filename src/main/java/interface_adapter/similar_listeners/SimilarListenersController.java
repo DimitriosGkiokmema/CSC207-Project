@@ -18,11 +18,9 @@ public class SimilarListenersController {
     /**
      * Executes the Login Use Case.
      * @param accessToken the username of the user logging in
-     * @param followedArtists the list of artists this user follows.
      */
-    public void execute(String accessToken, ArrayList<String> followedArtists) {
-        final SimilarListenersInputData similarListenersInputData = new SimilarListenersInputData(accessToken,
-                followedArtists);
+    public void execute(String accessToken) {
+        final SimilarListenersInputData similarListenersInputData = new SimilarListenersInputData(accessToken);
 
         similarListenersInputBoundary.execute(similarListenersInputData);
     }

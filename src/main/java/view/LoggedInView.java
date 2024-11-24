@@ -19,6 +19,7 @@ import interface_adapter.search.SearchController;
 import interface_adapter.top_items.TopItemsController;
 import spotify_api.SpotifyService;
 import use_case.keyword.KeywordInteractor;
+import use_case.keyword.KeywordUserDataAccessObject;
 import use_case.login.LoginInputData;
 import use_case.login.LoginUserDataAccessInterface;
 
@@ -59,13 +60,19 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         searchButtons.add(keyword);
         // Add ActionListener for the "Search song by keyword" button
         // Add ActionListener for the "Search song by keyword" button
+        // Instantiate the data access object
+        KeywordUserDataAccessObject userDataAccess = new KeywordUserDataAccessObject();
+
+// Set the token (this would typically be done during login)
+        userDataAccess.setCurrentAccessToken("YOUR_ACCESS_TOKEN_FROM_LOGIN"); // Replace with the actual token
+
+// Add ActionListener for the "Search song by keyword" button
         keyword.addActionListener(evt -> {
             if (evt.getSource().equals(keyword)) {
-                // Retrieve the access token from LoginUserDataAccessInterface
-                LoginUserDataAccessInterface userDataAccess = /* initialize your data access object */;
+                // Retrieve the access token
                 String accessToken = userDataAccess.getCurrentAccessToken();
 
-                // Ensure token exists
+                // Ensure the token exists
                 if (accessToken == null || accessToken.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Error: Access token is missing. Please log in again.");
                     return;

@@ -19,7 +19,7 @@ public class LoginState {
         this.loginToken = loginToken;
     }
 
-    public void setLoginError(String usernameError) {
-        this.loginError = usernameError;
+    public void setLoginError(String accessTokenError) {
+        this.loginError = accessTokenError;
     }
 }

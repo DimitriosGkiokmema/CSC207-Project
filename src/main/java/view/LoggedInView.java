@@ -3,6 +3,8 @@ package view;
 import java.awt.Component;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -13,6 +15,10 @@ import javax.swing.JPanel;
 import interface_adapter.logged_in.LoggedInState;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.logout.LogoutController;
+import interface_adapter.search.SearchController;
+
+import interface_adapter.top_items.TopItemsController;
+
 
 /**
  * The View for when the user is logged into the program.
@@ -22,6 +28,8 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private final String viewName = "logged in";
     private final LoggedInViewModel loggedInViewModel;
     private LogoutController logoutController;
+    private SearchController searchController;
+    private TopItemsController topItemsController;
 
     private final JLabel username;
     private final JButton logOut;
@@ -46,16 +54,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         searchButtons.add(description);
         final JButton keyword = new JButton("Search song by keyword");
         searchButtons.add(keyword);
-
-        // Add an ActionListener to open the Keyword window
-        keyword.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Create and show the Keyword window
-                Keyword keywordWindow = new Keyword();
-                keywordWindow.show();
-            }
-        });
 
         final JButton home = new JButton("Home");
         appButtons.add(home);
@@ -117,6 +115,38 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                     }
                 }
         );
+        description.addActionListener(
+                // This creates an anonymous subclass of ActionListener and instantiates it.
+                evt -> {
+                    if (evt.getSource().equals(description)) {
+                        // 1. get the state out of the loggedInViewModel. It contains the username.
+                        final String accessToken = loggedInViewModel.getState().getUsername();
+                        // 2. Execute the logout Controller.
+                        searchController.execute(accessToken);
+                    }
+                }
+        );
+
+        topTracks.addActionListener(
+                evt -> {
+                    if (evt.getSource().equals(topTracks)) {
+                       // final String name = topTracksController
+                        final List<String> lst = new ArrayList<>();
+                        lst.add("a");
+                        topItemsController.execute(lst, lst, lst);
+                    }
+                }
+        );
+      
+      // Add an ActionListener to open the Keyword window
+        keyword.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Create and show the Keyword window
+                Keyword keywordWindow = new Keyword();
+                keywordWindow.show();
+            }
+        });
 
         this.add(title);
         this.add(usernameInfo);
@@ -149,5 +179,12 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
     public void setLogoutController(LogoutController logoutController) {
         this.logoutController = logoutController;
+    }
+
+    public void setSearchController(SearchController searchController) {
+        this.searchController = searchController;
+    }
+    public void setTopTracksController(TopItemsController topItemsController) {
+        this.topItemsController = topItemsController;
     }
 }

@@ -137,6 +137,16 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                     }
                 }
         );
+      
+      // Add an ActionListener to open the Keyword window
+        keyword.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Create and show the Keyword window
+                Keyword keywordWindow = new Keyword();
+                keywordWindow.show();
+            }
+        });
 
         this.add(title);
         this.add(usernameInfo);

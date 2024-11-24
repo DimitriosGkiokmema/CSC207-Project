@@ -104,9 +104,16 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addSearchView() {
+        //TODO discuss this implementation with team
         searchViewModel = new SearchViewModel();
         searchView = new SearchView(searchViewModel);
         cardPanel.add(searchView, searchView.getViewName());
+        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
+                loggedInViewModel, loginViewModel);
+        final LoginInputBoundary loginInteractor = new LoginInteractor(
+                userDataAccessObject, loginOutputBoundary);
+        final LoginController loginController = new LoginController(loginInteractor);
+        searchView.setLoginController(loginController);
         return this;
     }
 
@@ -209,6 +216,14 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addSearchUseCase() {
+        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
+                loggedInViewModel, loginViewModel);
+        final LoginInputBoundary loginInteractor = new LoginInteractor(
+                userDataAccessObject, loginOutputBoundary);
+
+        final LoginController loginController = new LoginController(loginInteractor);
+        searchView.setLoginController(loginController);
+
         final SearchOutputBoundary searchOutputBoundary = new SearchPresenter(viewManagerModel,
                 loggedInViewModel, searchViewModel);
 

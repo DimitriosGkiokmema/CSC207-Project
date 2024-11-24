@@ -1,6 +1,7 @@
 package view;
 
-//import interface_adapter.change_password.LoggedInState;
+import interface_adapter.logged_in.LoggedInState;
+import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginState;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchState;
@@ -20,6 +21,7 @@ public class SearchView extends JPanel implements PropertyChangeListener {
     private final String viewName = "search";
     private final SearchViewModel searchViewModel;
     private SearchController searchController;
+    private LoginController loginController;
 
     private final int searchBoxSize = 50;
 
@@ -49,18 +51,19 @@ public class SearchView extends JPanel implements PropertyChangeListener {
         searchResult.setAlignmentX(Component.RIGHT_ALIGNMENT);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        /* this block of code is to be finished after a discussion about a unified return home use case.
+        /* this block of code is to be finished after a discussion about a unified return home use case.*/
         returnHome.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 evt -> {
                     if (evt.getSource().equals(returnHome)) {
                         // 1. get the state out of the searchViewModel. It contains the username.
-                        final String name = searchViewModel.getState().getUsername();
+                        final String accessToken = searchViewModel.getState().getAccessToken();
                         // 2. Execute the search Controller.
-                        loginController.execute();
+                        loginController.execute(accessToken);
+
                     }
                 }
-        );*/
+        );
 
         this.add(title);
         this.add(searchButtons);
@@ -94,5 +97,9 @@ public class SearchView extends JPanel implements PropertyChangeListener {
 
     public void setSearchController(SearchController searchController) {
         this.searchController = searchController;
+    }
+
+    public void setLoginController(LoginController loginController) {
+        this.loginController = loginController;
     }
 }

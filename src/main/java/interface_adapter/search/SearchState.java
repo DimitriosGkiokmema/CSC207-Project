@@ -1,6 +1,6 @@
 package interface_adapter.search;
 
-//import interface_adapter.change_password.LoggedInState;
+import interface_adapter.logged_in.LoggedInState;
 
 /**
  * The state for the SearchViewModel.
@@ -9,6 +9,7 @@ public class SearchState {
 
     private String query;
     private String modelResponse;
+    private String accessToken;
 
     public SearchState(SearchState copy) {
         query = copy.query;
@@ -34,5 +35,13 @@ public class SearchState {
 
     public void setModelResponse(String modelResponse) {
         this.modelResponse = modelResponse;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 }

@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -123,8 +125,10 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 evt -> {
                     if (evt.getSource().equals(description)) {
-                        // 1. Execute the logout Controller.
-                        searchController.execute();
+                        // 1. get the state out of the loggedInViewModel. It contains the username.
+                        final String accessToken = loggedInViewModel.getState().getUsername();
+                        // 2. Execute the logout Controller.
+                        searchController.execute(accessToken);
                     }
                 }
         );
@@ -139,6 +143,16 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                     }
                 }
         );
+      
+      // Add an ActionListener to open the Keyword window
+        keyword.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Create and show the Keyword window
+                Keyword keywordWindow = new Keyword();
+                keywordWindow.show();
+            }
+        });
 
         recommendations.addActionListener(
                 evt -> {

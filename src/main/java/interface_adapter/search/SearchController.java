@@ -19,7 +19,7 @@ public class SearchController {
     /**
      * Executes the Search Use Case.
      */
-    public void execute() {
-        searchUseCaseInteractor.execute();
+    public void execute(String accessToken) {
+        searchUseCaseInteractor.execute(accessToken);
     }
 }

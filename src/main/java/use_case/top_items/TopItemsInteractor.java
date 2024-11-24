@@ -20,11 +20,9 @@ public class TopItemsInteractor implements TopItemsInputBoundary {
     public void execute(TopItemsInputData topItemsInputData) {
         final List<String> topTracks = topItemsInputData.getTracks();
         final List<String> topArtists = topItemsInputData.getArtists();
-        final List<String> time = topItemsInputData.getTime();
         userDataAccessObject.setCurrentTopTracks(topTracks);
-        userDataAccessObject.setCurrentTime(time);
 
-        final TopItemsOutputData outputData = new TopItemsOutputData(topTracks, topArtists, time, false);
+        final TopItemsOutputData outputData = new TopItemsOutputData(topTracks, topArtists, false);
         topItemsOutputBoundary.prepareSuccessView(outputData);
     }
 }

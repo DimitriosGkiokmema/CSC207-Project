@@ -24,6 +24,7 @@ import use_case.top_items.TopItemsUserDataAccessInterface;
  * DAO for getting relevant information from Spotify API.
  */
 public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface {
+    public static final int OFFSET = 4;
 
     private LoginState loginState = new LoginState();
     private String accessToken;
@@ -39,9 +40,11 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface 
                 .setAccessToken(accessToken)
                 .build();
         this.getTopTracksRequest = spotifyApi.getUsersTopTracks()
+                .offset(OFFSET)
                 .time_range("short_term")
                 .build();
         this.getTopArtistsRequest = spotifyApi.getUsersTopArtists()
+                .offset(OFFSET)
                 .time_range("short_term")
                 .build();
     }

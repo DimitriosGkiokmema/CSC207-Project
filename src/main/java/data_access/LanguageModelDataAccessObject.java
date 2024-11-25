@@ -35,20 +35,6 @@ public class LanguageModelDataAccessObject implements RecommendLanguageModelData
         accessToken = getKey();
     }
 
-    // Used for testing LLM
-//    public static void main(String[] args) {
-//        final LanguageModelDataAccessObject lmdao = new LanguageModelDataAccessObject();
-//        final Map<String, String> songs = new HashMap<>();
-//        songs.put("(sic)", "Slipknot");
-//        songs.put("Left Behind", "Slipknot");
-//        songs.put("Jumpdafuckup", "Soulfly");
-//        songs.put("Roots Bloody Roots", "Sepultura");
-//        songs.put("Dragula", "Rob Zombie");
-//        songs.put("Spit It Out", "Slipknot");
-//        System.out.println(lmdao.getRecommendations(songs));
-//
-//    }
-
     /**
      * This is a helper method to get the Azure API key.
      * @return the access token stored in the local keys.txt file

@@ -35,8 +35,8 @@ public class RecommendationsView extends JPanel implements PropertyChangeListene
         final JPanel titlePanel = new JPanel();
         titlePanel.add(title);
 
-        final JLabel description = new JLabel("Because you've listened to " + getArtist()
-                + ", here are some songs you might like:");
+        final JLabel description = new JLabel("Based on your listening history, "
+                +"here are some songs you might like:");
         final JPanel descriptionPanel = new JPanel();
         descriptionPanel.add(description);
 

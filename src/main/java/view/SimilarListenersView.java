@@ -26,9 +26,6 @@ public class SimilarListenersView extends JPanel implements PropertyChangeListen
         this.similarListenersViewModel.addPropertyChangeListener(this);
 
         // building the interface
-        //final JLabel title = new JLabel("Your Similar Listeners: ");
-        //title.setAlignmentX(Component.CENTER_ALIGNMENT);
-
         final JLabel title = new JLabel("Your Similar Listeners: ");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         listOfArtists = new JTextArea("list of names appear here");
@@ -72,7 +69,7 @@ public class SimilarListenersView extends JPanel implements PropertyChangeListen
 
     }
 
-    public void setListOfArtists(SimilarListenersState similarListenersState) {
+    private void setListOfArtists(SimilarListenersState similarListenersState) {
         String artistsNames = "";
         List<String> followedArtists = similarListenersState.getSimilarArtists();
         for (String followedArtist : followedArtists) {

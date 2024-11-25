@@ -19,6 +19,7 @@ import interface_adapter.logout.LogoutPresenter;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchPresenter;
 import interface_adapter.search.SearchViewModel;
+import interface_adapter.similar_listeners.SimilarListenersViewModel;
 import interface_adapter.top_items.TopItemsController;
 import interface_adapter.top_items.TopItemsPresenter;
 import interface_adapter.top_items.TopItemsViewModel;
@@ -35,12 +36,7 @@ import use_case.search.SearchOutputBoundary;
 import use_case.top_items.TopItemsInputBoundary;
 import use_case.top_items.TopItemsInteractor;
 import use_case.top_items.TopItemsOutputBoundary;
-import view.LoggedInView;
-import view.LoginView;
-import view.SearchView;
-import view.TopItemsView;
-
-import view.ViewManager;
+import view.*;
 
 /**
  * The AppBuilder class is responsible for putting together the pieces of
@@ -71,10 +67,12 @@ public class AppBuilder {
     private LoggedInViewModel loggedInViewModel;
     private TopItemsViewModel topTracksAndArtistsViewModel;
     private SearchViewModel searchViewModel;
+    private SimilarListenersViewModel similarListenersViewModel;
     private LoggedInView loggedInView;
     private LoginView loginView;
     private SearchView searchView;
     private TopItemsView topItemsView;
+    private SimilarListenersView similarListenersView;
 
 
     public AppBuilder() {
@@ -128,6 +126,17 @@ public class AppBuilder {
         topTracksAndArtistsViewModel = new TopItemsViewModel();
         topItemsView = new TopItemsView(topTracksAndArtistsViewModel);
         cardPanel.add(topItemsView, topItemsView.getViewName());
+        return this;
+    }
+
+    /**
+     * Adds the SimilarListeners View to the application.
+     * @return this builder
+     */
+    public AppBuilder addSimilarListenersView() {
+        similarListenersViewModel = new SimilarListenersViewModel();
+        similarListenersView = new SimilarListenersView(similarListenersViewModel);
+        cardPanel.add(similarListenersView, similarListenersView.getViewName());
         return this;
     }
 

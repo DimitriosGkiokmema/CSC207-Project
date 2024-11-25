@@ -9,22 +9,20 @@ import java.util.List;
  * The controller for the TopTracks and Artists Use Case.
  */
 public class TopItemsController {
-    private TopItemsInputBoundary topItemsInputBoundary;
+    private TopItemsInputBoundary topItemsUseCaseInteractor;
 
-    public TopItemsController(TopItemsInputBoundary topItemsInputBoundary) {
-        this.topItemsInputBoundary = topItemsInputBoundary;
+    public TopItemsController(TopItemsInputBoundary topItemsUseCaseInteractor) {
+        this.topItemsUseCaseInteractor = topItemsUseCaseInteractor;
     }
 
     /**
-     * Executes the Logout Use Case.
+     * Executes the TopItems Use Case.
      * @param toptracks the top tracks of the user.
-     * @param time the timespan of the data.
      * @param topartists the top artists of the user.
      */
-    public void execute(List<String> toptracks, List<String> topartists, List<String> time) {
-        // 1. instantiate the `LogoutInputData`, which should contain the username.
-        // 2. tell the Interactor to execute.
+    public void execute(List<String> toptracks, List<String> topartists) {
         final TopItemsInputData topItemsInputData = new TopItemsInputData(toptracks, topartists);
-        topItemsInputBoundary.execute(topItemsInputData);
+
+        topItemsUseCaseInteractor.execute(topItemsInputData);
     }
 }

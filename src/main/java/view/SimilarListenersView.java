@@ -1,8 +1,8 @@
 package view;
 
+import java.util.List;
+
 import interface_adapter.ViewManagerModel;
-import interface_adapter.ViewModel;
-import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.similar_listeners.SimilarListenersState;
 import interface_adapter.similar_listeners.SimilarListenersViewModel;
@@ -19,17 +19,27 @@ public class SimilarListenersView extends JPanel implements PropertyChangeListen
     private final String viewName = "similar listeners";
     private final SimilarListenersViewModel similarListenersViewModel;
     private final JButton back;
-    private final JPanel listOfArtists;
+    private final JTextArea listOfArtists;
 
     public <T> SimilarListenersView(SimilarListenersViewModel similarListenersViewModel) {
         this.similarListenersViewModel = similarListenersViewModel;
         this.similarListenersViewModel.addPropertyChangeListener(this);
 
         // building the interface
-        final JLabel title = new JLabel("Similar Listeners");
-        listOfArtists = new JPanel();
+        //final JLabel title = new JLabel("Your Similar Listeners: ");
+        //title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        back = new JButton("Back");
+        final JLabel title = new JLabel("Your Similar Listeners: ");
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        listOfArtists = new JTextArea("list of names appear here");
+        listOfArtists.setEditable(true);
+        final JPanel similarListenersInfo = new JPanel();
+        similarListenersInfo.add(title);
+        similarListenersInfo.add(listOfArtists);
+        similarListenersInfo.setLayout(new BoxLayout(similarListenersInfo, BoxLayout.Y_AXIS));
+
+        back = new JButton("Go Back");
+        back.setAlignmentX(Component.CENTER_ALIGNMENT);
         back.addActionListener(
                 new ActionListener() {
                     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
@@ -45,22 +55,31 @@ public class SimilarListenersView extends JPanel implements PropertyChangeListen
                 }
         );
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.add(listOfArtists);
-        this.add(title);
+        //this.add(title);
+        this.add(similarListenersInfo);
         this.add(back);
 
     }
 
     public String getViewName() {
-        return this.viewName;
+        return viewName;
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         final SimilarListenersState similarListenersState = (SimilarListenersState) evt.getNewValue();
+        setListOfArtists(similarListenersState);
 
     }
+
     public void setListOfArtists(SimilarListenersState similarListenersState) {
+        String artistsNames = "";
+        List<String> followedArtists = similarListenersState.getSimilarArtists();
+        for (String followedArtist : followedArtists) {
+            artistsNames += followedArtist + "\n";
+        }
+        listOfArtists.setText(artistsNames);
 
     }
+
 }

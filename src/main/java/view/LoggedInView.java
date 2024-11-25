@@ -1,23 +1,29 @@
 package view;
 
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 
+import interface_adapter.keyword.KeywordController;
+import interface_adapter.keyword.KeywordPresenter;
+import interface_adapter.keyword.KeywordViewModel;
 import interface_adapter.logged_in.LoggedInState;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.search.SearchController;
 
 import interface_adapter.top_items.TopItemsController;
+import spotify_api.SpotifyService;
+import use_case.keyword.KeywordInteractor;
+import use_case.keyword.KeywordUserDataAccessObject;
+import use_case.login.LoginInputData;
+import use_case.login.LoginUserDataAccessInterface;
 
 
 /**
@@ -54,13 +60,40 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         searchButtons.add(description);
         final JButton keyword = new JButton("Search song by keyword");
         searchButtons.add(keyword);
+        // Add ActionListener for the "Search song by keyword" button
+        keyword.addActionListener(evt -> {
+            if (evt.getSource().equals(keyword)) {
+                // Retrieve the current frame
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
 
+                // Retrieve the access token
+                String accessToken = "BQDDn_mcxlh_IGVdFgYNQnTX-DZbP7EGYxYJ5hIGO3FvZrAkn__uoGsSR8RR79CMf5ApJyqWLfQ-Exkq0EXkVpPHHGbl7F67uRepDSX-pcpUdlS9Ve8"; // Assuming the token is stored as the username
+
+                // Ensure the token exists
+                if (accessToken == null || accessToken.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Error: Access token is missing. Please log in again.");
+                    return;
+                }
+
+                // Initialize components for the Keyword feature
+                KeywordViewModel viewModel = new KeywordViewModel();
+                KeywordPresenter presenter = new KeywordPresenter(viewModel);
+                SpotifyService spotifyService = new SpotifyService(accessToken);
+                KeywordInteractor interactor = new KeywordInteractor(spotifyService, presenter);
+                KeywordController keywordController = new KeywordController(interactor, viewModel);
+
+                // Create the Keyword view and set it as the content pane
+                Keyword keywordPage = new Keyword(keywordController, viewModel);
+                frame.setContentPane(keywordPage.getPanel(frame));
+                frame.revalidate(); // Refresh the frame to display the new content
+            }
+        });
         final JButton home = new JButton("Home");
         appButtons.add(home);
         final JButton recommendations = new JButton("Recommendations");
         appButtons.add(recommendations);
-        final JButton topTracks = new JButton("Top Tracks");
-        appButtons.add(topTracks);
+        final JButton topItems = new JButton("Top Items");
+        appButtons.add(topItems);
         final JButton similarListeners = new JButton("Similar listeners");
         appButtons.add(similarListeners);
 
@@ -127,16 +160,25 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 }
         );
 
-        topTracks.addActionListener(
+        topItems.addActionListener(
                 evt -> {
-                    if (evt.getSource().equals(topTracks)) {
+                    if (evt.getSource().equals(topItems)) {
                        // final String name = topTracksController
                         final List<String> lst = new ArrayList<>();
-                        lst.add("a");
-                        topItemsController.execute(lst, lst, lst);
+                        topItemsController.execute(lst, lst);
                     }
                 }
         );
+      
+      // Add an ActionListener to open the Keyword window
+        keyword.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Create and show the Keyword window
+                KeywordView keywordWindow = new KeywordView();
+                keywordWindow.show();
+            }
+        });
 
         this.add(title);
         this.add(usernameInfo);

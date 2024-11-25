@@ -8,7 +8,7 @@ import java.util.List;
 public interface TopItemsUserDataAccessInterface {
 
     /**
-     * Returns the top track List of the current user of the application.
+     * Returns the top track list of the current user of the application.
      * @return the top track List of the current user; null indicates that there are no track lists.
      */
     List<String> getCurrentTopTracks();
@@ -20,8 +20,8 @@ public interface TopItemsUserDataAccessInterface {
     void setCurrentTopTracks(List<String> tracks);
 
     /**
-     * Returns the top artist List of the current user of the application.
-     * @return the top artist List of the current user; null indicates that there are no artist lists.
+     * Returns the top artist list of the current user of the application.
+     * @return the top artist list of the current user; null indicates that there are no artist lists.
      */
     List<String> getCurrentTopArtists();
 
@@ -30,18 +30,4 @@ public interface TopItemsUserDataAccessInterface {
      * @param artists the new top artist list; null to indicate that there is no top tracks.
      */
     void setCurrentTopArtists(List<String> artists);
-
-
-    /**
-     * Returns the top track List of the current user of the application.
-     * @return the access Token of the current user; null indicates that no one is logged into the application.
-     */
-    List<String> getCurrentTime();
-
-    /**
-     * Sets the top tracks list indicating who is the current user of the application.
-     * @param time the new top track list; null to indicate that no one is currently logged into the
-     *                    application.
-     */
-    void setCurrentTime(List<String> time);
 }

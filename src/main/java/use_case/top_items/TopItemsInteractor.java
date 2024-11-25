@@ -3,7 +3,7 @@ package use_case.top_items;
 import java.util.List;
 
 /**
- * The Top Tracks Interactor.
+ * The TopItems Interactor.
  */
 public class TopItemsInteractor implements TopItemsInputBoundary {
     private TopItemsUserDataAccessInterface userDataAccessObject;
@@ -11,20 +11,16 @@ public class TopItemsInteractor implements TopItemsInputBoundary {
 
     public TopItemsInteractor(TopItemsUserDataAccessInterface userDataAccessObject,
                               TopItemsOutputBoundary topItemsOutputBoundary) {
-        // Which parameter is the DAO and which is the presenter?
         this.userDataAccessObject = userDataAccessObject;
         this.topItemsOutputBoundary = topItemsOutputBoundary;
     }
 
     @Override
     public void execute(TopItemsInputData topItemsInputData) {
-        final List<String> topTracks = topItemsInputData.getTracks();
-        final List<String> topArtists = topItemsInputData.getArtists();
-        final List<String> time = topItemsInputData.getTime();
-        userDataAccessObject.setCurrentTopTracks(topTracks);
-        userDataAccessObject.setCurrentTime(time);
+        final List<String> topTracks = userDataAccessObject.getCurrentTopTracks();
+        final List<String> topArtists = userDataAccessObject.getCurrentTopArtists();
 
-        final TopItemsOutputData outputData = new TopItemsOutputData(topTracks, topArtists, time, false);
+        final TopItemsOutputData outputData = new TopItemsOutputData(topTracks, topArtists);
         topItemsOutputBoundary.prepareSuccessView(outputData);
     }
 }

@@ -19,11 +19,11 @@ public class Main {
                 .addLoginView()
                 .addLoginUseCase()
                 .addSearchView()
-                .addTopTracksAndArtistsView()
+                .addTopItemsView()
                 .addLoggedInView()
                 .addLogoutUseCase()
                 .addSearchUseCase()
-                .addTopTracksAndArtistsUseCase()
+                .addTopItemsUseCase()
                 .build();
 
         application.pack();

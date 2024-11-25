@@ -34,6 +34,7 @@ There are six major features of the app; one for each of us to work on independe
 * Recommendations: The app can also get song recommendations based on a user's music preferences using the for you button. (Dimitrios)
 ![Recommendations Screen](images/csc207_progress1_dimitrios.png) <br />
 *   Search by Description: The user can enter the description of a song and have its title returned. (Quinn)
+
 ![Description Search Screen](images/csc207_progress1_quinn.png) <br />
 
 * Search by Artist and Lyric: A user may want to see some songs based on a given keyword. They can enter the keyword into a search text box and get 

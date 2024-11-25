@@ -5,28 +5,33 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>edu.csc207</groupId>
-    <artifactId>homework-5</artifactId>
+    <artifactId>spotify-companion-app</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
-
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20240303</version>
-        </dependency>
-
+        <!-- OkHttp: HTTP client for API calls -->
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
             <version>4.12.0</version>
         </dependency>
+
+        <!-- Gson: JSON parsing -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.9</version>
+        </dependency>
+
+        <!-- JUnit: Testing -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.13.1</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- JUnit 5: Testing (if you're using JUnit 5) -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -34,18 +39,26 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- JSON: Another library for JSON parsing (optional) -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20240303</version>
+        </dependency>
+
+        <!-- Azure AI OpenAI (if used in other parts of the project) -->
         <dependency>
             <groupId>com.azure</groupId>
             <artifactId>azure-ai-openai</artifactId>
             <version>1.0.0-beta.12</version>
         </dependency>
 
+        <!-- JFreeChart: For charts (if applicable in your project) -->
         <dependency>
             <groupId>org.jfree</groupId>
             <artifactId>jfreechart</artifactId>
             <version>1.5.4</version>
         </dependency>
-
         <!-- https://mvnrepository.com/artifact/se.michaelthelin.spotify/spotify-web-api-java -->
         <dependency>
             <groupId>se.michaelthelin.spotify</groupId>
@@ -54,14 +67,12 @@
         </dependency>
 
 
+
     </dependencies>
-
-
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
 </project>

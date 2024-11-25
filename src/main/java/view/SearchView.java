@@ -26,6 +26,7 @@ public class SearchView extends JPanel implements PropertyChangeListener {
     private final int searchBoxSize = 50;
 
     private final JButton returnHome;
+    private final JButton searchButton;
     private final JTextField searchInputField;
     private final JLabel searchResult;
     private final JLabel title;
@@ -41,12 +42,14 @@ public class SearchView extends JPanel implements PropertyChangeListener {
         returnHome = new JButton("Go Back");
         homeButton.add(returnHome);
 
-        searchResult = new JLabel("This is where search results will show up");
+        searchResult = new JLabel(searchViewModel.getState().getDisplayText());
 
         final JLabel description = new JLabel("Type In the Song Description:");
         searchButtons.add(description);
         searchInputField = new JTextField(searchBoxSize);
+        searchButton = new JButton("Search");
         searchButtons.add(searchInputField);
+        searchButtons.add(searchButton);
 
         searchResult.setAlignmentX(Component.RIGHT_ALIGNMENT);
 
@@ -60,6 +63,19 @@ public class SearchView extends JPanel implements PropertyChangeListener {
                         final String accessToken = searchViewModel.getState().getAccessToken();
                         // 2. Execute the search Controller.
                         loginController.execute(accessToken);
+
+                    }
+                }
+        );
+
+        searchButton.addActionListener(
+                // This creates an anonymous subclass of ActionListener and instantiates it.
+                evt -> {
+                    if (evt.getSource().equals(searchButton)) {
+                        // 1. get the state out of the searchViewModel. It contains the username.
+                        final String accessToken = searchViewModel.getState().getAccessToken();
+                        // 2. Execute the search Controller.
+                        searchController.executeSearch(accessToken, searchInputField.getText());
 
                     }
                 }
@@ -87,7 +103,7 @@ public class SearchView extends JPanel implements PropertyChangeListener {
     }
 
     private void setFields(SearchState state) {
-        searchInputField.setText(state.getQuery());
+        searchResult.setText(state.getDisplayText());
 
     }
 

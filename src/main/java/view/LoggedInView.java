@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -163,11 +165,20 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                     if (evt.getSource().equals(topTracks)) {
                        // final String name = topTracksController
                         final List<String> lst = new ArrayList<>();
-                        lst.add("a");
-                        topItemsController.execute(lst, lst, lst);
+                        topItemsController.execute(lst, lst);
                     }
                 }
         );
+      
+      // Add an ActionListener to open the Keyword window
+        keyword.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Create and show the Keyword window
+                Keyword keywordWindow = new Keyword();
+                keywordWindow.show();
+            }
+        });
 
         this.add(title);
         this.add(usernameInfo);

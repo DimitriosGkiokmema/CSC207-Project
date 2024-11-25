@@ -1,5 +1,6 @@
 package view;
 
+
 import interface_adapter.keyword.KeywordController;
 import interface_adapter.keyword.KeywordViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
@@ -8,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Keyword {
+
     private final KeywordController controller;
     private final KeywordViewModel viewModel;
 
@@ -82,3 +84,4 @@ public class Keyword {
         return panel;
     }
 }
+

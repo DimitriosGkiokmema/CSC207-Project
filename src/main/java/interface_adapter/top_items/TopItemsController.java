@@ -6,7 +6,7 @@ import use_case.top_items.TopItemsInputData;
 import java.util.List;
 
 /**
- * The controller for the TopTracks and Artists Use Case.
+ * The controller for the TopItems Use Case.
  */
 public class TopItemsController {
     private TopItemsInputBoundary topItemsUseCaseInteractor;

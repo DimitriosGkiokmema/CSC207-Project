@@ -33,8 +33,5 @@ public class TopItemsPresenter implements TopItemsOutputBoundary {
     @Override
     public void prepareFailView(String errorMessage) {
         // No code needed because there won't be an error.
-        /* final TopItemsState topItemsState = topItemsViewModel.getState();
-        topItemsState.setTracksError(errorMessage);
-        topItemsViewModel.firePropertyChanged(); */
     }
 }

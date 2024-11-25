@@ -15,7 +15,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 /**
- * The View for when the user is opens TopTracks Menu.
+ * The View for when the user is opens Top Items Menu.
  */
 public class TopItemsView extends JPanel implements PropertyChangeListener {
     private final String viewName = "Top Items";
@@ -74,20 +74,16 @@ public class TopItemsView extends JPanel implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         final TopItemsState state = (TopItemsState) evt.getNewValue();
         setTrackGraph(state);
-        /* if (evt.getPropertyName().equals("state")) {
-            final LoggedInState state = (LoggedInState) evt.getNewValue();
-            username.setText(state.getUsername());
-        }
-        else if (evt.getPropertyName().equals("password")) {
-            final LoggedInState state = (LoggedInState) evt.getNewValue();
-            JOptionPane.showMessageDialog(null, "password updated for " + state.getUsername());
-        } */
     }
 
     public String getViewName() {
         return viewName;
     }
 
+    /**
+     * The method updates the dataset for the Top Tracks Graph.
+     * @param state stands for the TopItemsState that is being used.
+     */
     public void setTrackGraph(TopItemsState state) {
         int decrease = 300;
 

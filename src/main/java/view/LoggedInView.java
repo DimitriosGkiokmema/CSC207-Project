@@ -151,6 +151,16 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
             }
         });
 
+        similarListeners.addActionListener(
+                evt -> {
+                    if (evt.getSource().equals(similarListeners)) {
+                        final List<String> lst = new ArrayList<>();
+                        final String accessToken = loggedInViewModel.getState().getUsername();
+                        similarListenersController.execute(accessToken);
+                    }
+                }
+        );
+
         this.add(title);
         this.add(usernameInfo);
         this.add(username);

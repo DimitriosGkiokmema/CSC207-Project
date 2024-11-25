@@ -19,7 +19,7 @@ import interface_adapter.logout.LogoutController;
 import interface_adapter.search.SearchController;
 
 import interface_adapter.top_items.TopItemsController;
-import spotify_api.SpotifyService;
+import data_access.SpotifyService;
 import use_case.keyword.KeywordInteractor;
 import use_case.keyword.KeywordUserDataAccessObject;
 import use_case.login.LoginInputData;

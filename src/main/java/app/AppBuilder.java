@@ -136,7 +136,7 @@ public class AppBuilder {
      * Adds the Top Tracks and Artists View to the application.
      * @return this builder
      */
-    public AppBuilder addTopTracksAndArtistsView() {
+    public AppBuilder addTopItemsView() {
         topTracksAndArtistsViewModel = new TopItemsViewModel();
         topItemsView = new TopItemsView(topTracksAndArtistsViewModel);
         cardPanel.add(topItemsView, topItemsView.getViewName());
@@ -244,11 +244,12 @@ public class AppBuilder {
         loggedInView.setSearchController(searchController);
         return this;
     }
-      /**
+
+    /**
      * Adds the Top Tracks and Artists Use Case to the application.
      * @return this builder
      */
-    public AppBuilder addTopTracksAndArtistsUseCase() {
+    public AppBuilder addTopItemsUseCase() {
         final TopItemsOutputBoundary topItemsOutputBoundary = new TopItemsPresenter(viewManagerModel,
                 topTracksAndArtistsViewModel);
 

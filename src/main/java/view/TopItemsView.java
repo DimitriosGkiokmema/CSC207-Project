@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.*;
 
+import interface_adapter.top_items.TopItemsState;
 import interface_adapter.top_items.TopItemsViewModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -17,12 +18,11 @@ import java.beans.PropertyChangeListener;
  * The View for when the user is opens TopTracks Menu.
  */
 public class TopItemsView extends JPanel implements PropertyChangeListener {
+    private final String viewName = "Top Items";
     private final TopItemsViewModel topItemsViewModel;
 
-    private final String viewName = "Top Items";
-
     private final JLabel welcomeLabel;
-    private final JButton goBack;
+    private final JButton homeButton;
 
     private final DefaultPieDataset<String> dataset1 = new DefaultPieDataset<>();
     private final DefaultCategoryDataset dataset2 = new DefaultCategoryDataset();
@@ -34,18 +34,18 @@ public class TopItemsView extends JPanel implements PropertyChangeListener {
         welcomeLabel = new JLabel("Welcome");
         welcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        goBack = new JButton("go back");
-        goBack.setAlignmentX(Component.CENTER_ALIGNMENT);
+        homeButton = new JButton("go back");
+        homeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         dataset1.setValue("Artist 1", 200);
         dataset1.setValue("Artist 2", 150);
         dataset1.setValue("Artist 3", 180);
 
-        dataset2.addValue(300, "Track 1", "1'st");
+        /* dataset2.addValue(300, "Track 1", "1'st");
         dataset2.addValue(250, "Track 2", "2'nd");
         dataset2.addValue(200, "Track 3", "3'rd");
         dataset2.addValue(150, "Track 4", "4'th");
-        dataset2.addValue(100, "Track 5", "5'th");
+        dataset2.addValue(100, "Track 5", "5'th"); */
 
         final JFreeChart chart = ChartFactory.createPieChart(
                 "Top Artists", dataset1, true, true, false);
@@ -67,15 +67,13 @@ public class TopItemsView extends JPanel implements PropertyChangeListener {
 
         this.add(welcomeLabel);
         this.add(chartLayoutPanel);
-        this.add(goBack);
-    }
-
-    public String getViewName() {
-        return viewName;
+        this.add(homeButton);
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        final TopItemsState state = (TopItemsState) evt.getNewValue();
+        setTrackGraph(state);
         /* if (evt.getPropertyName().equals("state")) {
             final LoggedInState state = (LoggedInState) evt.getNewValue();
             username.setText(state.getUsername());
@@ -84,5 +82,18 @@ public class TopItemsView extends JPanel implements PropertyChangeListener {
             final LoggedInState state = (LoggedInState) evt.getNewValue();
             JOptionPane.showMessageDialog(null, "password updated for " + state.getUsername());
         } */
+    }
+
+    public String getViewName() {
+        return viewName;
+    }
+
+    public void setTrackGraph(TopItemsState state) {
+        int decrease = 300;
+
+        for (int i = 0; i < state.getTracks().size(); i++) {
+            dataset2.addValue(decrease, state.getTracks().get(i), String.valueOf(i + 1));
+            decrease -= 50;
+        }
     }
 }

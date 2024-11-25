@@ -65,7 +65,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
 
                 // Retrieve the access token
-                String accessToken = loggedInViewModel.getState().getUsername(); // Assuming the token is stored as the username
+                String accessToken = "BQDDn_mcxlh_IGVdFgYNQnTX-DZbP7EGYxYJ5hIGO3FvZrAkn__uoGsSR8RR79CMf5ApJyqWLfQ-Exkq0EXkVpPHHGbl7F67uRepDSX-pcpUdlS9Ve8"; // Assuming the token is stored as the username
 
                 // Ensure the token exists
                 if (accessToken == null || accessToken.isEmpty()) {
@@ -78,7 +78,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 KeywordPresenter presenter = new KeywordPresenter(viewModel);
                 SpotifyService spotifyService = new SpotifyService(accessToken);
                 KeywordInteractor interactor = new KeywordInteractor(spotifyService, presenter);
-                KeywordController keywordController = new KeywordController(interactor);
+                KeywordController keywordController = new KeywordController(interactor, viewModel);
 
                 // Create the Keyword view and set it as the content pane
                 Keyword keywordPage = new Keyword(keywordController, viewModel);

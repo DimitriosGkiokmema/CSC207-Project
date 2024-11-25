@@ -40,34 +40,37 @@ public class Keyword {
         searchButton.setBounds(580, 30, 100, 80);
         panel.add(searchButton);
 
-        // Create a scrollable JTextArea
         JTextArea resultsArea = new JTextArea();
         resultsArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(resultsArea);
-        scrollPane.setBounds(50, 140, 650, 300); // Adjust size as needed
+        scrollPane.setBounds(50, 140, 650, 200); // Adjust size as needed
         panel.add(scrollPane);
 
-        // Add action listener to search button
+        // Add ActionListener for the "Search" button
         searchButton.addActionListener(e -> {
             String artistName = artistField.getText();
             String keyword = keywordField.getText();
 
+            // Trigger search and update viewModel
             viewModel.setLoading(true);
             controller.searchByKeyword(artistName, keyword);
 
-            if (viewModel.isLoading()) {
-                resultsArea.setText("Loading...");
+            // Check results and update the UI accordingly
+            if (viewModel.isProper_input()) {
+                resultsArea.setText("Artist and keyword can not be empty");
             } else if (viewModel.hasError()) {
                 resultsArea.setText("Error: " + viewModel.getErrorMessage());
+            } else if (viewModel.getSongs() == null && viewModel.getSongs().isEmpty()) {
+                // No results found
+                resultsArea.setText("Sorry, no songs found matching the keyword \"" + keyword + "\" for artist \"" + artistName + "\".");
             } else if (viewModel.getSongs() != null) {
-                // Display all songs in the JTextArea
+                // Display the list of songs
                 resultsArea.setText(String.join("\n", viewModel.getSongs()));
             }
         });
 
-        // Add "Return Home" button
         JButton homeButton = new JButton("Return Home");
-        homeButton.setBounds(580, 450, 150, 30); // Adjust positioning
+        homeButton.setBounds(580, 350, 150, 30); // Positioned at the bottom-right corner
         panel.add(homeButton);
 
         homeButton.addActionListener(e -> {

@@ -2,16 +2,17 @@ package use_case.top_items;
 
 import java.util.List;
 
+/**
+ * The output data for the TopItems Use Case.
+ */
 public class TopItemsOutputData {
 
     private final List<String> tracks;
     private final List<String> artists;
-    private final boolean useCaseFailed;
 
-    public TopItemsOutputData(List<String> tracks, List<String> artists, boolean useCaseFailed) {
+    public TopItemsOutputData(List<String> tracks, List<String> artists) {
         this.tracks = tracks;
         this.artists = artists;
-        this.useCaseFailed = useCaseFailed;
     }
 
     public List<String> getTracks() {

@@ -12,18 +12,23 @@ import org.apache.hc.core5.http.ParseException;
 import org.json.JSONException;
 import org.json.JSONObject;
 import se.michaelthelin.spotify.SpotifyApi;
+import se.michaelthelin.spotify.enums.ModelObjectType;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.specification.Artist;
 import se.michaelthelin.spotify.model_objects.specification.Paging;
+import se.michaelthelin.spotify.model_objects.specification.PagingCursorbased;
 import se.michaelthelin.spotify.model_objects.specification.Track;
+import se.michaelthelin.spotify.requests.data.follow.GetUsersFollowedArtistsRequest;
 import se.michaelthelin.spotify.requests.data.personalization.simplified.GetUsersTopArtistsRequest;
 import se.michaelthelin.spotify.requests.data.personalization.simplified.GetUsersTopTracksRequest;
+import use_case.similar_listeners.SimilarListenersUserDataAccessInterface;
 import use_case.top_items.TopItemsUserDataAccessInterface;
 
 /**
  * DAO for getting relevant information from Spotify API.
  */
-public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface {
+public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
+        SimilarListenersUserDataAccessInterface {
     public static final int OFFSET = 4;
 
     private LoginState loginState = new LoginState();
@@ -33,6 +38,10 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface 
     private SpotifyApi spotifyApi;
     private GetUsersTopTracksRequest getTopTracksRequest;
     private GetUsersTopArtistsRequest getTopArtistsRequest;
+
+    private GetUsersFollowedArtistsRequest getUsersFollowedArtistsRequest;
+    private static final ModelObjectType type = ModelObjectType.ARTIST;
+    private List<String> currFollowedArtists;
 
     public SpotifyDataAccessObject() {
         this.accessToken = loginState.getLoginToken();
@@ -49,6 +58,9 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface 
                 .build();
         this.currentTopTracks = getUsersTopTracksSync();
         this.currentTopArtists = getUsersTopArtistsSync();
+
+        this.getUsersFollowedArtistsRequest = spotifyApi.getUsersFollowedArtists(type).build();
+        this.currFollowedArtists = getUsersFollowedArtistsSync();
     }
 
     // Constructor used for testing.
@@ -104,7 +116,7 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface 
 
             final Artist[] artists = artistPaging.getItems();
 
-            final List<String> topArtists = new ArrayList<String>();
+            final List<String> topArtists = new ArrayList<>();
             for (Artist artist : artists) {
                 topArtists.add(artist.getName());
             }
@@ -114,6 +126,25 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface 
         } catch (IOException | SpotifyWebApiException | ParseException e) {
             System.out.println("Error: " + e.getMessage());
             return null;
+        }
+    }
+
+    /**
+     * A helper method to get the current users followed artists.
+     * @return a list of the artists names.
+     */
+    private List<String> getUsersFollowedArtistsSync() {
+        try {
+            final PagingCursorbased<Artist> artistPagingCursorbased = getUsersFollowedArtistsRequest.execute();
+            final Artist[] artists = artistPagingCursorbased.getItems();
+            final List<String> followedArtists = new ArrayList<>();
+            for (Artist artist : artists) {
+                followedArtists.add(artist.getName());
+            }
+            return followedArtists;
+        } catch (IOException | SpotifyWebApiException | ParseException e) {
+            System.out.println("Error: " + e.getMessage());
+            return new ArrayList<>();
         }
     }
 
@@ -138,5 +169,15 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface 
         this.currentTopArtists = artists;
     }
 
+    @Override
+    public List<String> getFollowedArtists() {
+        return this.currFollowedArtists;
+    }
+
+    @Override
+    public void setCurrentFollowedArtists(List<String> followedArtists) {
+        this.currFollowedArtists = followedArtists;
+
+    }
 }
 

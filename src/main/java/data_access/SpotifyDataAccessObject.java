@@ -14,10 +14,8 @@ import org.json.JSONObject;
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.enums.ModelObjectType;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
-import se.michaelthelin.spotify.model_objects.specification.Artist;
-import se.michaelthelin.spotify.model_objects.specification.Paging;
-import se.michaelthelin.spotify.model_objects.specification.PagingCursorbased;
-import se.michaelthelin.spotify.model_objects.specification.Track;
+import se.michaelthelin.spotify.model_objects.specification.*;
+import se.michaelthelin.spotify.requests.data.browse.GetRecommendationsRequest;
 import se.michaelthelin.spotify.requests.data.follow.GetUsersFollowedArtistsRequest;
 import se.michaelthelin.spotify.requests.data.personalization.simplified.GetUsersTopArtistsRequest;
 import se.michaelthelin.spotify.requests.data.personalization.simplified.GetUsersTopTracksRequest;
@@ -43,6 +41,8 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
     private static final ModelObjectType type = ModelObjectType.ARTIST;
     private List<String> currFollowedArtists;
 
+    private GetRecommendationsRequest getRecommendationsRequest;
+
     public SpotifyDataAccessObject() {
         this.accessToken = loginState.getLoginToken();
         this.spotifyApi = new SpotifyApi.Builder()
@@ -61,6 +61,9 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
 
         this.getUsersFollowedArtistsRequest = spotifyApi.getUsersFollowedArtists(type).build();
         this.currFollowedArtists = getUsersFollowedArtistsSync();
+
+        this.getRecommendationsRequest = spotifyApi.getRecommendations()
+                .build();
     }
 
     // Constructor used for testing.
@@ -145,6 +148,19 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
         } catch (IOException | SpotifyWebApiException | ParseException e) {
             System.out.println("Error: " + e.getMessage());
             return new ArrayList<>();
+        }
+    }
+
+    /**
+     * A helper method to get the current users recommendations from spotify.
+     */
+    private void getRecommendationsSync() {
+        try {
+            final Recommendations recommendations = getRecommendationsRequest.execute();
+
+            System.out.println("Length: " + recommendations.getTracks().length);
+        } catch (IOException | SpotifyWebApiException | ParseException e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 

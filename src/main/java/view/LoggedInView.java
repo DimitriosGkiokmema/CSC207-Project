@@ -20,6 +20,7 @@ import interface_adapter.logout.LogoutController;
 import interface_adapter.search.SearchController;
 
 import interface_adapter.similar_listeners.SimilarListenersController;
+import interface_adapter.similar_listeners.SimilarListenersViewModel;
 import interface_adapter.top_items.TopItemsController;
 
 
@@ -154,9 +155,9 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         similarListeners.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(similarListeners)) {
-                        final List<String> lst = new ArrayList<>();
                         final String accessToken = loggedInViewModel.getState().getUsername();
                         similarListenersController.execute(accessToken);
+
                     }
                 }
         );

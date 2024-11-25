@@ -61,8 +61,8 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         appButtons.add(home);
         final JButton recommendations = new JButton("Recommendations");
         appButtons.add(recommendations);
-        final JButton topItems = new JButton("Top Items");
-        appButtons.add(topItems);
+        final JButton topTracks = new JButton("Top Items");
+        appButtons.add(topTracks);
         final JButton similarListeners = new JButton("Similar listeners");
         appButtons.add(similarListeners);
 
@@ -129,9 +129,9 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 }
         );
 
-        topItems.addActionListener(
+        topTracks.addActionListener(
                 evt -> {
-                    if (evt.getSource().equals(topItems)) {
+                    if (evt.getSource().equals(topTracks)) {
                        // final String name = topTracksController
                         final List<String> lst = new ArrayList<>();
                         topItemsController.execute(lst, lst);

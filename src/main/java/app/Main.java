@@ -1,6 +1,8 @@
 package app;
 
-import javax.swing.JFrame;
+import javax.swing.*;
+import java.Constants;
+import java.awt.*;
 
 /**
  * The Main class of our application.
@@ -11,13 +13,17 @@ public class Main {
      * @param args unused arguments
      */
     public static void main(String[] args) {
+
         final AppBuilder appBuilder = new AppBuilder();
         final JFrame application = appBuilder
                 .addLoginView()
-                .addLoggedInView()
                 .addLoginUseCase()
-
+                .addSearchView()
+                .addTopItemsView()
+                .addLoggedInView()
                 .addLogoutUseCase()
+                .addSearchUseCase()
+                .addTopItemsUseCase()
                 .build();
 
         application.pack();

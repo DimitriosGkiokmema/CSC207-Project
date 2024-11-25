@@ -1,28 +1,45 @@
 package app;
 
-import java.Constants;
 import java.awt.*;
 
 import javax.swing.*;
 
 import data_access.InMemoryUserDataAccessObject;
+import data_access.LanguageModelDataAccessObject;
+import data_access.TopItemsUserDataAccessObject;
 import entity.CommonUserFactory;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.change_password.LoggedInViewModel;
+import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.logout.LogoutPresenter;
+import interface_adapter.search.SearchController;
+import interface_adapter.search.SearchPresenter;
+import interface_adapter.search.SearchViewModel;
+import interface_adapter.top_items.TopItemsController;
+import interface_adapter.top_items.TopItemsPresenter;
+import interface_adapter.top_items.TopItemsViewModel;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
 import use_case.logout.LogoutInputBoundary;
 import use_case.logout.LogoutInteractor;
 import use_case.logout.LogoutOutputBoundary;
+
+import use_case.search.SearchInputBoundary;
+import use_case.search.SearchInteractor;
+import use_case.search.SearchOutputBoundary;
+import use_case.top_items.TopItemsInputBoundary;
+import use_case.top_items.TopItemsInteractor;
+import use_case.top_items.TopItemsOutputBoundary;
 import view.LoggedInView;
 import view.LoginView;
+import view.SearchView;
+import view.TopItemsView;
+
 import view.ViewManager;
 
 /**
@@ -46,29 +63,23 @@ public class AppBuilder {
 
     // thought question: is the hard dependency below a problem?
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
+    private final TopItemsUserDataAccessObject topItemsUserDataAccessObject = new TopItemsUserDataAccessObject();
+    private final LanguageModelDataAccessObject languageModelDataAccessObject = new LanguageModelDataAccessObject();
 
 //    Will remove since our project does not cover signing up, only logging in
-//    private SignupView signupView;
-//    private SignupViewModel signupViewModel;
     private LoginViewModel loginViewModel;
     private LoggedInViewModel loggedInViewModel;
+    private TopItemsViewModel topTracksAndArtistsViewModel;
+    private SearchViewModel searchViewModel;
     private LoggedInView loggedInView;
     private LoginView loginView;
+    private SearchView searchView;
+    private TopItemsView topItemsView;
+
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
     }
-
-    /**
-     * Adds the Signup View to the application.
-     * @return this builder
-     */
-//    public AppBuilder addSignupView() {
-//        signupViewModel = new SignupViewModel();
-//        signupView = new SignupView(signupViewModel);
-//        cardPanel.add(signupView, signupView.getViewName());
-//        return this;
-//    }
 
     /**
      * Adds the Login View to the application.
@@ -78,6 +89,23 @@ public class AppBuilder {
         loginViewModel = new LoginViewModel();
         loginView = new LoginView(loginViewModel);
         cardPanel.add(loginView, loginView.getViewName());
+        return this;
+    }
+
+    /**
+     * Adds the Search View to the application.
+     * @return this builder
+     */
+    public AppBuilder addSearchView() {
+        searchViewModel = new SearchViewModel();
+        searchView = new SearchView(searchViewModel);
+        cardPanel.add(searchView, searchView.getViewName());
+        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
+                loggedInViewModel, loginViewModel);
+        final LoginInputBoundary loginInteractor = new LoginInteractor(
+                userDataAccessObject, loginOutputBoundary);
+        final LoginController loginController = new LoginController(loginInteractor);
+        searchView.setLoginController(loginController);
         return this;
     }
 
@@ -93,19 +121,15 @@ public class AppBuilder {
     }
 
     /**
-     * Adds the Signup Use Case to the application.
+     * Adds the Top Tracks and Artists View to the application.
      * @return this builder
      */
-//    public AppBuilder addSignupUseCase() {
-//        final SignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel,
-//                signupViewModel, loginViewModel);
-//        final SignupInputBoundary userSignupInteractor = new SignupInteractor(
-//                userDataAccessObject, signupOutputBoundary, userFactory);
-//
-//        final SignupController controller = new SignupController(userSignupInteractor);
-//        signupView.setSignupController(controller);
-//        return this;
-//    }
+    public AppBuilder addTopItemsView() {
+        topTracksAndArtistsViewModel = new TopItemsViewModel();
+        topItemsView = new TopItemsView(topTracksAndArtistsViewModel);
+        cardPanel.add(topItemsView, topItemsView.getViewName());
+        return this;
+    }
 
     /**
      * Adds the Login Use Case to the application.
@@ -121,23 +145,6 @@ public class AppBuilder {
         loginView.setLoginController(loginController);
         return this;
     }
-
-    /**
-     * Adds the Change Password Use Case to the application.
-     * @return this builder
-     */
-//    public AppBuilder addChangePasswordUseCase() {
-//        final ChangePasswordOutputBoundary changePasswordOutputBoundary =
-//                new ChangePasswordPresenter(loggedInViewModel);
-//
-//        final ChangePasswordInputBoundary changePasswordInteractor =
-//                new ChangePasswordInteractor(userDataAccessObject, changePasswordOutputBoundary, userFactory);
-//
-//        final ChangePasswordController changePasswordController =
-//                new ChangePasswordController(changePasswordInteractor);
-//        loggedInView.setChangePasswordController(changePasswordController);
-//        return this;
-//    }
 
     /**
      * Adds the Logout Use Case to the application.
@@ -156,6 +163,47 @@ public class AppBuilder {
     }
 
     /**
+     * Adds the Search Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addSearchUseCase() {
+        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
+                loggedInViewModel, loginViewModel);
+        final LoginInputBoundary loginInteractor = new LoginInteractor(
+                userDataAccessObject, loginOutputBoundary);
+
+        final LoginController loginController = new LoginController(loginInteractor);
+        searchView.setLoginController(loginController);
+
+        final SearchOutputBoundary searchOutputBoundary = new SearchPresenter(viewManagerModel,
+                loggedInViewModel, searchViewModel);
+
+        final SearchInputBoundary searchInteractor =
+                new SearchInteractor(languageModelDataAccessObject, searchOutputBoundary);
+
+        final SearchController searchController = new SearchController(searchInteractor);
+        searchView.setSearchController(searchController);
+        loggedInView.setSearchController(searchController);
+        return this;
+    }
+
+    /**
+     * Adds the Top Tracks and Artists Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addTopItemsUseCase() {
+        final TopItemsOutputBoundary topItemsOutputBoundary = new TopItemsPresenter(viewManagerModel,
+                topTracksAndArtistsViewModel);
+
+        final TopItemsInputBoundary topItemsInputBoundary =
+                new TopItemsInteractor(topItemsUserDataAccessObject, topItemsOutputBoundary);
+
+        final TopItemsController topItemsController = new TopItemsController(topItemsInputBoundary);
+        loggedInView.setTopTracksController(topItemsController);
+        return this;
+    }
+
+    /**
      * Creates the JFrame for the application and initially sets the SignupView to be displayed.
      * @return the application
      */
@@ -168,7 +216,7 @@ public class AppBuilder {
 
         application.add(cardPanel);
 
-        viewManagerModel.setState(loggedInView.getViewName());
+        viewManagerModel.setState(loggedInViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
 
         return application;

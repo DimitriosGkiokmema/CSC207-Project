@@ -23,7 +23,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     private final LoginViewModel loginViewModel;
 
     private final JTextField loginTokenInputField = new JTextField(15);
-    private final JLabel usernameErrorField = new JLabel();
+    private final JLabel accessTokenErrorField = new JLabel();
 
     private ImageIcon spotifyIcon = new ImageIcon("images/spotify2.png");
 
@@ -35,7 +35,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         this.loginViewModel = loginViewModel;
         this.loginViewModel.addPropertyChangeListener(this);
 
-        final LabelTextPanel usernameInfo = new LabelTextPanel(
+        final LabelTextPanel AccessTokenInfo = new LabelTextPanel(
                 new JLabel("Access Token"), loginTokenInputField);
 
         final JPanel buttons = new JPanel();
@@ -89,8 +89,8 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(spotifylabel);
-        this.add(usernameInfo);
-        this.add(usernameErrorField);
+        this.add(AccessTokenInfo);
+        this.add(accessTokenErrorField);
         this.add(buttons);
     }
 
@@ -106,7 +106,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     public void propertyChange(PropertyChangeEvent evt) {
         final LoginState state = (LoginState) evt.getNewValue();
         setFields(state);
-        usernameErrorField.setText(state.getLoginError());
+        accessTokenErrorField.setText(state.getLoginError());
     }
 
     private void setFields(LoginState state) {

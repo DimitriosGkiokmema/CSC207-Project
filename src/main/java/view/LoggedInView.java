@@ -21,9 +21,6 @@ import interface_adapter.search.SearchController;
 import interface_adapter.top_items.TopItemsController;
 import data_access.SpotifyService;
 import use_case.keyword.KeywordInteractor;
-import use_case.keyword.KeywordUserDataAccessObject;
-import use_case.login.LoginInputData;
-import use_case.login.LoginUserDataAccessInterface;
 
 
 /**
@@ -67,7 +64,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
 
                 // Retrieve the access token
-                String accessToken = "BQDDn_mcxlh_IGVdFgYNQnTX-DZbP7EGYxYJ5hIGO3FvZrAkn__uoGsSR8RR79CMf5ApJyqWLfQ-Exkq0EXkVpPHHGbl7F67uRepDSX-pcpUdlS9Ve8"; // Assuming the token is stored as the username
+                String accessToken = "BQCBkcgNkBgo48s7ZJlGRO2ohyiOJHc1nlBD-E6-6EsRsOILmexOHd3G81Bj3wKAymo8i1qOg8tvHPUSQASHL67WGTw4E_KlyXkpRyfMGIF67EOVLtY"; // Assuming the token is stored as the username
 
                 // Ensure the token exists
                 if (accessToken == null || accessToken.isEmpty()) {
@@ -83,7 +80,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 KeywordController keywordController = new KeywordController(interactor, viewModel);
 
                 // Create the Keyword view and set it as the content pane
-                Keyword keywordPage = new Keyword(keywordController, viewModel);
+                KeywordView keywordPage = new KeywordView(keywordController, viewModel);
                 frame.setContentPane(keywordPage.getPanel(frame));
                 frame.revalidate(); // Refresh the frame to display the new content
             }
@@ -163,15 +160,16 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         topTracks.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(topTracks)) {
-                       // final String name = topTracksController
+                        // final String name = topTracksController
                         final List<String> lst = new ArrayList<>();
                         topItemsController.execute(lst, lst);
                     }
                 }
         );
-      
-      // Add an ActionListener to open the Keyword window
-       keyword.addActionListener(new ActionListener() {
+
+        // Add an ActionListener to open the Keyword window
+        // Add an ActionListener to open the Keyword window
+        keyword.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Initialize the required components

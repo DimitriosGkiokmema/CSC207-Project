@@ -171,15 +171,23 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         );
       
       // Add an ActionListener to open the Keyword window
-        keyword.addActionListener(new ActionListener() {
+       keyword.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Create and show the Keyword window
-                Keyword keywordWindow = new Keyword();
+                // Initialize the required components
+                KeywordViewModel viewModel = new KeywordViewModel(); // Create a new ViewModel
+                KeywordPresenter presenter = new KeywordPresenter(viewModel); // Create a presenter
+                SpotifyService spotifyService = new SpotifyService("ACCESS_TOKEN_HERE"); // Replace with your access token
+                KeywordInteractor interactor = new KeywordInteractor(spotifyService, presenter); // Initialize interactor
+                KeywordController controller = new KeywordController(interactor, viewModel); // Initialize controller
+
+                // Create and show the KeywordView with required dependencies
+                KeywordView keywordWindow = new KeywordView(controller, viewModel);
                 keywordWindow.show();
             }
         });
 
+// Add components to the panel
         this.add(title);
         this.add(usernameInfo);
         this.add(username);

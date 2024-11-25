@@ -24,7 +24,7 @@ public class TopItemsController {
     public void execute(List<String> toptracks, List<String> topartists, List<String> time) {
         // 1. instantiate the `LogoutInputData`, which should contain the username.
         // 2. tell the Interactor to execute.
-        final TopItemsInputData topItemsInputData = new TopItemsInputData(toptracks, topartists, time);
+        final TopItemsInputData topItemsInputData = new TopItemsInputData(toptracks, topartists);
         topItemsInputBoundary.execute(topItemsInputData);
     }
 }

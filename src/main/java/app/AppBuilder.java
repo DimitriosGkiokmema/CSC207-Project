@@ -67,8 +67,6 @@ public class AppBuilder {
     private final LanguageModelDataAccessObject languageModelDataAccessObject = new LanguageModelDataAccessObject();
 
 //    Will remove since our project does not cover signing up, only logging in
-//    private SignupView signupView;
-//    private SignupViewModel signupViewModel;
     private LoginViewModel loginViewModel;
     private LoggedInViewModel loggedInViewModel;
     private TopItemsViewModel topTracksAndArtistsViewModel;
@@ -82,17 +80,6 @@ public class AppBuilder {
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
     }
-
-    /**
-     * Adds the Signup View to the application.
-     * @return this builder
-     */
-//    public AppBuilder addSignupView() {
-//        signupViewModel = new SignupViewModel();
-//        signupView = new SignupView(signupViewModel);
-//        cardPanel.add(signupView, signupView.getViewName());
-//        return this;
-//    }
 
     /**
      * Adds the Login View to the application.
@@ -145,21 +132,6 @@ public class AppBuilder {
     }
 
     /**
-     * Adds the Signup Use Case to the application.
-     * @return this builder
-     */
-//    public AppBuilder addSignupUseCase() {
-//        final SignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel,
-//                signupViewModel, loginViewModel);
-//        final SignupInputBoundary userSignupInteractor = new SignupInteractor(
-//                userDataAccessObject, signupOutputBoundary, userFactory);
-//
-//        final SignupController controller = new SignupController(userSignupInteractor);
-//        signupView.setSignupController(controller);
-//        return this;
-//    }
-
-    /**
      * Adds the Login Use Case to the application.
      * @return this builder
      */
@@ -173,38 +145,6 @@ public class AppBuilder {
         loginView.setLoginController(loginController);
         return this;
     }
-
-    /**
-     * Adds the Login Use Case to the application.
-     * @return this builder
-     */
-    /* public AppBuilder addTopTracksandArtistsUseCase() {
-        final TopTracksOutputBoundary topTracksOutputBoundary = new TopTracksPresenter(viewManagerModel,
-                topTracksAndArtistsViewModel, topTracksAndArtistsView);
-        final TopTracksInputBoundary loginInteractor = new TopTracksInteractor(
-                userDataAccessObject, topTracksOutputBoundary);
-
-        final LoginController loginController = new LoginController(loginInteractor);
-        loginView.setLoginController(loginController);
-        return this;
-    } */
-
-    /**
-     * Adds the Change Password Use Case to the application.
-     * @return this builder
-     */
-//    public AppBuilder addChangePasswordUseCase() {
-//        final ChangePasswordOutputBoundary changePasswordOutputBoundary =
-//                new ChangePasswordPresenter(loggedInViewModel);
-//
-//        final ChangePasswordInputBoundary changePasswordInteractor =
-//                new ChangePasswordInteractor(userDataAccessObject, changePasswordOutputBoundary, userFactory);
-//
-//        final ChangePasswordController changePasswordController =
-//                new ChangePasswordController(changePasswordInteractor);
-//        loggedInView.setChangePasswordController(changePasswordController);
-//        return this;
-//    }
 
     /**
      * Adds the Logout Use Case to the application.

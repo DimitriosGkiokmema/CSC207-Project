@@ -28,14 +28,14 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface 
 
     private LoginState loginState = new LoginState();
     private String accessToken;
-    private User currentUser;
+    private List<String> currentTopTracks;
+    private List<String> currentTopArtists;
     private SpotifyApi spotifyApi;
     private GetUsersTopTracksRequest getTopTracksRequest;
     private GetUsersTopArtistsRequest getTopArtistsRequest;
 
     public SpotifyDataAccessObject() {
         this.accessToken = loginState.getLoginToken();
-        this.currentUser = new CommonUser(accessToken);
         this.spotifyApi = new SpotifyApi.Builder()
                 .setAccessToken(accessToken)
                 .build();
@@ -47,12 +47,13 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface 
                 .offset(OFFSET)
                 .time_range("short_term")
                 .build();
+        this.currentTopTracks = getUsersTopTracksSync();
+        this.currentTopArtists = getUsersTopArtistsSync();
     }
 
     // Constructor used for testing.
     public SpotifyDataAccessObject(String accessToken) {
         this.accessToken = accessToken;
-        this.currentUser = new CommonUser(accessToken);
         this.spotifyApi = new SpotifyApi.Builder()
                 .setAccessToken(accessToken)
                 .build();
@@ -68,6 +69,7 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface 
 
     /**
      * A helper method to get the current users top tracks.
+     *
      * @return a list of the track names.
      */
     private List<String> getUsersTopTracksSync() {
@@ -92,6 +94,7 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface 
 
     /**
      * A helper method to get the current users top artists.
+     *
      * @return a list of the artist names.
      */
     private List<String> getUsersTopArtistsSync() {
@@ -116,32 +119,23 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface 
 
     @Override
     public List<String> getCurrentTopTracks() {
-        return getUsersTopTracksSync();
+        return this.currentTopTracks;
     }
 
     @Override
     public void setCurrentTopTracks(List<String> tracks) {
-
+        this.currentTopTracks = tracks;
     }
 
     @Override
     public List<String> getCurrentTopArtists() {
-        return getUsersTopArtistsSync();
+        return this.currentTopArtists;
     }
+
 
     @Override
     public void setCurrentTopArtists(List<String> artists) {
-
-    }
-
-    @Override
-    public List<String> getCurrentTime() {
-        return List.of();
-    }
-
-    @Override
-    public void setCurrentTime(List<String> time) {
-
+        this.currentTopArtists = artists;
     }
 
 }

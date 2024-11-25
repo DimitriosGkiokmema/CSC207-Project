@@ -5,6 +5,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import data_access.InMemoryUserDataAccessObject;
+import data_access.LanguageModelDataAccessObject;
 import data_access.TopItemsUserDataAccessObject;
 import entity.CommonUserFactory;
 import entity.UserFactory;
@@ -63,6 +64,7 @@ public class AppBuilder {
     // thought question: is the hard dependency below a problem?
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
     private final TopItemsUserDataAccessObject topItemsUserDataAccessObject = new TopItemsUserDataAccessObject();
+    private final LanguageModelDataAccessObject languageModelDataAccessObject = new LanguageModelDataAccessObject();
 
 //    Will remove since our project does not cover signing up, only logging in
 //    private SignupView signupView;
@@ -108,7 +110,6 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addSearchView() {
-        //TODO discuss this implementation with team
         searchViewModel = new SearchViewModel();
         searchView = new SearchView(searchViewModel);
         cardPanel.add(searchView, searchView.getViewName());
@@ -238,9 +239,10 @@ public class AppBuilder {
                 loggedInViewModel, searchViewModel);
 
         final SearchInputBoundary searchInteractor =
-                new SearchInteractor(searchOutputBoundary);
+                new SearchInteractor(languageModelDataAccessObject, searchOutputBoundary);
 
         final SearchController searchController = new SearchController(searchInteractor);
+        searchView.setSearchController(searchController);
         loggedInView.setSearchController(searchController);
         return this;
     }

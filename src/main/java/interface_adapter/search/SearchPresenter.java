@@ -38,8 +38,10 @@ public class SearchPresenter implements SearchOutputBoundary {
 
         final SearchState searchState = searchViewModel.getState();
         searchState.setAccessToken(response.getAccessToken());
+        searchState.setDisplayText(response.getDisplayText());
         searchViewModel.setState(searchState);
         searchViewModel.firePropertyChanged();
+
 
         // This code tells the View Manager to switch to the Search.
         this.viewManagerModel.setState(searchViewModel.getViewName());

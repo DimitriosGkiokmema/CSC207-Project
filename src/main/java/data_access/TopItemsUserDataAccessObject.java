@@ -25,14 +25,4 @@ public class TopItemsUserDataAccessObject implements TopItemsUserDataAccessInter
     public void setCurrentTopArtists(List<String> artists) {
 
     }
-
-    @Override
-    public List<String> getCurrentTime() {
-        return List.of();
-    }
-
-    @Override
-    public void setCurrentTime(List<String> time) {
-
-    }
 }

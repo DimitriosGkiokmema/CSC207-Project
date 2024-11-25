@@ -30,18 +30,4 @@ public interface TopItemsUserDataAccessInterface {
      * @param artists the new top artist list; null to indicate that there is no top tracks.
      */
     void setCurrentTopArtists(List<String> artists);
-
-
-    /**
-     * Returns the top track List of the current user of the application.
-     * @return the access Token of the current user; null indicates that no one is logged into the application.
-     */
-    List<String> getCurrentTime();
-
-    /**
-     * Sets the top tracks list indicating who is the current user of the application.
-     * @param time the new top track list; null to indicate that no one is currently logged into the
-     *                    application.
-     */
-    void setCurrentTime(List<String> time);
 }

@@ -11,10 +11,4 @@ public interface User {
      */
     String getAccessToken();
 
-   //  /**
-    // * Returns the password of the user.
-    // * @return the password of the user.
-     // */
-    // String getPassword();
-
 }

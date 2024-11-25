@@ -19,6 +19,8 @@ import interface_adapter.logout.LogoutPresenter;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchPresenter;
 import interface_adapter.search.SearchViewModel;
+import interface_adapter.similar_listeners.SimilarListenersController;
+import interface_adapter.similar_listeners.SimilarListenersPresenter;
 import interface_adapter.similar_listeners.SimilarListenersViewModel;
 import interface_adapter.top_items.TopItemsController;
 import interface_adapter.top_items.TopItemsPresenter;
@@ -33,6 +35,9 @@ import use_case.logout.LogoutOutputBoundary;
 import use_case.search.SearchInputBoundary;
 import use_case.search.SearchInteractor;
 import use_case.search.SearchOutputBoundary;
+import use_case.similar_listeners.SimilarListenersInputBoundary;
+import use_case.similar_listeners.SimilarListenersInteractor;
+import use_case.similar_listeners.SimilarListenersOutputBoundary;
 import use_case.top_items.TopItemsInputBoundary;
 import use_case.top_items.TopItemsInteractor;
 import use_case.top_items.TopItemsOutputBoundary;
@@ -209,6 +214,17 @@ public class AppBuilder {
 
         final TopItemsController topItemsController = new TopItemsController(topItemsInputBoundary);
         loggedInView.setTopTracksController(topItemsController);
+        return this;
+    }
+
+    public AppBuilder addSimilarListenersUseCase() {
+        final SimilarListenersOutputBoundary similarListenersOutputBoundary =
+                new SimilarListenersPresenter(similarListenersViewModel, viewManagerModel);
+        //final SimilarListenersInputBoundary similarListenersInputBoundary =
+                //new SimilarListenersInteractor(userDataAccessObject, similarListenersOutputBoundary);
+        //final SimilarListenersController similarListenersController =
+                //new SimilarListenersController(similarListenersInputBoundary);
+        //loggedInView.setSimilarListenersController(similarListenersController);
         return this;
     }
 

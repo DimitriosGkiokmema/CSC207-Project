@@ -1,4 +1,4 @@
-package spotify_api;
+package data_access;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

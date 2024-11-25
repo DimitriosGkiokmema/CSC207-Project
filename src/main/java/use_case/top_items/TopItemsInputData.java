@@ -8,13 +8,11 @@ import java.util.List;
 public class TopItemsInputData {
 
     private final List<String> tracks;
-    private final List<String> time;
     private final List<String> artists;
 
-    public TopItemsInputData(List<String> tracks, List<String> artists, List<String> time) {
+    public TopItemsInputData(List<String> tracks, List<String> artists) {
         this.tracks = tracks;
         this.artists = artists;
-        this.time = time;
     }
 
     List<String> getTracks() {
@@ -23,9 +21,5 @@ public class TopItemsInputData {
 
     List<String> getArtists() {
         return artists;
-    }
-
-    List<String> getTime() {
-        return time;
     }
 }

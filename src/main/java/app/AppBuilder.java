@@ -5,6 +5,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import data_access.InMemoryUserDataAccessObject;
+import data_access.SpotifyDataAccessObject;
 import data_access.TopItemsUserDataAccessObject;
 import entity.CommonUserFactory;
 import entity.UserFactory;
@@ -63,6 +64,7 @@ public class AppBuilder {
     // thought question: is the hard dependency below a problem?
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
     private final TopItemsUserDataAccessObject topItemsUserDataAccessObject = new TopItemsUserDataAccessObject();
+    private final SpotifyDataAccessObject spotifyDataAccessObject = new SpotifyDataAccessObject();
 
 //    Will remove since our project does not cover signing up, only logging in
 //    private SignupView signupView;

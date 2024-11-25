@@ -4,16 +4,18 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.ViewModel;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.similar_listeners.SimilarListenersState;
 import interface_adapter.similar_listeners.SimilarListenersViewModel;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import javax.swing.*;
 
-public class SimilarListenersView extends JPanel {
+public class SimilarListenersView extends JPanel implements PropertyChangeListener {
     private final String viewName = "similar listeners";
     private final SimilarListenersViewModel similarListenersViewModel;
     private final JButton back;
@@ -21,7 +23,7 @@ public class SimilarListenersView extends JPanel {
 
     public <T> SimilarListenersView(SimilarListenersViewModel similarListenersViewModel) {
         this.similarListenersViewModel = similarListenersViewModel;
-        // this.similarListenersViewModel.addPropertyChangeListener(this);
+        this.similarListenersViewModel.addPropertyChangeListener(this);
 
         // building the interface
         final JLabel title = new JLabel("Similar Listeners");
@@ -51,5 +53,14 @@ public class SimilarListenersView extends JPanel {
 
     public String getViewName() {
         return this.viewName;
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        final SimilarListenersState similarListenersState = (SimilarListenersState) evt.getNewValue();
+
+    }
+    public void setListOfArtists(SimilarListenersState similarListenersState) {
+
     }
 }

@@ -59,18 +59,13 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         final JButton keyword = new JButton("Search song by keyword");
         searchButtons.add(keyword);
         // Add ActionListener for the "Search song by keyword" button
-        // Add ActionListener for the "Search song by keyword" button
-        // Instantiate the data access object
-        KeywordUserDataAccessObject userDataAccess = new KeywordUserDataAccessObject();
-
-// Set the token (this would typically be done during login)
-        userDataAccess.setCurrentAccessToken("YOUR_ACCESS_TOKEN_FROM_LOGIN"); // Replace with the actual token
-
-// Add ActionListener for the "Search song by keyword" button
         keyword.addActionListener(evt -> {
             if (evt.getSource().equals(keyword)) {
+                // Retrieve the current frame
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+
                 // Retrieve the access token
-                String accessToken = userDataAccess.getCurrentAccessToken();
+                String accessToken = loggedInViewModel.getState().getUsername(); // Assuming the token is stored as the username
 
                 // Ensure the token exists
                 if (accessToken == null || accessToken.isEmpty()) {
@@ -85,9 +80,10 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 KeywordInteractor interactor = new KeywordInteractor(spotifyService, presenter);
                 KeywordController keywordController = new KeywordController(interactor);
 
-                // Show the Keyword page
+                // Create the Keyword view and set it as the content pane
                 Keyword keywordPage = new Keyword(keywordController, viewModel);
-                keywordPage.show();
+                frame.setContentPane(keywordPage.getPanel(frame));
+                frame.revalidate(); // Refresh the frame to display the new content
             }
         });
         final JButton home = new JButton("Home");

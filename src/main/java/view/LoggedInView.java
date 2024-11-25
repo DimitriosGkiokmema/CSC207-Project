@@ -19,6 +19,7 @@ import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.search.SearchController;
 
+import interface_adapter.similar_listeners.SimilarListenersController;
 import interface_adapter.top_items.TopItemsController;
 
 
@@ -32,6 +33,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private LogoutController logoutController;
     private SearchController searchController;
     private TopItemsController topItemsController;
+    private SimilarListenersController similarListenersController;
 
     private final JLabel username;
     private final JButton logOut;
@@ -187,5 +189,8 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     }
     public void setTopTracksController(TopItemsController topItemsController) {
         this.topItemsController = topItemsController;
+    }
+    public void setSimilarListenersController(SimilarListenersController similarListenersController) {
+        this.similarListenersController = similarListenersController;
     }
 }

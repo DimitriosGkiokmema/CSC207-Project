@@ -80,6 +80,25 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
                 .offset(OFFSET)
                 .time_range("short_term")
                 .build();
+        this.spotifyApi = new SpotifyApi.Builder()
+                .setAccessToken(accessToken)
+                .build();
+        this.getTopTracksRequest = spotifyApi.getUsersTopTracks()
+                .offset(OFFSET)
+                .time_range("short_term")
+                .build();
+        this.getTopArtistsRequest = spotifyApi.getUsersTopArtists()
+                .offset(OFFSET)
+                .time_range("short_term")
+                .build();
+        this.currentTopTracks = getUsersTopTracksSync();
+        this.currentTopArtists = getUsersTopArtistsSync();
+
+        this.getUsersFollowedArtistsRequest = spotifyApi.getUsersFollowedArtists(type).build();
+        this.currFollowedArtists = getUsersFollowedArtistsSync();
+
+        this.getRecommendationsRequest = spotifyApi.getRecommendations()
+                .build();
     }
 
     /**
@@ -98,7 +117,7 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
             for (Track track : tracks) {
                 topTracks.add(track.getName());
             }
-            System.out.println("Top Tracks: " + topTracks);
+            // System.out.println("Top Tracks: " + topTracks);
             return topTracks;
 
         } catch (IOException | SpotifyWebApiException | ParseException e) {
@@ -123,7 +142,7 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
             for (Artist artist : artists) {
                 topArtists.add(artist.getName());
             }
-            System.out.println("Top Artists: " + topArtists);
+            // System.out.println("Top Artists: " + topArtists);
             return topArtists;
 
         } catch (IOException | SpotifyWebApiException | ParseException e) {

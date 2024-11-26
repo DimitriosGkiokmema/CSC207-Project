@@ -7,34 +7,21 @@ import interface_adapter.logged_in.LoggedInState;
  */
 public class SearchState {
 
-    private String query;
-    private String modelResponse;
+    private String displayText;
     private String accessToken;
 
     public SearchState(SearchState copy) {
-        query = copy.query;
-        modelResponse = copy.modelResponse;
+        displayText = copy.displayText;
+        accessToken = copy.accessToken;
     }
 
     // Because of the previous copy constructor, the default constructor must be explicit.
     public SearchState() {
 
     }
-
-    public String getQuery() {
-        return query;
-    }
-
-    public String getModelResponse() {
-        return modelResponse;
-    }
-
-    public void setQuery(String query) {
-        this.query = query;
-    }
-
-    public void setModelResponse(String modelResponse) {
-        this.modelResponse = modelResponse;
+    public String getDisplayText() {return displayText;}
+    public void setDisplayText(String displayText) {
+        this.displayText = displayText;
     }
 
     public String getAccessToken() {

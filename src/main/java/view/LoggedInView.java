@@ -8,18 +8,19 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 
+import interface_adapter.keyword.KeywordController;
+import interface_adapter.keyword.KeywordPresenter;
+import interface_adapter.keyword.KeywordViewModel;
 import interface_adapter.logged_in.LoggedInState;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.search.SearchController;
 
 import interface_adapter.top_items.TopItemsController;
+import data_access.SpotifyService;
+import use_case.keyword.KeywordInteractor;
 
 
 /**
@@ -56,13 +57,40 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         searchButtons.add(description);
         final JButton keyword = new JButton("Search song by keyword");
         searchButtons.add(keyword);
+        // Add ActionListener for the "Search song by keyword" button
+        keyword.addActionListener(evt -> {
+            if (evt.getSource().equals(keyword)) {
+                // Retrieve the current frame
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
 
+                // Retrieve the access token
+                String accessToken = "BQCBkcgNkBgo48s7ZJlGRO2ohyiOJHc1nlBD-E6-6EsRsOILmexOHd3G81Bj3wKAymo8i1qOg8tvHPUSQASHL67WGTw4E_KlyXkpRyfMGIF67EOVLtY"; // Assuming the token is stored as the username
+
+                // Ensure the token exists
+                if (accessToken == null || accessToken.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Error: Access token is missing. Please log in again.");
+                    return;
+                }
+
+                // Initialize components for the Keyword feature
+                KeywordViewModel viewModel = new KeywordViewModel();
+                KeywordPresenter presenter = new KeywordPresenter(viewModel);
+                SpotifyService spotifyService = new SpotifyService(accessToken);
+                KeywordInteractor interactor = new KeywordInteractor(spotifyService, presenter);
+                KeywordController keywordController = new KeywordController(interactor, viewModel);
+
+                // Create the Keyword view and set it as the content pane
+                KeywordView keywordPage = new KeywordView(keywordController, viewModel);
+                frame.setContentPane(keywordPage.getPanel(frame));
+                frame.revalidate(); // Refresh the frame to display the new content
+            }
+        });
         final JButton home = new JButton("Home");
         appButtons.add(home);
         final JButton recommendations = new JButton("Recommendations");
         appButtons.add(recommendations);
-        final JButton topTracks = new JButton("Top Tracks");
-        appButtons.add(topTracks);
+        final JButton topItems = new JButton("Top Items");
+        appButtons.add(topItems);
         final JButton similarListeners = new JButton("Similar listeners");
         appButtons.add(similarListeners);
 
@@ -129,26 +157,39 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 }
         );
 
-        topTracks.addActionListener(
+        topItems.addActionListener(
                 evt -> {
+
                     if (evt.getSource().equals(topTracks)) {
-                       // final String name = topTracksController
+                        // final String name = topTracksController
+
                         final List<String> lst = new ArrayList<>();
                         topItemsController.execute(lst, lst);
                     }
                 }
         );
-      
-      // Add an ActionListener to open the Keyword window
+
+        // Add an ActionListener to open the Keyword window
+        // Add an ActionListener to open the Keyword window
         keyword.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Create and show the Keyword window
-                Keyword keywordWindow = new Keyword();
+
+                // Initialize the required components
+                KeywordViewModel viewModel = new KeywordViewModel(); // Create a new ViewModel
+                KeywordPresenter presenter = new KeywordPresenter(viewModel); // Create a presenter
+                SpotifyService spotifyService = new SpotifyService("ACCESS_TOKEN_HERE"); // Replace with your access token
+                KeywordInteractor interactor = new KeywordInteractor(spotifyService, presenter); // Initialize interactor
+                KeywordController controller = new KeywordController(interactor, viewModel); // Initialize controller
+
+                // Create and show the KeywordView with required dependencies
+                KeywordView keywordWindow = new KeywordView(controller, viewModel);
+
                 keywordWindow.show();
             }
         });
 
+// Add components to the panel
         this.add(title);
         this.add(usernameInfo);
         this.add(username);

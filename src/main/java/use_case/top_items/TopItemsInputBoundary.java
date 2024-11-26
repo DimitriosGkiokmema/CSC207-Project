@@ -1,7 +1,7 @@
 package use_case.top_items;
 
 /**
- * Input Boundary for actions which are related to Top Tracks Charts in.
+ * Input Boundary for actions which are related to TopItems Charts.
  */
 public interface TopItemsInputBoundary {
 

@@ -222,11 +222,11 @@ public class AppBuilder {
     public AppBuilder addSimilarListenersUseCase() {
         final SimilarListenersOutputBoundary similarListenersOutputBoundary =
                 new SimilarListenersPresenter(similarListenersViewModel, viewManagerModel);
-        //final SimilarListenersInputBoundary similarListenersInputBoundary =
-                //new SimilarListenersInteractor(userDataAccessObject, similarListenersOutputBoundary);
-        //final SimilarListenersController similarListenersController =
-                //new SimilarListenersController(similarListenersInputBoundary);
-        //loggedInView.setSimilarListenersController(similarListenersController);
+        final SimilarListenersInputBoundary similarListenersInputBoundary =
+                new SimilarListenersInteractor(spotifyDataAccessObject, similarListenersOutputBoundary);
+        final SimilarListenersController similarListenersController =
+                new SimilarListenersController(similarListenersInputBoundary);
+        loggedInView.setSimilarListenersController(similarListenersController);
         return this;
     }
 

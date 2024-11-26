@@ -1,6 +1,6 @@
 package use_case.keyword;
 
-import spotify_api.SpotifyService;
+import data_access.SpotifyService;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class KeywordInteractor implements KeywordInputBoundary {
     /**
      * Constructs a KeywordInteractor.
      *
-     * @param spotifyService   The SpotifyService to handle API calls.
+     * @param spotifyService   The data_access.SpotifyService to handle API calls.
      * @param outputBoundary   The output boundary to send results or errors to the presenter.
      */
     public KeywordInteractor(SpotifyService spotifyService, KeywordOutputBoundary outputBoundary) {
@@ -34,7 +34,7 @@ public class KeywordInteractor implements KeywordInputBoundary {
             String artistName = inputData.getArtistName();
             String keyword = inputData.getKeyword();
 
-            // Use SpotifyService to fetch and filter songs
+            // Use data_access.SpotifyService to fetch and filter songs
             List<String> songs = spotifyService.searchSongs(artistName, keyword);
 
             if (songs.isEmpty()) {

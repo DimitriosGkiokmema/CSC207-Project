@@ -60,11 +60,18 @@
             <version>1.5.4</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/se.michaelthelin.spotify/spotify-web-api-java -->
+<!--        <dependency>-->
+<!--            <groupId>se.michaelthelin.spotify</groupId>-->
+<!--            <artifactId>spotify-web-api-java</artifactId>-->
+<!--            <version>9.0.0-RC1</version>-->
+<!--        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/se.michaelthelin.spotify/spotify-web-api-java -->
         <dependency>
             <groupId>se.michaelthelin.spotify</groupId>
             <artifactId>spotify-web-api-java</artifactId>
-            <version>9.0.0-RC1</version>
+            <version>8.4.1</version>
         </dependency>
+
 
 
 

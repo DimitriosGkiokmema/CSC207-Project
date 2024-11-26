@@ -6,6 +6,7 @@ import javax.swing.*;
 
 import data_access.InMemoryUserDataAccessObject;
 import data_access.LanguageModelDataAccessObject;
+import data_access.SpotifyDataAccessObject;
 import data_access.TopItemsUserDataAccessObject;
 import entity.CommonUserFactory;
 import entity.UserFactory;
@@ -65,6 +66,7 @@ public class AppBuilder {
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
     private final TopItemsUserDataAccessObject topItemsUserDataAccessObject = new TopItemsUserDataAccessObject();
     private final LanguageModelDataAccessObject languageModelDataAccessObject = new LanguageModelDataAccessObject();
+    private final SpotifyDataAccessObject spotifyDataAccessObject = new SpotifyDataAccessObject();
 
 //    Will remove since our project does not cover signing up, only logging in
     private LoginViewModel loginViewModel;

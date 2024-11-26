@@ -67,7 +67,7 @@ public class AppBuilder {
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
     private final TopItemsUserDataAccessObject topItemsUserDataAccessObject = new TopItemsUserDataAccessObject();
     private final LanguageModelDataAccessObject languageModelDataAccessObject = new LanguageModelDataAccessObject();
-    private final SpotifyDataAccessObject spotifyDataAccessObject = new SpotifyDataAccessObject();
+    private final SpotifyDataAccessObject spotifyDataAccessObject = new SpotifyDataAccessObject("BQDHlHAK0p8EEVuqoiNBCzyQwioML8E3cPAPml6lrXNVbMmcQcJoITssAh6CmMz4OE_yAGVsVudy0Qh1vZftCvWmOQT3fDY9z_dqnAgRs2cRBCkfG0bVtu1vDeqnuMjB9tJd1Y22Fp9A3L9ASDHYNze7wU4DxPhWAC3zXT34MxC1HgRsDlTmnCHb6WKa5-FF2xwIFxvXGPThpifkFw");
 
 //    Will remove since our project does not cover signing up, only logging in
     private LoginViewModel loginViewModel;

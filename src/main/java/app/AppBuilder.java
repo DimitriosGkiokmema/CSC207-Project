@@ -67,19 +67,17 @@ public class AppBuilder {
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
     private final TopItemsUserDataAccessObject topItemsUserDataAccessObject = new TopItemsUserDataAccessObject();
     private final LanguageModelDataAccessObject languageModelDataAccessObject = new LanguageModelDataAccessObject();
-    private final SpotifyDataAccessObject spotifyDataAccessObject = new SpotifyDataAccessObject("BQDHlHAK0p8EEVuqoiNBCzyQwioML8E3cPAPml6lrXNVbMmcQcJoITssAh6CmMz4OE_yAGVsVudy0Qh1vZftCvWmOQT3fDY9z_dqnAgRs2cRBCkfG0bVtu1vDeqnuMjB9tJd1Y22Fp9A3L9ASDHYNze7wU4DxPhWAC3zXT34MxC1HgRsDlTmnCHb6WKa5-FF2xwIFxvXGPThpifkFw");
+    private final SpotifyDataAccessObject spotifyDataAccessObject = new SpotifyDataAccessObject("BQDPmgxEeX6U1nUlJKfSiF3dgCNVDFE1qR1lprhYgMMDVMyYb1zsGQ5uYVMOXvk0odD9pQWaLDRN3yuSD_nqeoh9Q3N96EerOA-67bLSNJ3zf-Qtj_EBRiE33I8zraNf7Q5g_LeLHLTIPELxrB0QYotzB6gl8hFFo_NhqWmV7yVwBald5ncDDdILNwj5ymgwiRNdB_icKVhjKJtSrA");
 
 //    Will remove since our project does not cover signing up, only logging in
     private LoginViewModel loginViewModel;
     private LoggedInViewModel loggedInViewModel;
     private TopItemsViewModel topTracksAndArtistsViewModel;
     private SearchViewModel searchViewModel;
-    private SimilarListenersViewModel similarListenersViewModel;
     private LoggedInView loggedInView;
     private LoginView loginView;
     private SearchView searchView;
     private TopItemsView topItemsView;
-    private SimilarListenersView similarListenersView;
 
 
     public AppBuilder() {
@@ -212,7 +210,7 @@ public class AppBuilder {
                 topTracksAndArtistsViewModel);
 
         final TopItemsInputBoundary topItemsInputBoundary =
-                new TopItemsInteractor(topItemsUserDataAccessObject, topItemsOutputBoundary);
+                new TopItemsInteractor(spotifyDataAccessObject, topItemsOutputBoundary);
 
         final TopItemsController topItemsController = new TopItemsController(topItemsInputBoundary);
         loggedInView.setTopTracksController(topItemsController);

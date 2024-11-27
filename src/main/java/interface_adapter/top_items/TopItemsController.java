@@ -20,8 +20,8 @@ public class TopItemsController {
      * @param toptracks the top tracks of the user.
      * @param topartists the top artists of the user.
      */
-    public void execute(List<String> toptracks, List<String> topartists) {
-        final TopItemsInputData topItemsInputData = new TopItemsInputData(toptracks, topartists);
+    public void execute(List<String> toptracks, List<String> topartists, String accessToken) {
+        final TopItemsInputData topItemsInputData = new TopItemsInputData(toptracks, topartists, accessToken);
 
         topItemsUseCaseInteractor.execute(topItemsInputData);
     }

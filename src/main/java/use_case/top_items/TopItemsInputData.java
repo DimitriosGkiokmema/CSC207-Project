@@ -9,10 +9,12 @@ public class TopItemsInputData {
 
     private final List<String> tracks;
     private final List<String> artists;
+    private String accessToken;
 
-    public TopItemsInputData(List<String> tracks, List<String> artists) {
+    public TopItemsInputData(List<String> tracks, List<String> artists, String accessToken) {
         this.tracks = tracks;
         this.artists = artists;
+        this.accessToken = accessToken;
     }
 
     List<String> getTracks() {
@@ -21,5 +23,9 @@ public class TopItemsInputData {
 
     List<String> getArtists() {
         return artists;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
     }
 }

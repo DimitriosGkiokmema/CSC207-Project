@@ -66,7 +66,7 @@ public class AppBuilder {
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
     private final TopItemsUserDataAccessObject topItemsUserDataAccessObject = new TopItemsUserDataAccessObject();
     private final LanguageModelDataAccessObject languageModelDataAccessObject = new LanguageModelDataAccessObject();
-    private final SpotifyDataAccessObject spotifyDataAccessObject = new SpotifyDataAccessObject("BQDPmgxEeX6U1nUlJKfSiF3dgCNVDFE1qR1lprhYgMMDVMyYb1zsGQ5uYVMOXvk0odD9pQWaLDRN3yuSD_nqeoh9Q3N96EerOA-67bLSNJ3zf-Qtj_EBRiE33I8zraNf7Q5g_LeLHLTIPELxrB0QYotzB6gl8hFFo_NhqWmV7yVwBald5ncDDdILNwj5ymgwiRNdB_icKVhjKJtSrA");
+    private final SpotifyDataAccessObject spotifyDataAccessObject = new SpotifyDataAccessObject();
 
 //    Will remove since our project does not cover signing up, only logging in
     private LoginViewModel loginViewModel;
@@ -194,11 +194,20 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addTopItemsUseCase() {
+
+        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
+                loggedInViewModel, loginViewModel);
+        final LoginInputBoundary loginInteractor = new LoginInteractor(
+                userDataAccessObject, loginOutputBoundary);
+
+        final LoginController loginController = new LoginController(loginInteractor);
+        topItemsView.setLoginController(loginController);
+
         final TopItemsOutputBoundary topItemsOutputBoundary = new TopItemsPresenter(viewManagerModel,
                 topTracksAndArtistsViewModel);
 
         final TopItemsInputBoundary topItemsInputBoundary =
-                new TopItemsInteractor(spotifyDataAccessObject, topItemsOutputBoundary);
+                new TopItemsInteractor(topItemsUserDataAccessObject, topItemsOutputBoundary);
 
         final TopItemsController topItemsController = new TopItemsController(topItemsInputBoundary);
         loggedInView.setTopTracksController(topItemsController);

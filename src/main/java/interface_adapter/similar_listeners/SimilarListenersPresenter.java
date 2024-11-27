@@ -36,5 +36,8 @@ public class SimilarListenersPresenter implements SimilarListenersOutputBoundary
         similarListenersState.setSimilarArtistsError(errorMessage);
         similarListenersViewModel.firePropertyChanged();
 
+        this.viewManagerModel.setState(similarListenersViewModel.getViewName());
+        this.viewManagerModel.firePropertyChanged();
+
     }
 }

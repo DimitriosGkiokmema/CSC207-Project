@@ -153,11 +153,13 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
             for (Artist artist : artists) {
                 followedArtists.add(artist.getName());
             }
+            // System.out.println(followedArtists);
             return followedArtists;
         } catch (IOException | SpotifyWebApiException | ParseException e) {
             System.out.println("Error: " + e.getMessage());
             return new ArrayList<>();
         }
+
     }
 
     /**

@@ -1,6 +1,8 @@
 package app;
 
-import javax.swing.JFrame;
+import javax.swing.*;
+import java.Constants;
+import java.awt.*;
 
 /**
  * The Main class of our application.
@@ -20,10 +22,10 @@ public class Main {
                 .addRecommendationsView()
                 .addRecommendUseCase()
                 .addSearchView()
-                .addTopTracksAndArtistsView()
+                .addTopItemsView()
                 .addLogoutUseCase()
                 .addSearchUseCase()
-                .addTopTracksAndArtistsUseCase()
+                .addTopItemsUseCase()
                 .build();
 
         application.pack();

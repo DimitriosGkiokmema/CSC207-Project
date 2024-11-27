@@ -22,6 +22,8 @@ public class TopItemsPresenter implements TopItemsOutputBoundary {
     public void prepareSuccessView(TopItemsOutputData outputData) {
         final TopItemsState topItemsState = topItemsViewModel.getState();
         topItemsState.setTracks(outputData.getTracks());
+        topItemsState.setArtists(outputData.getArtists());
+
         this.topItemsViewModel.setState(topItemsState);
         topItemsViewModel.firePropertyChanged();
 
@@ -31,8 +33,6 @@ public class TopItemsPresenter implements TopItemsOutputBoundary {
 
     @Override
     public void prepareFailView(String errorMessage) {
-        final TopItemsState topItemsState = topItemsViewModel.getState();
-        topItemsState.setTracksError(errorMessage);
-        topItemsViewModel.firePropertyChanged();
+        // No code needed because there won't be an error.
     }
 }

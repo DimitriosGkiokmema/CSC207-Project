@@ -1,18 +1,19 @@
 package interface_adapter.top_items;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * The state for the Top Tracks View Model.
  */
 public class TopItemsState {
-    private List<String> tracks = new ArrayList<>();
+    private List<String> tracks;
+    private List<String> artists;
     private String tracksError;
+    private String artistsError;
 
     public TopItemsState(TopItemsState copy) {
-        tracks = copy.tracks;
-        tracksError = copy.tracksError;
+        // tracks = copy.tracks;
+        // tracksError = copy.tracksError;
     }
 
     // Because of the previous copy constructor, the default constructor must be explicit.
@@ -35,4 +36,22 @@ public class TopItemsState {
     public void setTracksError(String tracksError) {
         this.tracksError = tracksError;
     }
+
+    public List<String> getArtists() {
+        return artists;
+    }
+
+    public String getArtistsError() {
+        return artistsError;
+    }
+
+    public void setArtists(List<String> artists) {
+        this.artists = artists;
+    }
+
+    public void setArtistsError(String artistsError) {
+        this.artistsError = artistsError;
+    }
+
+
 }

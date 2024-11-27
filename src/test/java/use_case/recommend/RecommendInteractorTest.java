@@ -7,6 +7,9 @@ import entity.UserFactory;
 import org.junit.jupiter.api.Test;
 import use_case.logout.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RecommendInteractorTest {
@@ -34,6 +37,15 @@ public class RecommendInteractorTest {
                 fail("Use case failure is unexpected.");
             }
         };
+
+//        Use for test input
+//        final Map<String, String> songs = new HashMap<>();
+//        songs.put("(sic)", "Slipknot");
+//        songs.put("Left Behind", "Slipknot");
+//        songs.put("Jumpdafuckup", "Soulfly");
+//        songs.put("Roots Bloody Roots", "Sepultura");
+//        songs.put("Dragula", "Rob Zombie");
+//        songs.put("Spit It Out", "Slipknot");
 
         LogoutInputBoundary interactor = new LogoutInteractor(userRepository, successPresenter);
         interactor.execute(inputData);

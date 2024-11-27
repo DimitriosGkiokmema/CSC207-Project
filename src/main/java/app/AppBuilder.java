@@ -74,10 +74,12 @@ public class AppBuilder {
     private LoggedInViewModel loggedInViewModel;
     private TopItemsViewModel topTracksAndArtistsViewModel;
     private SearchViewModel searchViewModel;
+    private SimilarListenersViewModel similarListenersViewModel;
     private LoggedInView loggedInView;
     private LoginView loginView;
     private SearchView searchView;
     private TopItemsView topItemsView;
+    private SimilarListenersView similarListenersView;
 
 
     public AppBuilder() {

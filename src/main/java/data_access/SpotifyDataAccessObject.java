@@ -28,6 +28,7 @@ import use_case.top_items.TopItemsUserDataAccessInterface;
 public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
         SimilarListenersUserDataAccessInterface {
     public static final int OFFSET = 4;
+    public static final int OFFSET2 = 0;
 
     private LoginState loginState = new LoginState();
     private String accessToken;
@@ -50,11 +51,11 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
                 .build();
         this.getTopTracksRequest = spotifyApi.getUsersTopTracks()
                 .offset(OFFSET)
-                .time_range("short_term")
+                .time_range("medium_term")
                 .build();
         this.getTopArtistsRequest = spotifyApi.getUsersTopArtists()
                 .offset(OFFSET)
-                .time_range("short_term")
+                .time_range("medium_term")
                 .build();
         this.currentTopTracks = getUsersTopTracksSync();
         this.currentTopArtists = getUsersTopArtistsSync();
@@ -74,13 +75,23 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
                 .build();
         this.getTopTracksRequest = spotifyApi.getUsersTopTracks()
                 .offset(OFFSET)
-                .time_range("short_term")
+                .time_range("medium_term")
                 .build();
         this.getTopArtistsRequest = spotifyApi.getUsersTopArtists()
-                .offset(OFFSET)
-                .time_range("short_term")
+                .offset(OFFSET2)
+                .time_range("medium_term")
                 .build();
-
+        this.spotifyApi = new SpotifyApi.Builder()
+                .setAccessToken(accessToken)
+                .build();
+        this.getTopTracksRequest = spotifyApi.getUsersTopTracks()
+                .offset(OFFSET)
+                .time_range("medium_term")
+                .build();
+        this.getTopArtistsRequest = spotifyApi.getUsersTopArtists()
+                .offset(OFFSET2)
+                .time_range("medium_term")
+                .build();
         this.currentTopTracks = getUsersTopTracksSync();
         this.currentTopArtists = getUsersTopArtistsSync();
 
@@ -107,7 +118,7 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
             for (Track track : tracks) {
                 topTracks.add(track.getName());
             }
-            System.out.println("Top Tracks: " + topTracks);
+            // System.out.println("Top Tracks: " + topTracks);
             return topTracks;
 
         } catch (IOException | SpotifyWebApiException | ParseException e) {
@@ -132,7 +143,7 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
             for (Artist artist : artists) {
                 topArtists.add(artist.getName());
             }
-            System.out.println("Top Artists: " + topArtists);
+            // System.out.println("Top Artists: " + topArtists);
             return topArtists;
 
         } catch (IOException | SpotifyWebApiException | ParseException e) {

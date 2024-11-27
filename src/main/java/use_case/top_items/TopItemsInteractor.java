@@ -19,8 +19,9 @@ public class TopItemsInteractor implements TopItemsInputBoundary {
     public void execute(TopItemsInputData topItemsInputData) {
         final List<String> topTracks = userDataAccessObject.getCurrentTopTracks();
         final List<String> topArtists = userDataAccessObject.getCurrentTopArtists();
+        final String accessToken = topItemsInputData.getAccessToken();
 
-        final TopItemsOutputData outputData = new TopItemsOutputData(topTracks, topArtists);
+        final TopItemsOutputData outputData = new TopItemsOutputData(topTracks, topArtists, accessToken);
         topItemsOutputBoundary.prepareSuccessView(outputData);
     }
 }

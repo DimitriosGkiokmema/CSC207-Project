@@ -219,18 +219,5 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
         this.currFollowedArtists = followedArtists;
 
     }
-
-    @Override
-    public Map<String, String> getHistory() {
-        final Map<String, String> songs = new HashMap<>();
-        songs.put("(sic)", "Slipknot");
-        songs.put("Left Behind", "Slipknot");
-        songs.put("Jumpdafuckup", "Soulfly");
-        songs.put("Roots Bloody Roots", "Sepultura");
-        songs.put("Dragula", "Rob Zombie");
-        songs.put("Spit It Out", "Slipknot");
-
-        return songs;
-    }
 }
 

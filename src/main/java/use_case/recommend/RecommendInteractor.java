@@ -1,5 +1,6 @@
 package use_case.recommend;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,9 +22,9 @@ public class RecommendInteractor implements RecommendInputBoundary {
     @Override
     public void execute(RecommendInputData recommendInputData) {
         // Calls Spotify API to get user data
-        final Map<String, String> history = spotifyDataAccessObject.getHistory();
+        final List<String> songs = spotifyDataAccessObject.getCurrentTopTracks();
         // Takes user data and asks Azure for recommendations
-        final String songRecommendations = recommendDataAccessObject.getRecommendations(history);
+        final String songRecommendations = recommendDataAccessObject.getRecommendations(songs);
         // Gets access token
         final String accessToken = recommendInputData.getAccessToken();
 

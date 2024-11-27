@@ -81,17 +81,6 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
                 .offset(OFFSET2)
                 .time_range("medium_term")
                 .build();
-        this.spotifyApi = new SpotifyApi.Builder()
-                .setAccessToken(accessToken)
-                .build();
-        this.getTopTracksRequest = spotifyApi.getUsersTopTracks()
-                .offset(OFFSET)
-                .time_range("medium_term")
-                .build();
-        this.getTopArtistsRequest = spotifyApi.getUsersTopArtists()
-                .offset(OFFSET2)
-                .time_range("medium_term")
-                .build();
         this.currentTopTracks = getUsersTopTracksSync();
         this.currentTopArtists = getUsersTopArtistsSync();
 

@@ -1,6 +1,5 @@
 package data_access;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -11,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class SpotifyDataAccessObjectTest {
 
     @Test
-    void getCurrentTopTracks() {
+    void getCurrentTopTracksTest() {
         List<String> expected = new ArrayList();
         expected.add("Lovefool");
         expected.add("Надія є");
@@ -22,7 +21,7 @@ class SpotifyDataAccessObjectTest {
     }
 
     @Test
-    void getCurrentTopArtists() {
+    void getCurrentTopArtistsTest() {
         List<String> expected = new ArrayList();
         expected.add("Mad Heads");
         expected.add("Haydamaky");

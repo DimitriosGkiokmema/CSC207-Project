@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.*;
 
+import interface_adapter.login.LoginController;
 import interface_adapter.top_items.TopItemsState;
 import interface_adapter.top_items.TopItemsViewModel;
 import org.jfree.chart.ChartFactory;
@@ -20,6 +21,7 @@ import java.beans.PropertyChangeListener;
 public class TopItemsView extends JPanel implements PropertyChangeListener {
     private final String viewName = "Top Items";
     private final TopItemsViewModel topItemsViewModel;
+    private LoginController loginController;
 
     private final JLabel welcomeLabel;
     private final JButton homeButton;
@@ -65,6 +67,16 @@ public class TopItemsView extends JPanel implements PropertyChangeListener {
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+        homeButton.addActionListener(
+                // This creates an anonymous subclass of ActionListener and instantiates it.
+                evt -> {
+                    if (evt.getSource().equals(homeButton)) {
+                        final String accessToken = topItemsViewModel.getState().getAccessToken();
+                        loginController.execute(accessToken);
+                    }
+                }
+        );
+
         this.add(welcomeLabel);
         this.add(chartLayoutPanel);
         this.add(homeButton);
@@ -81,6 +93,9 @@ public class TopItemsView extends JPanel implements PropertyChangeListener {
         return viewName;
     }
 
+    public void setLoginController(LoginController loginController) {
+        this.loginController = loginController;
+    }
     /**
      * The method updates the dataset for the Top Tracks Graph.
      * @param state stands for the TopItemsState that is being used.

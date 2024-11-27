@@ -37,11 +37,11 @@ public class TopItemsView extends JPanel implements PropertyChangeListener {
         homeButton = new JButton("go back");
         homeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        dataset1.setValue("Artist 1", 200);
+        /* dataset1.setValue("Artist 1", 200);
         dataset1.setValue("Artist 2", 150);
         dataset1.setValue("Artist 3", 180);
 
-        /* dataset2.addValue(300, "Track 1", "1'st");
+        dataset2.addValue(300, "Track 1", "1'st");
         dataset2.addValue(250, "Track 2", "2'nd");
         dataset2.addValue(200, "Track 3", "3'rd");
         dataset2.addValue(150, "Track 4", "4'th");
@@ -74,6 +74,7 @@ public class TopItemsView extends JPanel implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         final TopItemsState state = (TopItemsState) evt.getNewValue();
         setTrackGraph(state);
+        // setArtistGraph(state);
     }
 
     public String getViewName() {
@@ -87,8 +88,21 @@ public class TopItemsView extends JPanel implements PropertyChangeListener {
     public void setTrackGraph(TopItemsState state) {
         int decrease = 300;
 
-        for (int i = 0; i < state.getTracks().size(); i++) {
+        for (int i = 0; i < 4; i++) {
             dataset2.addValue(decrease, state.getTracks().get(i), String.valueOf(i + 1));
+            decrease -= 50;
+        }
+    }
+
+    /**
+     * The method updates the dataset for the Top Tracks Graph.
+     * @param state stands for the TopItemsState that is being used.
+     */
+    public void setArtistGraph(TopItemsState state) {
+        int decrease = 200;
+
+        for (int i = 0; i < 3; i++) {
+            dataset1.setValue(state.getArtists().get(i), decrease);
             decrease -= 50;
         }
     }

@@ -193,7 +193,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
             }
         });
 
-// Add components to the panel
         similarListeners.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(similarListeners)) {
@@ -203,6 +202,8 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                     }
                 }
         );
+
+// Add components to the panel
 
         this.add(title);
         this.add(usernameInfo);

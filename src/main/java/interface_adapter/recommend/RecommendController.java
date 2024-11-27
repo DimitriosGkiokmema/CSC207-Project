@@ -19,9 +19,9 @@ public class RecommendController {
      * Executes the Recommend Use Case.
      * @param songRecommendations the map of song recommendations in the form of song, artist
      */
-    public void execute(Map<String, String> songRecommendations) {
+    public void execute(Map<String, String> songRecommendations, String accessToken) {
         final RecommendInputData recommendInputData = new RecommendInputData(
-                songRecommendations);
+                songRecommendations, accessToken);
 
         recommendUseCaseInteractor.execute(recommendInputData);
     }

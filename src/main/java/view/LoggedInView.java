@@ -149,6 +149,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                     }
                 }
         );
+
         description.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 evt -> {
@@ -157,6 +158,18 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                         final String accessToken = loggedInViewModel.getState().getUsername();
                         // 2. Execute the logout Controller.
                         searchController.execute(accessToken);
+                    }
+                }
+        );
+
+        recommendations.addActionListener(
+                evt -> {
+                    if (evt.getSource().equals(recommendations)) {
+                        // final String name = topTracksController
+                        final Map<String, String> songRecommendations = new HashMap<>();
+                        final String accessToken = loggedInViewModel.getState().getUsername();
+                        System.out.println(accessToken);
+                        recommendController.execute(songRecommendations, accessToken);
                     }
                 }
         );
@@ -192,16 +205,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 keywordWindow.show();
             }
         });
-
-        recommendations.addActionListener(
-                evt -> {
-                    if (evt.getSource().equals(recommendations)) {
-                        // final String name = topTracksController
-                        final Map<String, String> songRecommendations = new HashMap<>();
-                        recommendController.execute(songRecommendations);
-                    }
-                }
-        );
 
         // Add components to the panel
         this.add(title);

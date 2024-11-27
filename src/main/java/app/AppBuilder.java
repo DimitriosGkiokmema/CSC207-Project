@@ -234,6 +234,29 @@ public class AppBuilder {
     }
 
     /**
+     * Adds the Recommend Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addRecommendUseCase() {
+        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
+                loggedInViewModel, loginViewModel);
+        final LoginInputBoundary loginInteractor = new LoginInteractor(
+                userDataAccessObject, loginOutputBoundary);
+
+        final LoginController loginController = new LoginController(loginInteractor);
+        recommendationsView.setLoginController(loginController);
+
+        final RecommendOutputBoundary recommendOutputBoundary =
+                new RecommendPresenter(viewManagerModel, recommendViewModel);
+        final RecommendInputBoundary recommendInputBoundary =
+                new RecommendInteractor(languageModelDataAccessObject, spotifyDataAccessObject, recommendOutputBoundary);
+
+        final RecommendController recommendController = new RecommendController(recommendInputBoundary);
+        loggedInView.setRecommendController(recommendController);
+        return this;
+    }
+
+    /**
      * Creates the JFrame for the application and initially sets the SignupView to be displayed.
      * @return the application
      */
@@ -246,7 +269,7 @@ public class AppBuilder {
 
         application.add(cardPanel);
 
-        viewManagerModel.setState(loggedInViewModel.getViewName());
+        viewManagerModel.setState(loggedInView.getViewName());
         viewManagerModel.firePropertyChanged();
 
         return application;

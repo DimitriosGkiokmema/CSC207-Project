@@ -24,8 +24,10 @@ public class RecommendInteractor implements RecommendInputBoundary {
         final Map<String, String> history = spotifyDataAccessObject.getHistory();
         // Takes user data and asks Azure for recommendations
         final String songRecommendations = recommendDataAccessObject.getRecommendations(history);
+        // Gets access token
+        final String accessToken = recommendInputData.getAccessToken();
 
-        final RecommendOutputData outputData = new RecommendOutputData(songRecommendations);
+        final RecommendOutputData outputData = new RecommendOutputData(songRecommendations, accessToken);
         recommendationOutputBoundary.prepareSuccessView(outputData);
     }
 }

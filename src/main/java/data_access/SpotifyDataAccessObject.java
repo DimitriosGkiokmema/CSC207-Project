@@ -2,7 +2,9 @@ package data_access;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import entity.CommonUser;
 import entity.User;
@@ -19,6 +21,7 @@ import se.michaelthelin.spotify.requests.data.browse.GetRecommendationsRequest;
 import se.michaelthelin.spotify.requests.data.follow.GetUsersFollowedArtistsRequest;
 import se.michaelthelin.spotify.requests.data.personalization.simplified.GetUsersTopArtistsRequest;
 import se.michaelthelin.spotify.requests.data.personalization.simplified.GetUsersTopTracksRequest;
+import use_case.recommend.RecommendSpotifyDataAccessInterface;
 import use_case.similar_listeners.SimilarListenersUserDataAccessInterface;
 import use_case.top_items.TopItemsUserDataAccessInterface;
 
@@ -26,7 +29,8 @@ import use_case.top_items.TopItemsUserDataAccessInterface;
  * DAO for getting relevant information from Spotify API.
  */
 public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
-        SimilarListenersUserDataAccessInterface {
+        SimilarListenersUserDataAccessInterface,
+        RecommendSpotifyDataAccessInterface {
     public static final int OFFSET = 4;
     public static final int OFFSET2 = 0;
 
@@ -214,6 +218,19 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
     public void setCurrentFollowedArtists(List<String> followedArtists) {
         this.currFollowedArtists = followedArtists;
 
+    }
+
+    @Override
+    public Map<String, String> getHistory() {
+        final Map<String, String> songs = new HashMap<>();
+        songs.put("(sic)", "Slipknot");
+        songs.put("Left Behind", "Slipknot");
+        songs.put("Jumpdafuckup", "Soulfly");
+        songs.put("Roots Bloody Roots", "Sepultura");
+        songs.put("Dragula", "Rob Zombie");
+        songs.put("Spit It Out", "Slipknot");
+
+        return songs;
     }
 }
 

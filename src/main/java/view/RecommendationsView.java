@@ -10,7 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import interface_adapter.recommend.RecommendController;
+import interface_adapter.logged_in.LoggedInViewModel;
+import interface_adapter.login.LoginController;
 import interface_adapter.recommend.RecommendState;
 import interface_adapter.recommend.RecommendViewModel;
 
@@ -21,7 +22,7 @@ public class RecommendationsView extends JPanel implements PropertyChangeListene
 
     private final String viewName = "recommendations";
     private final RecommendViewModel recommendViewModel;
-    private RecommendController recommendController;
+    private LoginController loginController;
 
     private final JButton refreshButton;
     private final JTextArea songsTextArea;
@@ -65,6 +66,20 @@ public class RecommendationsView extends JPanel implements PropertyChangeListene
 //                    }
 //                }
 //        );
+
+        homeButton.addActionListener(
+                // This creates an anonymous subclass of ActionListener and instantiates it.
+                evt -> {
+                    if (evt.getSource().equals(homeButton)) {
+                        // 1. get the state out of the searchViewModel. It contains the username.
+                        final String accessToken = recommendViewModel.getState().getAccessToken();
+                        // 2. Execute the search Controller.
+                        loginController.execute(accessToken);
+
+                    }
+                }
+        );
+
         final JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.add(titlePanel);
@@ -89,8 +104,8 @@ public class RecommendationsView extends JPanel implements PropertyChangeListene
         return viewName;
     }
 
-    public void setRecommendController(RecommendController recommendController) {
-        this.recommendController = recommendController;
+    public void setLoginController(LoginController loginController) {
+        this.loginController = loginController;
     }
 
     public String getArtist() {

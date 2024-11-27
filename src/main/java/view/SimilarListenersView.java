@@ -70,12 +70,18 @@ public class SimilarListenersView extends JPanel implements PropertyChangeListen
     }
 
     private void setListOfArtists(SimilarListenersState similarListenersState) {
-        String artistsNames = "";
-        List<String> followedArtists = similarListenersState.getSimilarArtists();
-        for (String followedArtist : followedArtists) {
-            artistsNames += followedArtist + "\n";
+        if (similarListenersState.getSimilarArtists().isEmpty()) {
+            listOfArtists.setText(similarListenersState.getSimilarArtistsError());
         }
-        listOfArtists.setText(artistsNames);
+        else {
+            String artistsNames = "";
+            List<String> followedArtists = similarListenersState.getSimilarArtists();
+            for (String followedArtist : followedArtists) {
+                artistsNames += followedArtist + "\n";
+            }
+            listOfArtists.setText(artistsNames);
+        }
+
 
     }
 

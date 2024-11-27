@@ -4,6 +4,8 @@ import interface_adapter.ViewManagerModel;
 import use_case.similar_listeners.SimilarListenersOutputBoundary;
 import use_case.similar_listeners.SimilarListenersOutputData;
 
+import java.util.ArrayList;
+
 /**
  * The Presenter for Similar Listeners use case.
  */
@@ -34,6 +36,7 @@ public class SimilarListenersPresenter implements SimilarListenersOutputBoundary
     public void prepareFailView(String errorMessage) {
         final SimilarListenersState similarListenersState = similarListenersViewModel.getState();
         similarListenersState.setSimilarArtistsError(errorMessage);
+        similarListenersState.setSimilarArtists(new ArrayList<>());
         similarListenersViewModel.firePropertyChanged();
 
         this.viewManagerModel.setState(similarListenersViewModel.getViewName());

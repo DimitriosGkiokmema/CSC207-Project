@@ -4,10 +4,7 @@ import java.awt.*;
 
 import javax.swing.*;
 
-import data_access.InMemoryUserDataAccessObject;
-import data_access.LanguageModelDataAccessObject;
-import data_access.SpotifyDataAccessObject;
-import data_access.TopItemsUserDataAccessObject;
+import data_access.*;
 import entity.CommonUserFactory;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
@@ -67,7 +64,7 @@ public class AppBuilder {
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
     private final TopItemsUserDataAccessObject topItemsUserDataAccessObject = new TopItemsUserDataAccessObject();
     private final LanguageModelDataAccessObject languageModelDataAccessObject = new LanguageModelDataAccessObject();
-    private final SpotifyDataAccessObject spotifyDataAccessObject = new SpotifyDataAccessObject("BQDPmgxEeX6U1nUlJKfSiF3dgCNVDFE1qR1lprhYgMMDVMyYb1zsGQ5uYVMOXvk0odD9pQWaLDRN3yuSD_nqeoh9Q3N96EerOA-67bLSNJ3zf-Qtj_EBRiE33I8zraNf7Q5g_LeLHLTIPELxrB0QYotzB6gl8hFFo_NhqWmV7yVwBald5ncDDdILNwj5ymgwiRNdB_icKVhjKJtSrA");
+    private final SpotifyDataAccessObject spotifyDataAccessObject = new SpotifyDataAccessObject("BQB7iZX3H2Qquv3K6WwqoVzI1pPvWefEYZe1E8VVptdtHE_5BDF7egTm2GwbWwf37SeVYZaXU8eg29_SeCzCzxvPqf5Hb3jfh01jyGUkCNzh97Xe1oR6rIHoWglAjooaBLKGOwTMC7EsODZW8fcOtOhLnmvZYrg-cPYpo8CDsFYutRw0pDXWWP1TQTnj1UKraw45bM6v-X1eZZ7-bA");
 
 //    Will remove since our project does not cover signing up, only logging in
     private LoginViewModel loginViewModel;

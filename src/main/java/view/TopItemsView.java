@@ -74,7 +74,7 @@ public class TopItemsView extends JPanel implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         final TopItemsState state = (TopItemsState) evt.getNewValue();
         setTrackGraph(state);
-        // setArtistGraph(state);
+        setArtistGraph(state);
     }
 
     public String getViewName() {

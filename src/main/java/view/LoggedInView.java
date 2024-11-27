@@ -99,44 +99,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-//        passwordInputField.getDocument().addDocumentListener(new DocumentListener() {
-//
-//            private void documentListenerHelper() {
-//                final LoggedInState currentState = loggedInViewModel.getState();
-//                currentState.setPassword(passwordInputField.getText());
-//                loggedInViewModel.setState(currentState);
-//            }
-//
-//            @Override
-//            public void insertUpdate(DocumentEvent e) {
-//                documentListenerHelper();
-//            }
-//
-//            @Override
-//            public void removeUpdate(DocumentEvent e) {
-//                documentListenerHelper();
-//            }
-//
-//            @Override
-//            public void changedUpdate(DocumentEvent e) {
-//                documentListenerHelper();
-//            }
-//        });
-
-//        changePassword.addActionListener(
-//                // This creates an anonymous subclass of ActionListener and instantiates it.
-//                evt -> {
-//                    if (evt.getSource().equals(changePassword)) {
-//                        final LoggedInState currentState = loggedInViewModel.getState();
-//
-//                        this.changePasswordController.execute(
-//                                currentState.getUsername(),
-//                                currentState.getPassword()
-//                        );
-//                    }
-//                }
-//        );
-
         logOut.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 evt -> {
@@ -164,11 +126,11 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 evt -> {
 
                     if (evt.getSource().equals(topItems)) {
-                        // final String name = topTracksController
+                        final List<String> topTracks = new ArrayList<>();
+                        final List<String> topArtists = new ArrayList<>();
+                        final String accessToken = loggedInViewModel.getState().getUsername();
 
-                        final List<String> lst1 = new ArrayList<>();
-                        final List<String> lst2 = new ArrayList<>();
-                        topItemsController.execute(lst1, lst2);
+                        topItemsController.execute(topTracks, topArtists, accessToken);
                     }
                 }
         );

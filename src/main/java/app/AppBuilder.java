@@ -39,7 +39,12 @@ import use_case.similar_listeners.SimilarListenersOutputBoundary;
 import use_case.top_items.TopItemsInputBoundary;
 import use_case.top_items.TopItemsInteractor;
 import use_case.top_items.TopItemsOutputBoundary;
-import view.*;
+import view.LoggedInView;
+import view.LoginView;
+import view.SearchView;
+import view.TopItemsView;
+
+import view.ViewManager;
 
 /**
  * The AppBuilder class is responsible for putting together the pieces of
@@ -64,7 +69,7 @@ public class AppBuilder {
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
     private final TopItemsUserDataAccessObject topItemsUserDataAccessObject = new TopItemsUserDataAccessObject();
     private final LanguageModelDataAccessObject languageModelDataAccessObject = new LanguageModelDataAccessObject();
-    private final SpotifyDataAccessObject spotifyDataAccessObject = new SpotifyDataAccessObject("BQB7iZX3H2Qquv3K6WwqoVzI1pPvWefEYZe1E8VVptdtHE_5BDF7egTm2GwbWwf37SeVYZaXU8eg29_SeCzCzxvPqf5Hb3jfh01jyGUkCNzh97Xe1oR6rIHoWglAjooaBLKGOwTMC7EsODZW8fcOtOhLnmvZYrg-cPYpo8CDsFYutRw0pDXWWP1TQTnj1UKraw45bM6v-X1eZZ7-bA");
+    private final SpotifyDataAccessObject spotifyDataAccessObject = new SpotifyDataAccessObject();
 
 //    Will remove since our project does not cover signing up, only logging in
     private LoginViewModel loginViewModel;
@@ -205,11 +210,20 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addTopItemsUseCase() {
+
+        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
+                loggedInViewModel, loginViewModel);
+        final LoginInputBoundary loginInteractor = new LoginInteractor(
+                userDataAccessObject, loginOutputBoundary);
+
+        final LoginController loginController = new LoginController(loginInteractor);
+        topItemsView.setLoginController(loginController);
+
         final TopItemsOutputBoundary topItemsOutputBoundary = new TopItemsPresenter(viewManagerModel,
                 topTracksAndArtistsViewModel);
 
         final TopItemsInputBoundary topItemsInputBoundary =
-                new TopItemsInteractor(spotifyDataAccessObject, topItemsOutputBoundary);
+                new TopItemsInteractor(topItemsUserDataAccessObject, topItemsOutputBoundary);
 
         final TopItemsController topItemsController = new TopItemsController(topItemsInputBoundary);
         loggedInView.setTopTracksController(topItemsController);

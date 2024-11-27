@@ -13,7 +13,7 @@ public class LoginOutputData {
         this.useCaseFailed = useCaseFailed;
     }
 
-    public String getUsername() {
+    public String getAccessToken() {
         return accessToken;
     }
 

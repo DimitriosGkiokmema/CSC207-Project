@@ -10,10 +10,12 @@ public class TopItemsState {
     private List<String> artists;
     private String tracksError;
     private String artistsError;
+    private String accessToken;
 
     public TopItemsState(TopItemsState copy) {
-        // tracks = copy.tracks;
-        // tracksError = copy.tracksError;
+        tracks = copy.tracks;
+        tracksError = copy.tracksError;
+        accessToken = copy.accessToken;
     }
 
     // Because of the previous copy constructor, the default constructor must be explicit.
@@ -51,6 +53,14 @@ public class TopItemsState {
 
     public void setArtistsError(String artistsError) {
         this.artistsError = artistsError;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
     }
 
 

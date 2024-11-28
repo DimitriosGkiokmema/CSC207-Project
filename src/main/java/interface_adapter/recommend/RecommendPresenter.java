@@ -21,6 +21,7 @@ public class RecommendPresenter implements RecommendOutputBoundary {
     public void prepareSuccessView(RecommendOutputData output) {
         final RecommendState recommendState = recommendViewModel.getState();
         recommendState.setAccessToken(output.getAccessToken());
+        recommendState.setTopArtists(output.getTopArtists());
         recommendState.setSongRecommendations(output.getSongRecommendations());
         this.recommendViewModel.setState(recommendState);
         this.recommendViewModel.firePropertyChanged();

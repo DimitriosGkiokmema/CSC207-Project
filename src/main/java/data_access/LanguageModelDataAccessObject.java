@@ -83,16 +83,16 @@ public class LanguageModelDataAccessObject implements RecommendLanguageModelData
     }
 
     @Override
-    public String getRecommendations(List<String> songs) {
+    public String getRecommendations(List<String> songs, String topArtists) {
         final OpenAIClient client = new OpenAIClientBuilder()
                 .credential(new AzureKeyCredential(accessToken))
                 .endpoint(endpoint)
                 .buildClient();
         final List<ChatRequestMessage> chatMessages = new ArrayList<>();
-        chatMessages.add(new ChatRequestSystemMessage("You are a Spotify analyst, you will either send back a "
-                + "list of songs which are similar to a provided list."));
-        chatMessages.add(new ChatRequestUserMessage("Can you help me find songs similar to " + songs
-                + "which is a list of songs where each song is followed by its artist name."));
+        chatMessages.add(new ChatRequestSystemMessage("You are a Spotify analyst, you will send back a "
+                + "list of songs which are similar to a provided list of songs and artists that a user has listened to."));
+        chatMessages.add(new ChatRequestUserMessage("A user's top artists are" + topArtists
+                + ". Their top tracks are" + songs + ". What are some song recommendations, based on these?"));
         chatMessages.add(new ChatRequestUserMessage(String.valueOf(songs)));
 
         final ChatCompletions chatCompletions = client.getChatCompletions("gpt-4",

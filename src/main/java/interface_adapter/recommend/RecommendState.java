@@ -6,6 +6,7 @@ package interface_adapter.recommend;
 public class RecommendState {
     private String songRecommendations;
     private String accessToken;
+    private String topArtists;
 
     // Because of the previous copy constructor, the default constructor must be explicit.
     public RecommendState() {
@@ -26,5 +27,13 @@ public class RecommendState {
 
     public String getAccessToken() {
         return accessToken;
+    }
+
+    public void setTopArtists(String topArtists) {
+        this.topArtists = topArtists;
+    }
+
+    public String getTopArtists() {
+        return topArtists;
     }
 }

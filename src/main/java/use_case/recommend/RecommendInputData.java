@@ -1,5 +1,6 @@
 package use_case.recommend;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -7,16 +8,22 @@ import java.util.Map;
  */
 public class RecommendInputData {
 
-    private final Map<String, String> songRecommendations;
+    private final List<String> songRecommendations;
+    private final String topArtists;
     private String accessToken;
 
-    public RecommendInputData(Map<String, String> songRecommendations, String accessToken) {
+    public RecommendInputData(List<String> songRecommendations, String topArtists, String accessToken) {
         this.songRecommendations = songRecommendations;
+        this.topArtists = topArtists;
         this.accessToken = accessToken;
     }
 
-    public Map<String, String> getListeningHistory() {
+    public List<String> getListeningHistory() {
         return songRecommendations;
+    }
+
+    public String getTopArtists() {
+        return topArtists;
     }
 
     public String getAccessToken() {

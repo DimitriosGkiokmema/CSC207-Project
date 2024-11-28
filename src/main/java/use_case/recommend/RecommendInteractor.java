@@ -23,12 +23,13 @@ public class RecommendInteractor implements RecommendInputBoundary {
     public void execute(RecommendInputData recommendInputData) {
         // Calls Spotify API to get user data
         final List<String> songs = spotifyDataAccessObject.getCurrentTopTracks();
+        final String topArtists = spotifyDataAccessObject.getTopArtists();
         // Takes user data and asks Azure for recommendations
-        final String songRecommendations = recommendDataAccessObject.getRecommendations(songs);
+        final String songRecommendations = recommendDataAccessObject.getRecommendations(songs, topArtists);
         // Gets access token
         final String accessToken = recommendInputData.getAccessToken();
 
-        final RecommendOutputData outputData = new RecommendOutputData(songRecommendations, accessToken);
+        final RecommendOutputData outputData = new RecommendOutputData(songRecommendations, topArtists, accessToken);
         recommendationOutputBoundary.prepareSuccessView(outputData);
     }
 }

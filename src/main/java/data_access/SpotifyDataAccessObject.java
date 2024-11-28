@@ -190,7 +190,27 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
 
     @Override
     public List<String> getCurrentTopTracks() {
-        return this.currentTopTracks;
+//        return this.currentTopTracks;
+        final List lst = new ArrayList();
+        lst.add("(sic)");
+        lst.add("Left Behind");
+        lst.add("Spit It Out");
+        lst.add("People = Shit");
+        lst.add("Metabolic");
+        lst.add("Everything Ends");
+        return lst;
+    }
+
+    @Override
+    public String getTopArtists() {
+//        final List lst = getCurrentTopArtists();
+//        final StringBuilder sb = new StringBuilder();
+//        for (Object o : lst) {
+//            sb.append(o);
+//            sb.append(",");
+//        }
+//        return sb.toString();
+        return "Slipknot, Soulfly, Korn, Sepultura, System Of A Down";
     }
 
     @Override
@@ -217,7 +237,6 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
     @Override
     public void setCurrentFollowedArtists(List<String> followedArtists) {
         this.currFollowedArtists = followedArtists;
-
     }
 }
 

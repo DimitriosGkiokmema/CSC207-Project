@@ -24,7 +24,7 @@ public class RecommendationsView extends JPanel implements PropertyChangeListene
     private final RecommendViewModel recommendViewModel;
     private LoginController loginController;
 
-    private final JButton refreshButton;
+    private JLabel topArtists;
     private final JTextArea songsTextArea;
     private final JButton homeButton;
 
@@ -36,8 +36,8 @@ public class RecommendationsView extends JPanel implements PropertyChangeListene
         final JPanel titlePanel = new JPanel();
         titlePanel.add(title);
 
-        final JLabel description = new JLabel("Based on your listening history, "
-                +"here are some songs you might like:");
+        final JLabel description = new JLabel("Because you've listened to " + topArtists
+                + "here are some songs you might like:");
         final JPanel descriptionPanel = new JPanel();
         descriptionPanel.add(description);
 
@@ -46,12 +46,10 @@ public class RecommendationsView extends JPanel implements PropertyChangeListene
         homeButtonPanel.add(homeButton);
 
         final JPanel songsPanel = new JPanel();
-        refreshButton = new JButton("Refresh");
         songsTextArea = new JTextArea();
         songsTextArea.setText("TO DO: Get songs to show here");
         final JScrollPane songsScrollPane = new JScrollPane(songsTextArea);
         songsPanel.add(songsScrollPane);
-        songsPanel.add(refreshButton);
 
 //        changePassword.addActionListener(
 //                // This creates an anonymous subclass of ActionListener and instantiates it.
@@ -97,6 +95,10 @@ public class RecommendationsView extends JPanel implements PropertyChangeListene
     }
 
     private void setFields(RecommendState state) {
+        topArtists = new JLabel();
+        String topArtistsText = state.getTopArtists() != null ? state.getTopArtists() : "No top artists available";
+        topArtists.setText(topArtistsText);
+        System.out.println(topArtistsText);
         songsTextArea.setText(state.getSongRecommendations());
     }
 
@@ -106,9 +108,5 @@ public class RecommendationsView extends JPanel implements PropertyChangeListene
 
     public void setLoginController(LoginController loginController) {
         this.loginController = loginController;
-    }
-
-    public String getArtist() {
-        return "INSERT ARTIST";
     }
 }

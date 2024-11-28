@@ -5,10 +5,12 @@ package use_case.recommend;
  */
 public class RecommendOutputData {
     private final String songRecommendations;
+    private final String topArtists;
     private String accessToken;
 
-    public RecommendOutputData(String songRecommendations, String accessToken) {
+    public RecommendOutputData(String songRecommendations, String topArtists, String accessToken) {
         this.songRecommendations = songRecommendations;
+        this.topArtists = topArtists;
         this.accessToken = accessToken;
     }
 
@@ -22,5 +24,9 @@ public class RecommendOutputData {
 
     public void setAccessToken(String accessToken) {
         this.accessToken = accessToken;
+    }
+
+    public String getTopArtists() {
+        return topArtists;
     }
 }

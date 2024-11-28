@@ -11,5 +11,5 @@ public interface RecommendLanguageModelDataAccessInterface {
      * @param prompt is a list of strings which the model will respond to
      * @return the model's response to that prompt
      */
-    String getRecommendations(List<String> prompt);
+    String getRecommendations(List<String> prompt, String topArtists);
 }

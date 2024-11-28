@@ -35,6 +35,7 @@ public class SimilarListenersInteractorTest {
                 // check that the output data contains the username of who logged out
                 assertEquals(allfollowedArtists, outputData.getSimilarArtists());
                 assertEquals("Madonna", outputData.getSimilarArtists().get(2));
+                assertEquals("token", outputData.getAccessToken());
             }
 
             @Override
@@ -72,5 +73,14 @@ public class SimilarListenersInteractorTest {
         interactor.execute(inputData);
 
     }
+    @Test
+    void tokenTest() {
+        SimilarListenersOutputData outputData =
+                new SimilarListenersOutputData(new ArrayList<>(), false, "token");
+        outputData.setAccessToken("new token");
+        assertEquals("new token", outputData.getAccessToken());
 
-}
+        }
+    }
+
+

@@ -8,10 +8,12 @@ import java.util.List;
 public class SimilarListenersState {
     private List<String> similarArtists;
     private String similarArtistsError;
+    private String accessToken;
 
     public SimilarListenersState(SimilarListenersState copy) {
         similarArtists = copy.similarArtists;
         similarArtistsError = copy.similarArtistsError;
+        accessToken = copy.accessToken;
     }
 
     // Because of the previous copy constructor, the default constructor must be explicit.
@@ -33,6 +35,14 @@ public class SimilarListenersState {
 
     void setSimilarArtistsError(String similarArtistsError) {
         this.similarArtistsError = similarArtistsError;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
     }
 
 }

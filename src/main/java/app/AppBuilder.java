@@ -43,6 +43,7 @@ import view.LoggedInView;
 import view.LoginView;
 import view.SearchView;
 import view.TopItemsView;
+import view.SimilarListenersView;
 
 import view.ViewManager;
 
@@ -231,6 +232,14 @@ public class AppBuilder {
     }
 
     public AppBuilder addSimilarListenersUseCase() {
+        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
+                loggedInViewModel, loginViewModel);
+        final LoginInputBoundary loginInteractor = new LoginInteractor(
+                userDataAccessObject, loginOutputBoundary);
+
+        final LoginController loginController = new LoginController(loginInteractor);
+        similarListenersView.setLoginController(loginController);
+
         final SimilarListenersOutputBoundary similarListenersOutputBoundary =
                 new SimilarListenersPresenter(similarListenersViewModel, viewManagerModel);
         final SimilarListenersInputBoundary similarListenersInputBoundary =

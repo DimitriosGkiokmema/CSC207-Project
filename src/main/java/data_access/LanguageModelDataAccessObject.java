@@ -5,10 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.azure.ai.openai.OpenAIClient;
 import com.azure.ai.openai.OpenAIClientBuilder;
@@ -98,6 +95,38 @@ public class LanguageModelDataAccessObject implements RecommendLanguageModelData
         final ChatCompletions chatCompletions = client.getChatCompletions("gpt-4",
                 new ChatCompletionsOptions(chatMessages));
         final int back = chatCompletions.getChoices().size() - 1;
-        return chatCompletions.getChoices().get(back).getMessage().getContent();
+        String response = chatCompletions.getChoices().get(back).getMessage().getContent();
+
+        // Removes extra characters placed by the AI
+        response = response.replace("*", "");
+
+        String[] lines = response.split("\n");
+
+        System.out.println("Output:");
+        for (String line : lines) {
+            System.out.println(line + "|");
+        }
+
+        // Check if there are at least three lines
+        if (lines.length <= 2) {
+            // If there are less than 3 lines, return an empty string or handle as desired
+            return "";
+        }
+
+        // Create a new StringBuilder to hold the result
+        StringBuilder result = new StringBuilder();
+
+        // Append lines from the second to the second last (index 1 to length-2)
+        for (int i = 1; i < lines.length - 1; i++) {
+            if (!Objects.equals(lines[i], "")) {
+                result.append(lines[i]);
+            }
+            if (i < lines.length - 2) {
+                result.append("\n"); // Add a newline character if not the last line
+            }
+        }
+
+        // Return the result as a string
+        return result.toString();
     }
 }

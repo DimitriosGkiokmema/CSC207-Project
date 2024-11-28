@@ -3,6 +3,7 @@ package view;
 import java.util.List;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.similar_listeners.SimilarListenersState;
 import interface_adapter.similar_listeners.SimilarListenersViewModel;
@@ -18,6 +19,7 @@ import javax.swing.*;
 public class SimilarListenersView extends JPanel implements PropertyChangeListener {
     private final String viewName = "similar listeners";
     private final SimilarListenersViewModel similarListenersViewModel;
+    private LoginController loginController;
     private final JButton back;
     private final JTextArea listOfArtists;
 
@@ -38,16 +40,10 @@ public class SimilarListenersView extends JPanel implements PropertyChangeListen
         back = new JButton("Go Back");
         back.setAlignmentX(Component.CENTER_ALIGNMENT);
         back.addActionListener(
-                new ActionListener() {
-                    private final ViewManagerModel viewManagerModel = new ViewManagerModel();
-                    private final LoginViewModel loginViewModel = new LoginViewModel();
-
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(back)) {
-                            viewManagerModel.setState(loginViewModel.getViewName());
-                            viewManagerModel.firePropertyChanged();
-
-                        }
+                evt -> {
+                    if (evt.getSource().equals(back)) {
+                        final String accessToken = similarListenersViewModel.getState().getAccessToken();
+                        loginController.execute(accessToken);
                     }
                 }
         );
@@ -60,6 +56,10 @@ public class SimilarListenersView extends JPanel implements PropertyChangeListen
 
     public String getViewName() {
         return viewName;
+    }
+
+    public void setLoginController(LoginController loginController) {
+        this.loginController = loginController;
     }
 
     @Override

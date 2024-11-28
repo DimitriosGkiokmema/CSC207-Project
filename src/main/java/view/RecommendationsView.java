@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.recommend.RecommendState;
 import interface_adapter.recommend.RecommendViewModel;
@@ -47,23 +46,9 @@ public class RecommendationsView extends JPanel implements PropertyChangeListene
 
         final JPanel songsPanel = new JPanel();
         songsTextArea = new JTextArea();
-        songsTextArea.setText("TO DO: Get songs to show here");
+        songsTextArea.setText("Error: songs not displaying");
         final JScrollPane songsScrollPane = new JScrollPane(songsTextArea);
         songsPanel.add(songsScrollPane);
-
-//        changePassword.addActionListener(
-//                // This creates an anonymous subclass of ActionListener and instantiates it.
-//                evt -> {
-//                    if (evt.getSource().equals(changePassword)) {
-//                        final LoggedInState currentState = loggedInViewModel.getState();
-//
-//                        this.changePasswordController.execute(
-//                                currentState.getUsername(),
-//                                currentState.getPassword()
-//                        );
-//                    }
-//                }
-//        );
 
         homeButton.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
@@ -98,7 +83,6 @@ public class RecommendationsView extends JPanel implements PropertyChangeListene
         topArtists = new JLabel();
         String topArtistsText = state.getTopArtists() != null ? state.getTopArtists() : "No top artists available";
         topArtists.setText(topArtistsText);
-        System.out.println(topArtistsText);
         songsTextArea.setText(state.getSongRecommendations());
     }
 

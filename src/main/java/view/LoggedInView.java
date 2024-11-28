@@ -1,14 +1,12 @@
 package view;
 
-import java.awt.Component;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.*;
 
@@ -50,11 +48,12 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         final JLabel title = new JLabel("Home Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        final JPanel profile = new JPanel(new FlowLayout(FlowLayout.LEFT));
         final JLabel usernameInfo = new JLabel("Currently logged in: ");
         username = new JLabel();
-
-        final JPanel profile = new JPanel();
         logOut = new JButton("Log Out");
+        profile.add(usernameInfo);
+        profile.add(username);
         profile.add(logOut);
 
         final JButton description = new JButton("Search song by description");

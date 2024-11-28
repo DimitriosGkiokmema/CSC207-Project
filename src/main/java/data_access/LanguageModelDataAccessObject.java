@@ -28,8 +28,8 @@ import use_case.search.SearchLanguageModelDataAccessInterface;
 public class LanguageModelDataAccessObject implements RecommendLanguageModelDataAccessInterface,
         SearchLanguageModelDataAccessInterface {
 
-    private String endpoint = "https://spotifycompanion.openai.azure.com/";
-    private String accessToken;
+    final private String endpoint = "https://spotifycompanion.openai.azure.com/";
+    final private String accessToken;
 
     public LanguageModelDataAccessObject() {
         accessToken = getKey();
@@ -42,7 +42,6 @@ public class LanguageModelDataAccessObject implements RecommendLanguageModelData
     private String getKey() {
         final File file;
         file = new File("src/keys");
-        file.length();
         String key = "not found";
         try {
             final BufferedReader br = new BufferedReader(new FileReader(file));
@@ -51,7 +50,8 @@ public class LanguageModelDataAccessObject implements RecommendLanguageModelData
             br.close();
         }
         catch (FileNotFoundException ex) {
-            System.out.println("The file does not exist");
+            System.out.println("The file which should contain the " +
+                    "azure access token does not exist in the correct place. Either create the file and place a valid api key in it or move the file to the src folder");
         }
         catch (IOException ex) {
             System.out.println("Error reading file");

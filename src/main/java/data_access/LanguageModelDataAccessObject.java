@@ -102,17 +102,6 @@ public class LanguageModelDataAccessObject implements RecommendLanguageModelData
 
         String[] lines = response.split("\n");
 
-        System.out.println("Output:");
-        for (String line : lines) {
-            System.out.println(line + "|");
-        }
-
-        // Check if there are at least three lines
-        if (lines.length <= 2) {
-            // If there are less than 3 lines, return an empty string or handle as desired
-            return "";
-        }
-
         // Create a new StringBuilder to hold the result
         StringBuilder result = new StringBuilder();
 

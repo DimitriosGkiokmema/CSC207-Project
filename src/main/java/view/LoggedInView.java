@@ -131,7 +131,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                         final List<String> songRecommendations = new ArrayList<>();
                         final String artistRecommendations = "";
                         final String accessToken = loggedInViewModel.getState().getUsername();
-                        System.out.println(accessToken);
                         recommendController.execute(songRecommendations, artistRecommendations, accessToken);
                     }
                 }
@@ -194,10 +193,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     public String getViewName() {
         return viewName;
     }
-
-//    public void setChangePasswordController(ChangePasswordController changePasswordController) {
-//        this.changePasswordController = changePasswordController;
-//    }
 
     public void setLogoutController(LogoutController logoutController) {
         this.logoutController = logoutController;

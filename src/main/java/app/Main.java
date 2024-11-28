@@ -17,13 +17,13 @@ public class Main {
         final AppBuilder appBuilder = new AppBuilder();
         final JFrame application = appBuilder
                 .addLoginView()
-                .addLoginUseCase()
                 .addLoggedInView()
                 .addRecommendationsView()
-                .addRecommendUseCase()
                 .addSearchView()
                 .addTopItemsView()
+                .addLoginUseCase()
                 .addLogoutUseCase()
+                .addRecommendUseCase()
                 .addSearchUseCase()
                 .addTopItemsUseCase()
                 .build();

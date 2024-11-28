@@ -24,6 +24,7 @@ public class SimilarListenersPresenter implements SimilarListenersOutputBoundary
     public void prepareSuccessView(SimilarListenersOutputData similarListenersOutputData) {
         final SimilarListenersState similarListenersState = similarListenersViewModel.getState();
         similarListenersState.setSimilarArtists(similarListenersOutputData.getSimilarArtists());
+        similarListenersState.setAccessToken(similarListenersOutputData.getAccessToken());
         this.similarListenersViewModel.setState(similarListenersState);
         similarListenersViewModel.firePropertyChanged();
 
@@ -37,6 +38,7 @@ public class SimilarListenersPresenter implements SimilarListenersOutputBoundary
         final SimilarListenersState similarListenersState = similarListenersViewModel.getState();
         similarListenersState.setSimilarArtistsError(errorMessage);
         similarListenersState.setSimilarArtists(new ArrayList<>());
+        //similarListenersState.setAccessToken(similarListenersOutputData.getAccessToken());
         similarListenersViewModel.firePropertyChanged();
 
         this.viewManagerModel.setState(similarListenersViewModel.getViewName());

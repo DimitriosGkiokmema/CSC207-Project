@@ -2,17 +2,10 @@ package data_access;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import entity.CommonUser;
-import entity.User;
 
 import interface_adapter.login.LoginState;
 import org.apache.hc.core5.http.ParseException;
-import org.json.JSONException;
-import org.json.JSONObject;
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.enums.ModelObjectType;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
@@ -190,27 +183,32 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
 
     @Override
     public List<String> getCurrentTopTracks() {
-//        return this.currentTopTracks;
-        final List lst = new ArrayList();
-        lst.add("(sic)");
-        lst.add("Left Behind");
-        lst.add("Spit It Out");
-        lst.add("People = Shit");
-        lst.add("Metabolic");
-        lst.add("Everything Ends");
-        return lst;
+        // Used for testing
+//        final List lst = new ArrayList();
+//        lst.add("(sic)");
+//        lst.add("Left Behind");
+//        lst.add("Spit It Out");
+//        lst.add("People = Shit");
+//        lst.add("Metabolic");
+//        lst.add("Everything Ends");
+//        return lst;
+
+        return this.currentTopTracks;
     }
 
     @Override
     public String getTopArtists() {
-//        final List lst = getCurrentTopArtists();
-//        final StringBuilder sb = new StringBuilder();
-//        for (Object o : lst) {
-//            sb.append(o);
-//            sb.append(",");
-//        }
-//        return sb.toString();
-        return "Slipknot, Soulfly, Korn, Sepultura, System Of A Down";
+        // Used for testing
+//        return "Slipknot, Soulfly, Korn, Sepultura, System Of A Down";
+        final List<String> lst = getCurrentTopArtists();
+        final StringBuilder sb = new StringBuilder();
+
+        for (Object o : lst) {
+            sb.append(o);
+            sb.append(",");
+        }
+
+        return sb.toString();
     }
 
     @Override

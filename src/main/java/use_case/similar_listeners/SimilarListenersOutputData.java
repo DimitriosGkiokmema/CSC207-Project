@@ -8,7 +8,7 @@ public class SimilarListenersOutputData {
     private final boolean useCaseFailed;
     private String accessToken;
 
-    public SimilarListenersOutputData(List<String> similarArtists, boolean useCaseFailed) {
+    public SimilarListenersOutputData(List<String> similarArtists, boolean useCaseFailed, String accessToken) {
         this.similarArtists = similarArtists;
         this.useCaseFailed = useCaseFailed;
         this.accessToken = accessToken;

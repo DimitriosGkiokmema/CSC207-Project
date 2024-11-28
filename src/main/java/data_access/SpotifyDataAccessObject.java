@@ -183,29 +183,20 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
 
     @Override
     public List<String> getCurrentTopTracks() {
-        // Used for testing
-//        final List lst = new ArrayList();
-//        lst.add("(sic)");
-//        lst.add("Left Behind");
-//        lst.add("Spit It Out");
-//        lst.add("People = Shit");
-//        lst.add("Metabolic");
-//        lst.add("Everything Ends");
-//        return lst;
-
         return this.currentTopTracks;
     }
 
     @Override
     public String getTopArtists() {
-        // Used for testing
-//        return "Slipknot, Soulfly, Korn, Sepultura, System Of A Down";
-        final List<String> lst = getCurrentTopArtists();
+        final List<String> lst = this.currentTopArtists;
         final StringBuilder sb = new StringBuilder();
 
-        for (Object o : lst) {
-            sb.append(o);
-            sb.append(",");
+        for (int i = 0; i < lst.size(); i ++) {
+            sb.append(lst.get(i));
+
+            if (i != lst.size() - 1) {
+                sb.append(", ");
+            }
         }
 
         return sb.toString();

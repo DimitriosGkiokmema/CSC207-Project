@@ -17,11 +17,10 @@ public class TopItemsController {
 
     /**
      * Executes the TopItems Use Case.
-     * @param toptracks the top tracks of the user.
-     * @param topartists the top artists of the user.
+     * @param accessToken the access Token of the user.
      */
-    public void execute(List<String> toptracks, List<String> topartists, String accessToken) {
-        final TopItemsInputData topItemsInputData = new TopItemsInputData(toptracks, topartists, accessToken);
+    public void execute(String accessToken) {
+        final TopItemsInputData topItemsInputData = new TopItemsInputData(accessToken);
 
         topItemsUseCaseInteractor.execute(topItemsInputData);
     }

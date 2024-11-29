@@ -30,7 +30,6 @@ public class TopItemsInteractor implements TopItemsInputBoundary {
                 topItemsOutputBoundary.prepareFailView("Top Artists cannot be determined");
             }
         }
-
         else {
             final List<String> topTracks = userDataAccessObject.getCurrentTopTracks();
             final List<String> topArtists = userDataAccessObject.getCurrentTopArtists();

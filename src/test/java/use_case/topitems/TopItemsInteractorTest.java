@@ -123,7 +123,7 @@ public class TopItemsInteractorTest {
         TopItemsOutputBoundary fail = new TopItemsOutputBoundary() {
             @Override
             public void prepareSuccessView(TopItemsOutputData outputData) {
-                fail("User case success is not expected");
+                fail("Use case success is not expected");
             }
 
             @Override

@@ -18,10 +18,13 @@ public class RecommendInteractor implements RecommendInputBoundary {
     @Override
     public void execute(RecommendInputData recommendInputData) {
         // Calls Spotify API to get user data
-        final List<String> songs = userDataAccessObject.getCurrentTopTracks();
+        final List<String> topTracks = userDataAccessObject.getTopTracks();
+        userDataAccessObject.setTopTracks(topTracks);
         final String topArtists = userDataAccessObject.getTopArtists();
+        userDataAccessObject.setTopArtists(topArtists);
         // Takes user data and asks Azure for recommendations
-        final String songRecommendations = userDataAccessObject.getRecommendations(songs, topArtists);
+        System.out.printf("Calling spotify api with songs: " + topTracks);
+        final String songRecommendations = userDataAccessObject.getRecommendations(topTracks, topArtists);
         // Gets spotify access token
         final String accessToken = recommendInputData.getAccessToken();
 

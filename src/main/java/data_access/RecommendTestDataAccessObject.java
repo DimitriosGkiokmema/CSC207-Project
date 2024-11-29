@@ -24,12 +24,12 @@ public class RecommendTestDataAccessObject implements RecommendSpotifyDataAccess
     }
 
     @Override
-    public List<String> getCurrentTopTracks() {
+    public List<String> getTopTracks() {
         return topTracks;
     }
 
     @Override
-    public void setCurrentTopTracks(List<String> topTracks) {
+    public void setTopTracks(List<String> topTracks) {
         this.topTracks = topTracks;
     }
 

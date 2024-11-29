@@ -11,13 +11,13 @@ public interface RecommendUserDataAccessInterface {
      * Returns the top track list of the current user of the application.
      * @return the top track List of the current user; null indicates that there are no track lists.
      */
-    List<String> getCurrentTopTracks();
+    List<String> getTopTracks();
 
     /**
      * Sets the top tracks list indicating who is the current user of the application.
      * @param tracks the new top track list; null to indicate that there is no top tracks.
      */
-    void setCurrentTopTracks(List<String> tracks);
+    void setTopTracks(List<String> tracks);
 
     /**
      * Returns the top artist list of the current user of the application.

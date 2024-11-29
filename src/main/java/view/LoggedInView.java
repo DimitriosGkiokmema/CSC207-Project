@@ -129,11 +129,10 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         recommendations.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(recommendations)) {
-                        // final String name = topTracksController
-                        final List<String> songRecommendations = new ArrayList<>();
-                        final String artistRecommendations = "";
+                        final List<String> topTracks = new ArrayList<>();
+                        final String topArtists = "";
                         final String accessToken = loggedInViewModel.getState().getUsername();
-                        recommendController.execute(songRecommendations, artistRecommendations, accessToken);
+                        recommendController.execute(topTracks, topArtists, accessToken);
                     }
                 }
         );

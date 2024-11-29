@@ -18,7 +18,7 @@ public class RecommendInteractorTest {
     @BeforeEach
      void setUp() {
         dummySpotify = new RecommendTestDataAccessObject();
-        topTracks = dummySpotify.getCurrentTopTracks();
+        topTracks = dummySpotify.getTopTracks();
         topArtists = dummySpotify.getTopArtists();
     }
 
@@ -50,7 +50,7 @@ public class RecommendInteractorTest {
         RecommendInputData inputData = new RecommendInputData(tracks, topArtists, "token");
 
         RecommendUserDataAccessInterface accessObject = new RecommendUserDataAccessObject();
-        accessObject.setCurrentTopTracks(tracks);
+        accessObject.setTopTracks(tracks);
 
         RecommendOutputBoundary successPresenter = new RecommendOutputBoundary() {
             @Override

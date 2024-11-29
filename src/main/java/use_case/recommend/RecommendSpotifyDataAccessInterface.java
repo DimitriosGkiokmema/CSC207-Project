@@ -10,7 +10,7 @@ public interface RecommendSpotifyDataAccessInterface {
      * Sends a query to the Spotify at the API endpoint.
      * @return a map of songs that the user listened to most recently
      */
-    List<String> getCurrentTopTracks();
+    List<String> getTopTracks();
 
     /**
      * Sends a query to the Spotify at the API endpoint.

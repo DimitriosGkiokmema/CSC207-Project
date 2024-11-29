@@ -2,6 +2,7 @@ package data_access;
 
 import use_case.recommend.RecommendUserDataAccessInterface;
 import data_access.LanguageModelDataAccessObject;
+import data_access.SpotifyDataAccessObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,24 +12,18 @@ public class RecommendUserDataAccessObject implements RecommendUserDataAccessInt
     private String topArtists;
 
     public RecommendUserDataAccessObject() {
-        topTracks = new ArrayList<>();
-        topTracks.add("(sic)");
-        topTracks.add("Left Behind");
-        topTracks.add("Spit It Out");
-        topTracks.add("People = Shit");
-        topTracks.add("Metabolic");
-        topTracks.add("Everything Ends");
-
-        topArtists = "Slipknot, Soulfly, Korn, Sepultura, System Of A Down";
+        final SpotifyDataAccessObject spotifyDataAccessObject = new SpotifyDataAccessObject();
+        topTracks = spotifyDataAccessObject.getCurrentTopTracks();
+        topArtists = spotifyDataAccessObject.getTopArtists();
     }
 
     @Override
-    public List<String> getCurrentTopTracks() {
+    public List<String> getTopTracks() {
         return topTracks;
     }
 
     @Override
-    public void setCurrentTopTracks(List<String> topTracks) {
+    public void setTopTracks(List<String> topTracks) {
         this.topTracks = topTracks;
     }
 

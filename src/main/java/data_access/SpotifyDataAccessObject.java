@@ -179,8 +179,17 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
     }
 
     @Override
+    public List<String> getTopTracks() {
+        return getUsersTopTracksSync();
+    }
+
+    public void setTopTracks(List<String> topTracks) {
+        this.currentTopTracks = topTracks;
+    }
+
+    @Override
     public String getTopArtists() {
-        final List<String> lst = this.currentTopArtists;
+        final List<String> lst = currentTopArtists;
         final StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < lst.size(); i ++) {

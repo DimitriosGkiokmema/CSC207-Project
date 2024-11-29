@@ -1,22 +1,42 @@
 package interface_adapter.keyword;
 
+import interface_adapter.ViewManagerModel;
+import interface_adapter.logged_in.LoggedInViewModel;
+import interface_adapter.search.SearchState;
+import interface_adapter.search.SearchViewModel;
 import use_case.keyword.KeywordOutputBoundary;
 import use_case.keyword.KeywordOutputData;
-
+/**
+ * The Presenter for the Search Use Case.
+ */
 public class KeywordPresenter implements KeywordOutputBoundary {
-    private final KeywordViewModel viewModel;
+    private LoggedInViewModel loggedInViewModel;
+    private ViewManagerModel viewManagerModel;
+    private KeywordViewModel keywordViewModel;
 
-    public KeywordPresenter(KeywordViewModel viewModel) {
-        this.viewModel = viewModel;
+    public KeywordPresenter(ViewManagerModel viewManagerModel,
+                           LoggedInViewModel loggedInViewModel,
+                           KeywordViewModel keywordViewModel) {
+        // Done: assign to the three instance variables.
+        this.loggedInViewModel = loggedInViewModel;
+        this.viewManagerModel = viewManagerModel;
+        this.keywordViewModel = keywordViewModel;
+
     }
 
     @Override
-    public void presentResults(KeywordOutputData outputData) {
-        if (outputData.hasError()) {
-            viewModel.setErrorMessage(outputData.getErrorMessage());
-        } else {
-            viewModel.setSongs(outputData.getSongs());
-        }
-        viewModel.setLoading(false);
+    public void prepareSuccessView(KeywordOutputData outputData) {
+        final KeywordState keywordState = keywordViewModel.getState();
+        keywordState.setAccessToken(outputData.getSpotifyToken());
+        keywordState.setDisplayText(outputData.getSongs());
+        keywordViewModel.setState(keywordState);
+        keywordViewModel.firePropertyChanged();
+        // This code tells the View Manager to switch to the Search.
+        this.viewManagerModel.setState(keywordViewModel.getViewName());
+        this.viewManagerModel.firePropertyChanged();
+    }
+
+    @Override
+    public void prepareFailView(String errorMessage) {
     }
 }

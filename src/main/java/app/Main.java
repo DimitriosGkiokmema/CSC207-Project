@@ -20,12 +20,14 @@ public class Main {
                 .addLoginUseCase()
                 .addSearchView()
                 .addTopItemsView()
+                .addKeywordView()
                 .addLoggedInView()
                 .addSimilarListenersView()
                 .addLogoutUseCase()
                 .addSearchUseCase()
                 .addTopItemsUseCase()
                 .addSimilarListenersUseCase()
+                .addKeywordUseCase()
                 .build();
 
         application.pack();

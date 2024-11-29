@@ -9,7 +9,7 @@ import java.util.List;
  * The controller for the TopItems Use Case.
  */
 public class TopItemsController {
-    private TopItemsInputBoundary topItemsUseCaseInteractor;
+    final private TopItemsInputBoundary topItemsUseCaseInteractor;
 
     public TopItemsController(TopItemsInputBoundary topItemsUseCaseInteractor) {
         this.topItemsUseCaseInteractor = topItemsUseCaseInteractor;

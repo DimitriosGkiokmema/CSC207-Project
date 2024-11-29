@@ -8,6 +8,9 @@ import data_access.*;
 import entity.CommonUserFactory;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.keyword.KeywordController;
+import interface_adapter.keyword.KeywordPresenter;
+import interface_adapter.keyword.KeywordViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
@@ -23,6 +26,9 @@ import interface_adapter.similar_listeners.SimilarListenersViewModel;
 import interface_adapter.top_items.TopItemsController;
 import interface_adapter.top_items.TopItemsPresenter;
 import interface_adapter.top_items.TopItemsViewModel;
+import use_case.keyword.KeywordInputBoundary;
+import use_case.keyword.KeywordInteractor;
+import use_case.keyword.KeywordOutputBoundary;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
@@ -39,13 +45,7 @@ import use_case.similar_listeners.SimilarListenersOutputBoundary;
 import use_case.top_items.TopItemsInputBoundary;
 import use_case.top_items.TopItemsInteractor;
 import use_case.top_items.TopItemsOutputBoundary;
-import view.LoggedInView;
-import view.LoginView;
-import view.SearchView;
-import view.TopItemsView;
-import view.SimilarListenersView;
-
-import view.ViewManager;
+import view.*;
 
 /**
  * The AppBuilder class is responsible for putting together the pieces of
@@ -68,7 +68,6 @@ public class AppBuilder {
 
     // thought question: is the hard dependency below a problem?
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
-    private final TopItemsUserDataAccessObject topItemsUserDataAccessObject = new TopItemsUserDataAccessObject();
     private final LanguageModelDataAccessObject languageModelDataAccessObject = new LanguageModelDataAccessObject();
     private final SpotifyDataAccessObject spotifyDataAccessObject = new SpotifyDataAccessObject();
 
@@ -83,6 +82,8 @@ public class AppBuilder {
     private SearchView searchView;
     private TopItemsView topItemsView;
     private SimilarListenersView similarListenersView;
+    private KeywordView keywordView;
+    private KeywordViewModel keywordViewModel;
 
 
     public AppBuilder() {
@@ -151,6 +152,23 @@ public class AppBuilder {
     }
 
     /**
+     * Adds the Keyword View to the application.
+     * @return this builder
+     */
+    public AppBuilder addKeywordView() {
+        keywordViewModel = new KeywordViewModel();
+        keywordView = new KeywordView(keywordViewModel);
+        cardPanel.add(keywordView, keywordView.getViewName());
+        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
+                loggedInViewModel, loginViewModel);
+        final LoginInputBoundary loginInteractor = new LoginInteractor(
+                userDataAccessObject, loginOutputBoundary);
+        final LoginController loginController = new LoginController(loginInteractor);
+        keywordView.setLoginController(loginController);
+        return this;
+    }
+
+    /**
      * Adds the Login Use Case to the application.
      * @return this builder
      */
@@ -180,7 +198,30 @@ public class AppBuilder {
         loggedInView.setLogoutController(logoutController);
         return this;
     }
+    /**
+     * Adds the Keyword Search Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addKeywordUseCase() {
+        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
+                loggedInViewModel, loginViewModel);
+        final LoginInputBoundary loginInteractor = new LoginInteractor(
+                userDataAccessObject, loginOutputBoundary);
 
+        final LoginController loginController = new LoginController(loginInteractor);
+        keywordView.setLoginController(loginController);
+
+        final KeywordOutputBoundary keywordOutputBoundary = new KeywordPresenter(viewManagerModel,
+                loggedInViewModel, keywordViewModel);
+
+        final KeywordInputBoundary keywordInteractor =
+                new KeywordInteractor(spotifyDataAccessObject, keywordOutputBoundary);
+
+        final KeywordController keywordController = new KeywordController(keywordInteractor);
+        keywordView.setKeywordController(keywordController);
+        loggedInView.setKeywordController(keywordController);
+        return this;
+    }
     /**
      * Adds the Search Use Case to the application.
      * @return this builder
@@ -224,7 +265,7 @@ public class AppBuilder {
                 topTracksAndArtistsViewModel);
 
         final TopItemsInputBoundary topItemsInputBoundary =
-                new TopItemsInteractor(topItemsUserDataAccessObject, topItemsOutputBoundary);
+                new TopItemsInteractor(spotifyDataAccessObject, topItemsOutputBoundary);
 
         final TopItemsController topItemsController = new TopItemsController(topItemsInputBoundary);
         loggedInView.setTopTracksController(topItemsController);

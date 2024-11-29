@@ -1,10 +1,6 @@
 package use_case.similar_listeners;
 
-import data_access.InMemoryUserDataAccessObject;
 import data_access.SimilarListenersTestDataAccessObject;
-import entity.CommonUserFactory;
-import entity.User;
-import entity.UserFactory;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -17,7 +13,7 @@ public class SimilarListenersInteractorTest {
     @Test
     void successTest() {
         SimilarListenersInputData inputData = new SimilarListenersInputData("token");
-        SimilarListenersUserDataAccessInterface accessObject = new SimilarListenersTestDataAccessObject();
+        SimilarListenersDataAccessInterface accessObject = new SimilarListenersTestDataAccessObject();
 
         // For the success test, we need to add Paul to the data access repository before we log in.
         List<String> allfollowedArtists = new ArrayList<>();
@@ -51,7 +47,7 @@ public class SimilarListenersInteractorTest {
     @Test
     void failTest() {
         SimilarListenersInputData inputData = new SimilarListenersInputData("token");
-        SimilarListenersUserDataAccessInterface accessObject = new SimilarListenersTestDataAccessObject();
+        SimilarListenersDataAccessInterface accessObject = new SimilarListenersTestDataAccessObject();
 
         List<String> allfollowedArtists = new ArrayList<>();
         accessObject.setCurrentFollowedArtists(allfollowedArtists);

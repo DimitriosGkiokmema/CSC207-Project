@@ -126,11 +126,8 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 evt -> {
 
                     if (evt.getSource().equals(topItems)) {
-                        final List<String> topTracks = new ArrayList<>();
-                        final List<String> topArtists = new ArrayList<>();
                         final String accessToken = loggedInViewModel.getState().getUsername();
-
-                        topItemsController.execute(topTracks, topArtists, accessToken);
+                        topItemsController.execute(accessToken);
                     }
                 }
         );

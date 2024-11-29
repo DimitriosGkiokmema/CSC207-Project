@@ -17,11 +17,30 @@ public class TopItemsInteractor implements TopItemsInputBoundary {
 
     @Override
     public void execute(TopItemsInputData topItemsInputData) {
-        final List<String> topTracks = userDataAccessObject.getCurrentTopTracks();
-        final List<String> topArtists = userDataAccessObject.getCurrentTopArtists();
-        final String accessToken = topItemsInputData.getAccessToken();
+        if (userDataAccessObject.getCurrentTopTracks().isEmpty() || userDataAccessObject.getCurrentTopArtists()
+                .isEmpty()) {
+            if (userDataAccessObject.getCurrentTopArtists().isEmpty() && userDataAccessObject.getCurrentTopTracks()
+                    .isEmpty()) {
+                topItemsOutputBoundary.prepareFailView("Top Tracks and Top Artists cannot be determined");
+            }
+            else if (userDataAccessObject.getCurrentTopTracks().isEmpty()) {
+                topItemsOutputBoundary.prepareFailView("Top Tracks cannot be determined");
+            }
+            else {
+                topItemsOutputBoundary.prepareFailView("Top Artists cannot be determined");
+            }
+        }
 
-        final TopItemsOutputData outputData = new TopItemsOutputData(topTracks, topArtists, accessToken);
-        topItemsOutputBoundary.prepareSuccessView(outputData);
+        else {
+            final List<String> topTracks = userDataAccessObject.getCurrentTopTracks();
+            final List<String> topArtists = userDataAccessObject.getCurrentTopArtists();
+            final String accessToken = topItemsInputData.getAccessToken();
+            userDataAccessObject.setCurrentTopTracks(topTracks);
+            userDataAccessObject.setCurrentTopArtists(topArtists);
+
+            final TopItemsOutputData outputData = new TopItemsOutputData(topTracks, topArtists, accessToken);
+            topItemsOutputBoundary.prepareSuccessView(outputData);
+
+        }
     }
 }

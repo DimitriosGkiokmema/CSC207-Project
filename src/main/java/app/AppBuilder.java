@@ -20,6 +20,9 @@ import interface_adapter.recommend.RecommendViewModel;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchPresenter;
 import interface_adapter.search.SearchViewModel;
+import interface_adapter.similar_listeners.SimilarListenersController;
+import interface_adapter.similar_listeners.SimilarListenersPresenter;
+import interface_adapter.similar_listeners.SimilarListenersViewModel;
 import interface_adapter.top_items.TopItemsController;
 import interface_adapter.top_items.TopItemsPresenter;
 import interface_adapter.top_items.TopItemsViewModel;
@@ -35,6 +38,9 @@ import use_case.recommend.RecommendOutputBoundary;
 import use_case.search.SearchInputBoundary;
 import use_case.search.SearchInteractor;
 import use_case.search.SearchOutputBoundary;
+import use_case.similar_listeners.SimilarListenersInputBoundary;
+import use_case.similar_listeners.SimilarListenersInteractor;
+import use_case.similar_listeners.SimilarListenersOutputBoundary;
 import use_case.top_items.TopItemsInputBoundary;
 import use_case.top_items.TopItemsInteractor;
 import use_case.top_items.TopItemsOutputBoundary;
@@ -43,6 +49,8 @@ import view.LoginView;
 import view.RecommendationsView;
 import view.SearchView;
 import view.TopItemsView;
+import view.SimilarListenersView;
+
 import view.ViewManager;
 
 /**
@@ -67,8 +75,8 @@ public class AppBuilder {
     // thought question: is the hard dependency below a problem?
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
     private final TopItemsUserDataAccessObject topItemsUserDataAccessObject = new TopItemsUserDataAccessObject();
-    private final RecommendUserDataAccessObject recommendUserDataAccessObject = new RecommendUserDataAccessObject();
     private final LanguageModelDataAccessObject languageModelDataAccessObject = new LanguageModelDataAccessObject();
+    private final RecommendUserDataAccessObject recommendUserDataAccessObject = new RecommendUserDataAccessObject();
     private final SpotifyDataAccessObject spotifyDataAccessObject = new SpotifyDataAccessObject();
 
     private LoginViewModel loginViewModel;
@@ -76,26 +84,17 @@ public class AppBuilder {
     private TopItemsViewModel topTracksAndArtistsViewModel;
     private RecommendViewModel recommendViewModel;
     private SearchViewModel searchViewModel;
+    private SimilarListenersViewModel similarListenersViewModel;
     private LoggedInView loggedInView;
     private LoginView loginView;
     private SearchView searchView;
     private TopItemsView topItemsView;
+    private SimilarListenersView similarListenersView;
     private RecommendationsView recommendationsView;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
     }
-
-    /**
-     * Adds the Signup View to the application.
-     * @return this builder
-     */
-//    public AppBuilder addSignupView() {
-//        signupViewModel = new SignupViewModel();
-//        signupView = new SignupView(signupViewModel);
-//        cardPanel.add(signupView, signupView.getViewName());
-//        return this;
-//    }
 
     /**
      * Adds the Login View to the application.
@@ -113,7 +112,6 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addSearchView() {
-        //TODO discuss this implementation with team
         searchViewModel = new SearchViewModel();
         searchView = new SearchView(searchViewModel);
         cardPanel.add(searchView, searchView.getViewName());
@@ -156,6 +154,17 @@ public class AppBuilder {
         topTracksAndArtistsViewModel = new TopItemsViewModel();
         topItemsView = new TopItemsView(topTracksAndArtistsViewModel);
         cardPanel.add(topItemsView, topItemsView.getViewName());
+        return this;
+    }
+
+    /**
+     * Adds the SimilarListeners View to the application.
+     * @return this builder
+     */
+    public AppBuilder addSimilarListenersView() {
+        similarListenersViewModel = new SimilarListenersViewModel();
+        similarListenersView = new SimilarListenersView(similarListenersViewModel);
+        cardPanel.add(similarListenersView, similarListenersView.getViewName());
         return this;
     }
 
@@ -263,6 +272,25 @@ public class AppBuilder {
         return this;
     }
 
+    public AppBuilder addSimilarListenersUseCase() {
+        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
+                loggedInViewModel, loginViewModel);
+        final LoginInputBoundary loginInteractor = new LoginInteractor(
+                userDataAccessObject, loginOutputBoundary);
+
+        final LoginController loginController = new LoginController(loginInteractor);
+        similarListenersView.setLoginController(loginController);
+
+        final SimilarListenersOutputBoundary similarListenersOutputBoundary =
+                new SimilarListenersPresenter(similarListenersViewModel, viewManagerModel);
+        final SimilarListenersInputBoundary similarListenersInputBoundary =
+                new SimilarListenersInteractor(spotifyDataAccessObject, similarListenersOutputBoundary);
+        final SimilarListenersController similarListenersController =
+                new SimilarListenersController(similarListenersInputBoundary);
+        loggedInView.setSimilarListenersController(similarListenersController);
+        return this;
+    }
+
     /**
      * Creates the JFrame for the application and initially sets the SignupView to be displayed.
      * @return the application
@@ -276,7 +304,7 @@ public class AppBuilder {
 
         application.add(cardPanel);
 
-        viewManagerModel.setState(loginView.getViewName());
+        viewManagerModel.setState(loggedInViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
 
         return application;

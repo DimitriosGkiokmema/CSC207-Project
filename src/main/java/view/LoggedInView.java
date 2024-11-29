@@ -1,6 +1,6 @@
 package view;
 
-import java.awt.*;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -19,6 +19,8 @@ import interface_adapter.logout.LogoutController;
 import interface_adapter.recommend.RecommendController;
 import interface_adapter.search.SearchController;
 
+import interface_adapter.similar_listeners.SimilarListenersController;
+import interface_adapter.similar_listeners.SimilarListenersViewModel;
 import interface_adapter.top_items.TopItemsController;
 import data_access.SpotifyService;
 import use_case.keyword.KeywordInteractor;
@@ -35,6 +37,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private SearchController searchController;
     private TopItemsController topItemsController;
     private RecommendController recommendController;
+    private SimilarListenersController similarListenersController;
 
     private final JLabel username;
     private final JButton logOut;
@@ -167,6 +170,16 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
             }
         });
 
+        similarListeners.addActionListener(
+                evt -> {
+                    if (evt.getSource().equals(similarListeners)) {
+                        final String accessToken = loggedInViewModel.getState().getUsername();
+                        similarListenersController.execute(accessToken);
+
+                    }
+                }
+        );
+
         // Add components to the panel
         this.add(title);
         this.add(usernameInfo);
@@ -203,6 +216,9 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
     public void setTopTracksController(TopItemsController topItemsController) {
         this.topItemsController = topItemsController;
+    }
+    public void setSimilarListenersController(SimilarListenersController similarListenersController) {
+        this.similarListenersController = similarListenersController;
     }
 
     public void setRecommendController(RecommendController recommendController) {

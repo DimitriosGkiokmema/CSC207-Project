@@ -2,6 +2,7 @@ package data_access;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import interface_adapter.login.LoginState;
@@ -14,7 +15,7 @@ import se.michaelthelin.spotify.requests.data.browse.GetRecommendationsRequest;
 import se.michaelthelin.spotify.requests.data.follow.GetUsersFollowedArtistsRequest;
 import se.michaelthelin.spotify.requests.data.personalization.simplified.GetUsersTopArtistsRequest;
 import se.michaelthelin.spotify.requests.data.personalization.simplified.GetUsersTopTracksRequest;
-import use_case.recommend.RecommendSpotifyDataAccessInterface;
+import use_case.recommend.RecommendUserDataAccessInterface;
 import use_case.similar_listeners.SimilarListenersUserDataAccessInterface;
 import use_case.top_items.TopItemsUserDataAccessInterface;
 
@@ -23,7 +24,7 @@ import use_case.top_items.TopItemsUserDataAccessInterface;
  */
 public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
         SimilarListenersUserDataAccessInterface,
-        RecommendSpotifyDataAccessInterface {
+        RecommendUserDataAccessInterface {
     public static final int OFFSET = 4;
     public static final int OFFSET2 = 0;
 
@@ -200,6 +201,17 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
         }
 
         return sb.toString();
+    }
+
+    @Override
+    public void setTopArtists(String artists) {
+        this.currentTopArtists = new ArrayList<>();
+        this.currentTopArtists.addAll(Arrays.asList(artists.split(", ")));
+    }
+
+    @Override
+    public String getRecommendations(List<String> songs, String topArtists) {
+        return "";
     }
 
     @Override

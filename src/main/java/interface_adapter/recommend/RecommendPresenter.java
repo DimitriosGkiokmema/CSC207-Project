@@ -32,6 +32,6 @@ public class RecommendPresenter implements RecommendOutputBoundary {
 
     @Override
     public void prepareFailView(String errorMessage) {
-        // No need to add code here, as we assume there won't be an error
+        System.out.printf(errorMessage);
     }
 }

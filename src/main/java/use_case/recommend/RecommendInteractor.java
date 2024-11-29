@@ -1,35 +1,36 @@
 package use_case.recommend;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * The Recommendations Interactor.
  */
 public class RecommendInteractor implements RecommendInputBoundary {
-    private final RecommendLanguageModelDataAccessInterface recommendDataAccessObject;
-    private final RecommendSpotifyDataAccessInterface spotifyDataAccessObject;
+    private final RecommendUserDataAccessInterface userDataAccessObject;
     private final RecommendOutputBoundary recommendationOutputBoundary;
 
-    public RecommendInteractor(RecommendLanguageModelDataAccessInterface recommendDataAccessInterface,
-                               RecommendSpotifyDataAccessInterface spotifyDataAccessObject,
+    public RecommendInteractor(RecommendUserDataAccessInterface userDataAccessObject,
                                RecommendOutputBoundary recommendOutputBoundary) {
-        this.recommendDataAccessObject = recommendDataAccessInterface;
-        this.spotifyDataAccessObject = spotifyDataAccessObject;
+        this.userDataAccessObject = userDataAccessObject;
         this.recommendationOutputBoundary = recommendOutputBoundary;
     }
 
     @Override
     public void execute(RecommendInputData recommendInputData) {
         // Calls Spotify API to get user data
-        final List<String> songs = spotifyDataAccessObject.getCurrentTopTracks();
-        final String topArtists = spotifyDataAccessObject.getTopArtists();
+        final List<String> songs = userDataAccessObject.getCurrentTopTracks();
+        final String topArtists = userDataAccessObject.getTopArtists();
         // Takes user data and asks Azure for recommendations
-        final String songRecommendations = recommendDataAccessObject.getRecommendations(songs, topArtists);
-        // Gets access token
+        final String songRecommendations = userDataAccessObject.getRecommendations(songs, topArtists);
+        // Gets spotify access token
         final String accessToken = recommendInputData.getAccessToken();
 
         final RecommendOutputData outputData = new RecommendOutputData(songRecommendations, topArtists, accessToken);
-        recommendationOutputBoundary.prepareSuccessView(outputData);
+        if (songRecommendations.contains("Error")) {
+            recommendationOutputBoundary.prepareFailView(songRecommendations);
+        }
+        else {
+            recommendationOutputBoundary.prepareSuccessView(outputData);
+        }
     }
 }

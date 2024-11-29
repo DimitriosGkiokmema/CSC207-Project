@@ -1,35 +1,36 @@
 package use_case.recommend;
 
-import data_access.InMemoryUserDataAccessObject;
-import entity.CommonUserFactory;
-import entity.User;
-import entity.UserFactory;
+import data_access.RecommendTestDataAccessObject;
+import data_access.RecommendUserDataAccessObject;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import use_case.logout.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RecommendInteractorTest {
+    private RecommendTestDataAccessObject dummySpotify;
+    private List<String> topTracks;
+    private String topArtists;
+
+    @BeforeEach
+     void setUp() {
+        dummySpotify = new RecommendTestDataAccessObject();
+        topTracks = dummySpotify.getCurrentTopTracks();
+        topArtists = dummySpotify.getTopArtists();
+    }
+
     @Test
     void successTest() {
-        LogoutInputData inputData = new LogoutInputData("Paul");
-        InMemoryUserDataAccessObject userRepository = new InMemoryUserDataAccessObject();
-
-        // For the success test, we need to add Paul to the data access repository before we log in.
-        UserFactory factory = new CommonUserFactory();
-        User user = factory.create("Paul", "password");
-        userRepository.save(user);
-        userRepository.setCurrentUsername("Paul");
-
         // This creates a successPresenter that tests whether the test case is as we expect.
-        LogoutOutputBoundary successPresenter = new LogoutOutputBoundary() {
+        RecommendOutputBoundary successPresenter = new RecommendOutputBoundary() {
             @Override
-            public void prepareSuccessView(LogoutOutputData user) {
-                // check that the output data contains the username of who logged out
-                assertEquals("Paul", user.getUsername());
+            public void prepareSuccessView(RecommendOutputData outputData) {
+                final String topArtists = "Slipknot, Soulfly, Korn, Sepultura, System Of A Down";
+                // check that the output data contains the artist names
+                assertEquals(topArtists, outputData.getTopArtists());
             }
 
             @Override
@@ -38,21 +39,32 @@ public class RecommendInteractorTest {
             }
         };
 
-//        Use for test input
-//        final List lst = new ArrayList();
-//        lst.add("(sic)");
-//        lst.add("Left Behind");
-//        lst.add("Spit It Out");
-//        lst.add("People = Shit");
-//        lst.add("Metabolic");
-//        lst.add("Everything Ends");
-//        return lst;
+        RecommendInputBoundary interactor = new RecommendInteractor(dummySpotify, successPresenter);
+        interactor.execute(new RecommendInputData(topTracks, topArtists, "token"));
+    }
 
-//        "Slipknot, Soulfly, Korn, Sepultura, System Of A Down";
+    @Test
+    void failTest() {
+        // Create empty track list and inputData object
+        List<String> tracks = new ArrayList<>();
+        RecommendInputData inputData = new RecommendInputData(tracks, topArtists, "token");
 
-        LogoutInputBoundary interactor = new LogoutInteractor(userRepository, successPresenter);
+        RecommendUserDataAccessInterface accessObject = new RecommendUserDataAccessObject();
+        accessObject.setCurrentTopTracks(tracks);
+
+        RecommendOutputBoundary successPresenter = new RecommendOutputBoundary() {
+            @Override
+            public void prepareSuccessView(RecommendOutputData outputData) {
+                fail("Use case success is unexpected.");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                assertEquals("Error getting tracks from Spotify", error);
+            }
+        };
+        RecommendInputBoundary interactor = new RecommendInteractor(accessObject, successPresenter);
         interactor.execute(inputData);
-        // check that the user was logged out
-        assertNull(userRepository.getCurrentUsername());
+
     }
 }

@@ -4,10 +4,7 @@ import java.awt.*;
 
 import javax.swing.*;
 
-import data_access.InMemoryUserDataAccessObject;
-import data_access.LanguageModelDataAccessObject;
-import data_access.SpotifyDataAccessObject;
-import data_access.TopItemsUserDataAccessObject;
+import data_access.*;
 import entity.CommonUserFactory;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
@@ -70,6 +67,7 @@ public class AppBuilder {
     // thought question: is the hard dependency below a problem?
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
     private final TopItemsUserDataAccessObject topItemsUserDataAccessObject = new TopItemsUserDataAccessObject();
+    private final RecommendUserDataAccessObject recommendUserDataAccessObject = new RecommendUserDataAccessObject();
     private final LanguageModelDataAccessObject languageModelDataAccessObject = new LanguageModelDataAccessObject();
     private final SpotifyDataAccessObject spotifyDataAccessObject = new SpotifyDataAccessObject();
 
@@ -258,7 +256,7 @@ public class AppBuilder {
         final RecommendOutputBoundary recommendOutputBoundary =
                 new RecommendPresenter(viewManagerModel, recommendViewModel);
         final RecommendInputBoundary recommendInputBoundary =
-                new RecommendInteractor(languageModelDataAccessObject, spotifyDataAccessObject, recommendOutputBoundary);
+                new RecommendInteractor(recommendUserDataAccessObject, recommendOutputBoundary);
 
         final RecommendController recommendController = new RecommendController(recommendInputBoundary);
         loggedInView.setRecommendController(recommendController);

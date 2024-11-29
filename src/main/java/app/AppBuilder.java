@@ -14,9 +14,6 @@ import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.logout.LogoutPresenter;
-import interface_adapter.recommend.RecommendController;
-import interface_adapter.recommend.RecommendPresenter;
-import interface_adapter.recommend.RecommendViewModel;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchPresenter;
 import interface_adapter.search.SearchViewModel;
@@ -32,9 +29,7 @@ import use_case.login.LoginOutputBoundary;
 import use_case.logout.LogoutInputBoundary;
 import use_case.logout.LogoutInteractor;
 import use_case.logout.LogoutOutputBoundary;
-import use_case.recommend.RecommendInputBoundary;
-import use_case.recommend.RecommendInteractor;
-import use_case.recommend.RecommendOutputBoundary;
+
 import use_case.search.SearchInputBoundary;
 import use_case.search.SearchInteractor;
 import use_case.search.SearchOutputBoundary;
@@ -46,7 +41,6 @@ import use_case.top_items.TopItemsInteractor;
 import use_case.top_items.TopItemsOutputBoundary;
 import view.LoggedInView;
 import view.LoginView;
-import view.RecommendationsView;
 import view.SearchView;
 import view.TopItemsView;
 import view.SimilarListenersView;
@@ -76,13 +70,12 @@ public class AppBuilder {
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
     private final TopItemsUserDataAccessObject topItemsUserDataAccessObject = new TopItemsUserDataAccessObject();
     private final LanguageModelDataAccessObject languageModelDataAccessObject = new LanguageModelDataAccessObject();
-    private final RecommendUserDataAccessObject recommendUserDataAccessObject = new RecommendUserDataAccessObject();
     private final SpotifyDataAccessObject spotifyDataAccessObject = new SpotifyDataAccessObject();
 
+//    Will remove since our project does not cover signing up, only logging in
     private LoginViewModel loginViewModel;
     private LoggedInViewModel loggedInViewModel;
     private TopItemsViewModel topTracksAndArtistsViewModel;
-    private RecommendViewModel recommendViewModel;
     private SearchViewModel searchViewModel;
     private SimilarListenersViewModel similarListenersViewModel;
     private LoggedInView loggedInView;
@@ -90,7 +83,7 @@ public class AppBuilder {
     private SearchView searchView;
     private TopItemsView topItemsView;
     private SimilarListenersView similarListenersView;
-    private RecommendationsView recommendationsView;
+
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -121,17 +114,6 @@ public class AppBuilder {
                 userDataAccessObject, loginOutputBoundary);
         final LoginController loginController = new LoginController(loginInteractor);
         searchView.setLoginController(loginController);
-        return this;
-    }
-
-    /**
-     * Adds the Recommendation View to the application.
-     * @return this builder
-     */
-    public AppBuilder addRecommendationsView() {
-        recommendViewModel = new RecommendViewModel();
-        recommendationsView = new RecommendationsView(recommendViewModel);
-        cardPanel.add(recommendationsView, recommendationsView.getViewName());
         return this;
     }
 
@@ -246,29 +228,6 @@ public class AppBuilder {
 
         final TopItemsController topItemsController = new TopItemsController(topItemsInputBoundary);
         loggedInView.setTopTracksController(topItemsController);
-        return this;
-    }
-
-    /**
-     * Adds the Recommend Use Case to the application.
-     * @return this builder
-     */
-    public AppBuilder addRecommendUseCase() {
-        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
-                loggedInViewModel, loginViewModel);
-        final LoginInputBoundary loginInteractor = new LoginInteractor(
-                userDataAccessObject, loginOutputBoundary);
-
-        final LoginController loginController = new LoginController(loginInteractor);
-        recommendationsView.setLoginController(loginController);
-
-        final RecommendOutputBoundary recommendOutputBoundary =
-                new RecommendPresenter(viewManagerModel, recommendViewModel);
-        final RecommendInputBoundary recommendInputBoundary =
-                new RecommendInteractor(recommendUserDataAccessObject, recommendOutputBoundary);
-
-        final RecommendController recommendController = new RecommendController(recommendInputBoundary);
-        loggedInView.setRecommendController(recommendController);
         return this;
     }
 

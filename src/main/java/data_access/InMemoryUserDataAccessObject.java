@@ -7,7 +7,6 @@ import java.util.Map;
 import entity.User;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
-import use_case.recommend.RecommendUserDataAccessInterface;
 import use_case.top_items.TopItemsUserDataAccessInterface;
 
 /**
@@ -17,6 +16,7 @@ import use_case.top_items.TopItemsUserDataAccessInterface;
 public class InMemoryUserDataAccessObject implements
         LoginUserDataAccessInterface,
         LogoutUserDataAccessInterface {
+
     private final Map<String, User> users = new HashMap<>();
 
     private String currentUsername;
@@ -45,4 +45,5 @@ public class InMemoryUserDataAccessObject implements
     public String getCurrentAccessToken() {
         return this.currentUsername;
     }
+
 }

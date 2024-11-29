@@ -6,7 +6,7 @@ out/
 .idea/
 homework-5.iml
 
-src/keys
+keys
 target/
 
 ### Eclipse ###

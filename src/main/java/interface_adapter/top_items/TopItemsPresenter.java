@@ -4,6 +4,8 @@ import interface_adapter.ViewManagerModel;
 import use_case.top_items.TopItemsOutputBoundary;
 import use_case.top_items.TopItemsOutputData;
 
+import java.util.ArrayList;
+
 /**
  * The Presenter for the Top Tracks Use Case.
  */
@@ -34,6 +36,13 @@ public class TopItemsPresenter implements TopItemsOutputBoundary {
 
     @Override
     public void prepareFailView(String errorMessage) {
-        // No code needed because there won't be an error.
+        final TopItemsState topItemsState = topItemsViewModel.getState();
+        topItemsState.setTracksError(errorMessage);
+        topItemsState.setArtistsError(errorMessage);
+        topItemsState.setTracks(new ArrayList<>());
+        topItemsState.setArtists(new ArrayList<>());
+
+        this.viewManagerModel.setState(topItemsViewModel.getViewName());
+        this.viewManagerModel.firePropertyChanged();
     }
 }

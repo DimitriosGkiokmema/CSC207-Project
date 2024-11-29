@@ -69,7 +69,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
 
                 // Retrieve the access token
-                String accessToken = "BQCBkcgNkBgo48s7ZJlGRO2ohyiOJHc1nlBD-E6-6EsRsOILmexOHd3G81Bj3wKAymo8i1qOg8tvHPUSQASHL67WGTw4E_KlyXkpRyfMGIF67EOVLtY"; // Assuming the token is stored as the username
+                String accessToken = "BQB3C0RPRK-jw-xptb5X9nQ_A1yPkwIQBTtdhPbYa5oza3jmru20-sSaMGtPIBT7zcwHblQuYBTnh5Z_pgXC0RGrA5TagXUALHCr8hyXzc3Mxp0cgvI"; // Assuming the token is stored as the username
 
                 // Ensure the token exists
                 if (accessToken == null || accessToken.isEmpty()) {

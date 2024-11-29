@@ -30,7 +30,7 @@ public class KeywordController {
     }
 
     /**
-     * Goes to the search use case.
+     * Goes to the keyword use case page.
      * @param accessToken the access token for spotify.
      */
     public void execute(String accessToken) {

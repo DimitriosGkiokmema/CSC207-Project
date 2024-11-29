@@ -25,8 +25,9 @@ public class SimilarListenersInteractor implements SimilarListenersInputBoundary
         else {
             final List<String> followedArtists = userDataAccessObject.getFollowedArtists();
             userDataAccessObject.setCurrentFollowedArtists(followedArtists);
+            final String accessToken = similarListenersInputData.getAccessToken();
             final SimilarListenersOutputData similarListenersOutputData = new SimilarListenersOutputData(
-                    followedArtists, false);
+                    followedArtists, false, accessToken);
             similarListenersPresenter.prepareSuccessView(similarListenersOutputData);
         }
     }

@@ -21,9 +21,11 @@ public class Main {
                 .addSearchView()
                 .addTopItemsView()
                 .addLoggedInView()
+                .addSimilarListenersView()
                 .addLogoutUseCase()
                 .addSearchUseCase()
                 .addTopItemsUseCase()
+                .addSimilarListenersUseCase()
                 .build();
 
         application.pack();

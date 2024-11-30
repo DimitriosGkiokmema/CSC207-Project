@@ -74,7 +74,6 @@ public class AppBuilder {
 
     // thought question: is the hard dependency below a problem?
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
-    private final TopItemsUserDataAccessObject topItemsUserDataAccessObject = new TopItemsUserDataAccessObject();
     private final LanguageModelDataAccessObject languageModelDataAccessObject = new LanguageModelDataAccessObject();
     private final RecommendUserDataAccessObject recommendUserDataAccessObject = new RecommendUserDataAccessObject();
     private final SpotifyDataAccessObject spotifyDataAccessObject = new SpotifyDataAccessObject();
@@ -242,7 +241,7 @@ public class AppBuilder {
                 topTracksAndArtistsViewModel);
 
         final TopItemsInputBoundary topItemsInputBoundary =
-                new TopItemsInteractor(topItemsUserDataAccessObject, topItemsOutputBoundary);
+                new TopItemsInteractor(spotifyDataAccessObject, topItemsOutputBoundary);
 
         final TopItemsController topItemsController = new TopItemsController(topItemsInputBoundary);
         loggedInView.setTopTracksController(topItemsController);

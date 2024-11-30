@@ -10,7 +10,6 @@ public class RecommendState {
     private String accessToken;
     private List<String> topArtists;
 
-    // Because of the previous copy constructor, the default constructor must be explicit.
     public RecommendState() {
 
     }

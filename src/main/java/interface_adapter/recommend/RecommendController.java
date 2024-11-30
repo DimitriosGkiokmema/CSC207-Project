@@ -18,11 +18,13 @@ public class RecommendController {
 
     /**
      * Executes the Recommend Use Case.
-     * @param songRecommendations the map of song recommendations in the form of song, artist
+     * @param topTracks the list of songs listened to by the user.
+     * @param topArtists the list of artists listened to by the user
+     * @param accessToken the user's spotify access token
      */
-    public void execute(List<String> songRecommendations, List<String> topArtists, String accessToken) {
+    public void execute(List<String> topTracks, List<String> topArtists, String accessToken) {
         final RecommendInputData recommendInputData = new RecommendInputData(
-                songRecommendations, topArtists, accessToken);
+                topTracks, topArtists, accessToken);
 
         recommendUseCaseInteractor.execute(recommendInputData);
     }

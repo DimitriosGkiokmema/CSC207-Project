@@ -1,6 +1,7 @@
 package use_case.recommend;
 
 import java.util.List;
+import entity.User;
 
 /**
  * The Recommendations Interactor.
@@ -23,7 +24,7 @@ public class RecommendInteractor implements RecommendInputBoundary {
         final String topArtists = userDataAccessObject.getTopArtists();
         userDataAccessObject.setTopArtists(topArtists);
         // Takes user data and asks Azure for recommendations
-        System.out.printf("Calling spotify api with songs: " + topTracks);
+        System.out.println("Calling spotify api with songs: " + topTracks);
         final String songRecommendations = userDataAccessObject.getRecommendations(topTracks, topArtists);
         // Gets spotify access token
         final String accessToken = recommendInputData.getAccessToken();

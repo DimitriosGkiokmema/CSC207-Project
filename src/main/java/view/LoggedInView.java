@@ -107,7 +107,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 evt -> {
                     if (evt.getSource().equals(logOut)) {
                         // 1. get the state out of the loggedInViewModel. It contains the username.
-                        final String name = loggedInViewModel.getState().getUsername();
+                        final String name = loggedInViewModel.getState().getAccessToken();
                         // 2. Execute the logout Controller.
                         logoutController.execute(name);
                     }
@@ -119,7 +119,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 evt -> {
                     if (evt.getSource().equals(description)) {
                         // 1. get the state out of the loggedInViewModel. It contains the username.
-                        final String accessToken = loggedInViewModel.getState().getUsername();
+                        final String accessToken = loggedInViewModel.getState().getAccessToken();
                         // 2. Execute the logout Controller.
                         searchController.execute(accessToken);
                     }
@@ -131,7 +131,8 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                     if (evt.getSource().equals(recommendations)) {
                         final List<String> topTracks = new ArrayList<>();
                         final String topArtists = "";
-                        final String accessToken = loggedInViewModel.getState().getUsername();
+                        final String accessToken = loggedInViewModel.getState().getAccessToken();
+                        System.out.println("rec clicked, token: " + accessToken);
                         recommendController.execute(topTracks, topArtists, accessToken);
                     }
                 }
@@ -143,7 +144,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                     if (evt.getSource().equals(topItems)) {
                         final List<String> topTracks = new ArrayList<>();
                         final List<String> topArtists = new ArrayList<>();
-                        final String accessToken = loggedInViewModel.getState().getUsername();
+                        final String accessToken = loggedInViewModel.getState().getAccessToken();
 
                         topItemsController.execute(topTracks, topArtists, accessToken);
                     }
@@ -172,7 +173,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         similarListeners.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(similarListeners)) {
-                        final String accessToken = loggedInViewModel.getState().getUsername();
+                        final String accessToken = loggedInViewModel.getState().getAccessToken();
                         similarListenersController.execute(accessToken);
 
                     }
@@ -192,11 +193,11 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
             final LoggedInState state = (LoggedInState) evt.getNewValue();
-            username.setText(state.getUsername());
+            username.setText(state.getAccessToken());
         }
         else if (evt.getPropertyName().equals("password")) {
             final LoggedInState state = (LoggedInState) evt.getNewValue();
-            JOptionPane.showMessageDialog(null, "password updated for " + state.getUsername());
+            JOptionPane.showMessageDialog(null, "password updated for " + state.getAccessToken());
         }
 
     }

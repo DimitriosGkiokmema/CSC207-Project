@@ -11,16 +11,6 @@ public class TopItemsUserDataAccessObject implements TopItemsUserDataAccessInter
     private List<String> artists;
 
     public TopItemsUserDataAccessObject() {
-        tracks = new ArrayList<>();
-        artists = new ArrayList<>();
-        tracks.add("Heartbreaker");
-        tracks.add("reincarnated");
-        tracks.add("Kill Bill");
-        tracks.add("Crew Love");
-        artists.add("The Weeknd");
-        artists.add("Kanye West");
-        artists.add("A$AP Rocky");
-
     }
 
     @Override
@@ -30,6 +20,7 @@ public class TopItemsUserDataAccessObject implements TopItemsUserDataAccessInter
 
     @Override
     public void setCurrentTopTracks(List<String> tracks) {
+        this.tracks = tracks;
     }
 
     @Override
@@ -39,6 +30,7 @@ public class TopItemsUserDataAccessObject implements TopItemsUserDataAccessInter
 
     @Override
     public void setCurrentTopArtists(List<String> artists) {
+        this.artists = artists;
 
     }
 }

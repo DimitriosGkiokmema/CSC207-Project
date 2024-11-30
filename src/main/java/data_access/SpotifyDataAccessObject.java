@@ -174,7 +174,7 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
 
     @Override
     public String getRecommendations(List<String> songs, List<String> topArtists) {
-        return "";
+        return getRecommendations(currentTopTracks, currentTopArtists);
     }
 
     @Override

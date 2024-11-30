@@ -4,9 +4,9 @@ import interface_adapter.keyword.KeywordController;
 import interface_adapter.keyword.KeywordState;
 import interface_adapter.keyword.KeywordViewModel;
 import interface_adapter.login.LoginController;
-import interface_adapter.search.SearchState;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -23,101 +23,91 @@ public class KeywordView extends JPanel implements PropertyChangeListener {
     private final JButton searchButton;
     private final JTextField artistField;
     private final JTextField keywordField;
-    private final  JLabel keywordLabel;
+    private final JLabel keywordLabel;
     private final JLabel artistLabel;
     private final JPanel panel = new JPanel();
 
-    public KeywordView( KeywordViewModel keywordViewModel) {
+    public KeywordView(KeywordViewModel keywordViewModel) {
         this.keywordViewModel = keywordViewModel;
         this.keywordViewModel.addPropertyChangeListener(this);
 
+        setLayout(new BorderLayout(10, 10)); // Add spacing between sections
+        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Add padding around the panel
+
+        // Input Panel
+        JPanel inputPanel = new JPanel();
+        inputPanel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5); // Add spacing between components
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        // Artist Name Label and TextField
         artistLabel = new JLabel("Artist Name:");
-        artistLabel.setBounds(50, 30, 100, 30);
-        panel.add(artistLabel);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        inputPanel.add(artistLabel, gbc);
 
         artistField = new JTextField();
-        artistField.setBounds(150, 30, 400, 30);
-        panel.add(artistField);
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        inputPanel.add(artistField, gbc);
 
+        // Keyword Label and TextField
         keywordLabel = new JLabel("Keyword:");
-        keywordLabel.setBounds(50, 80, 100, 30);
-        panel.add(keywordLabel);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.weightx = 0;
+        inputPanel.add(keywordLabel, gbc);
 
         keywordField = new JTextField();
-        keywordField.setBounds(150, 80, 400, 30);
-        panel.add(keywordField);
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.weightx = 1.0;
+        inputPanel.add(keywordField, gbc);
 
+        // Search Button
         searchButton = new JButton("Search");
-        searchButton.setBounds(580, 30, 100, 80);
-        panel.add(searchButton);
+        gbc.gridx = 2;
+        gbc.gridy = 0;
+        gbc.gridheight = 2;
+        gbc.fill = GridBagConstraints.BOTH;
+        inputPanel.add(searchButton, gbc);
 
+        // Results Panel
         resultsArea = new JTextArea();
         resultsArea.setEditable(false);
         scrollPane = new JScrollPane(resultsArea);
-        scrollPane.setBounds(50, 140, 650, 200); // Adjust size as needed
-        panel.add(scrollPane);
+        scrollPane.setBorder(BorderFactory.createTitledBorder("Results"));
 
-        // Add ActionListener for the "Search" button
-        searchButton.addActionListener(e -> {
-            String artistName = artistField.getText();
-            String keyword = keywordField.getText();
+        // Button Panel
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+        homeButton = new JButton("Home");
+        buttonPanel.add(homeButton);
 
-            // Trigger search and update viewModel
-            // controller.searchByKeyword(artistName, keyword);
-
-            // Check results and update the UI accordingly
-            /* should all be stored in a prepareFailView
-            if (viewModel.isProper_input()) {
-                resultsArea.setText("Artist and keyword can not be empty");
-            } else if (viewModel.hasError()) {
-                resultsArea.setText("Error: " + viewModel.getErrorMessage());
-            } else if (viewModel.getSongs() == null && viewModel.getSongs().isEmpty()) {
-                // No results found
-                resultsArea.setText("Sorry, no songs found matching the keyword \"" + keyword + "\" for artist \"" + artistName + "\".");
-            } else if (viewModel.getSongs() != null) {
-                // Display the list of songs
-                resultsArea.setText(String.join("\n", viewModel.getSongs()));
+        // Add Listeners
+        searchButton.addActionListener(evt -> {
+            if (evt.getSource().equals(searchButton)) {
+                final String accessToken = keywordViewModel.getState().getAccessToken();
+                keywordController.executeSearch(accessToken, artistField.getText(), keywordField.getText());
             }
-
-             */
-            resultsArea.setText(keywordViewModel.getState().getDisplayText());
         });
-        homeButton = new JButton("Home Button");
-        homeButton.setBounds(580, 350, 150, 30); // Positioned at the bottom-right corner
-        homeButton.addActionListener(
-                // This creates an anonymous subclass of ActionListener and instantiates it.
-                evt -> {
-                    if (evt.getSource().equals(homeButton)) {
-                        // 1. get the state out of the searchViewModel. It contains the username.
-                        final String accessToken = keywordViewModel.getState().getAccessToken();
-                        // 2. Execute the search Controller.
-                        loginController.execute(accessToken);
 
-                    }
-                }
-        );
-        panel.add(homeButton);
-        searchButton.addActionListener(
-                // This creates an anonymous subclass of ActionListener and instantiates it.
-                evt -> {
-                    if (evt.getSource().equals(searchButton)) {
-                        // 1. get the state out of the searchViewModel. It contains the username.
-                        final String accessToken = keywordViewModel.getState().getAccessToken();
-                        // 2. Execute the search Controller.
-                        keywordController.executeSearch(accessToken, artistField.getText(),keywordField.getText());
+        homeButton.addActionListener(evt -> {
+            if (evt.getSource().equals(homeButton)) {
+                final String accessToken = keywordViewModel.getState().getAccessToken();
+                loginController.execute(accessToken);
+            }
+        });
 
-                    }
-                }
-        );
+        // Add Components to Main Panel
+        panel.setLayout(new BorderLayout(10, 10));
+        panel.add(inputPanel, BorderLayout.NORTH);
+        panel.add(scrollPane, BorderLayout.CENTER);
+        panel.add(buttonPanel, BorderLayout.SOUTH);
+
         this.add(panel);
-    }
-
-    /**
-     * React to a button click that results in evt.
-     * @param evt the ActionEvent to react to
-     */
-    public void actionPerformed(ActionEvent evt) {
-        System.out.println("Click " + evt.getActionCommand());
     }
 
     @Override
@@ -128,7 +118,6 @@ public class KeywordView extends JPanel implements PropertyChangeListener {
 
     private void setFields(KeywordState state) {
         resultsArea.setText(state.getDisplayText());
-
     }
 
     public String getViewName() {
@@ -142,5 +131,4 @@ public class KeywordView extends JPanel implements PropertyChangeListener {
     public void setLoginController(LoginController loginController) {
         this.loginController = loginController;
     }
-
 }

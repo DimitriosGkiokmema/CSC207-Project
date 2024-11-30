@@ -9,7 +9,7 @@ public interface KeywordInputBoundary {
     void searchByKeyword(KeywordInputData inputData);
 
     /**
-     * takes us to the keyword search use case.
+     * takes us to the keyword use case.
      */
     void execute(String accessToken);
 

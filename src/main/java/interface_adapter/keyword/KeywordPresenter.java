@@ -31,7 +31,7 @@ public class KeywordPresenter implements KeywordOutputBoundary {
         keywordState.setDisplayText(outputData.getSongs());
         keywordViewModel.setState(keywordState);
         keywordViewModel.firePropertyChanged();
-        // This code tells the View Manager to switch to the Search.
+        // This code tells the View Manager to switch to the keyword.
         this.viewManagerModel.setState(keywordViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
     }

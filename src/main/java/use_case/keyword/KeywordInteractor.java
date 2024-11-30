@@ -54,7 +54,7 @@ public class KeywordInteractor implements KeywordInputBoundary {
     @Override
     public void execute(String accessToken) {
         List<String> songs = new ArrayList<String>();
-        songs.add("There are no songs to display.");
+        songs.add("");
         final KeywordOutputData search = new KeywordOutputData(accessToken,songs);
         keywordPresenter.prepareSuccessView(search);
     }

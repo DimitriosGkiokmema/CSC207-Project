@@ -13,13 +13,13 @@ import static org.junit.jupiter.api.Assertions.*;
 public class RecommendInteractorTest {
     private RecommendTestDataAccessObject dummySpotify;
     private List<String> topTracks;
-    private String topArtists;
+    private List<String> topArtists;
 
     @BeforeEach
      void setUp() {
         dummySpotify = new RecommendTestDataAccessObject();
-        topTracks = dummySpotify.getTopTracks();
-        topArtists = dummySpotify.getTopArtists();
+        topTracks = dummySpotify.getCurrentTopTracks();
+        topArtists = dummySpotify.getCurrentTopArtists();
     }
 
     @Test
@@ -30,7 +30,7 @@ public class RecommendInteractorTest {
             public void prepareSuccessView(RecommendOutputData outputData) {
                 final String topArtists = "Slipknot, Soulfly, Korn, Sepultura, System Of A Down";
                 // check that the output data contains the artist names
-                assertEquals(topArtists, outputData.getTopArtists());
+                assertEquals(topArtists, outputData.getCurrentTopArtists());
             }
 
             @Override
@@ -50,7 +50,7 @@ public class RecommendInteractorTest {
         RecommendInputData inputData = new RecommendInputData(tracks, topArtists, "token");
 
         RecommendUserDataAccessInterface accessObject = new RecommendUserDataAccessObject();
-        accessObject.setTopTracks(tracks);
+        accessObject.setCurrentTopTracks(tracks);
 
         RecommendOutputBoundary successPresenter = new RecommendOutputBoundary() {
             @Override

@@ -8,10 +8,10 @@ import java.util.Map;
  */
 public class RecommendInputData {
     private final List<String> topTracks;
-    private final String topArtists;
+    private final List<String> topArtists;
     private String accessToken;
 
-    public RecommendInputData(List<String> topTracks, String topArtists, String accessToken) {
+    public RecommendInputData(List<String> topTracks, List<String> topArtists, String accessToken) {
         this.topTracks = topTracks;
         this.topArtists = topArtists;
         this.accessToken = accessToken;
@@ -21,7 +21,7 @@ public class RecommendInputData {
         return topTracks;
     }
 
-    public String getTopArtists() {
+    public List<String> getTopArtists() {
         return topArtists;
     }
 

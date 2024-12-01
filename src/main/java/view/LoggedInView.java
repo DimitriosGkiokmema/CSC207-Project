@@ -62,8 +62,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         searchButtons.add(description);
         final JButton keyword = new JButton("Search song by keyword");
         searchButtons.add(keyword);
-        final JButton home = new JButton("Home");
-        appButtons.add(home);
         final JButton recommendations = new JButton("Recommendations");
         appButtons.add(recommendations);
         final JButton topItems = new JButton("Top Items");
@@ -129,7 +127,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 evt -> {
                     if (evt.getSource().equals(recommendations)) {
                         final String accessToken = loggedInViewModel.getState().getAccessToken();
-                        System.out.println("Recommend btn clicked in loggedInView, token: " + accessToken);
                         recommendController.execute(accessToken);
                     }
                 }
@@ -186,7 +183,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         if (evt.getPropertyName().equals("state")) {
             final LoggedInState state = (LoggedInState) evt.getNewValue();
             accessToken = state.getAccessToken();
-            System.out.println("property change loggedInView: the token entered is " + accessToken);
         }
         else if (evt.getPropertyName().equals("password")) {
             final LoggedInState state = (LoggedInState) evt.getNewValue();

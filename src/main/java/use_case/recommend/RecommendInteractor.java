@@ -28,7 +28,6 @@ public class RecommendInteractor implements RecommendInputBoundary {
         final String songRecommendations = userDataAccessObject.getRecommendations(topTracks, topArtists);
         // Gets spotify access token
         final String accessToken = recommendInputData.getAccessToken();
-        System.out.println("Access Token in interactor: " + accessToken);
 
         if (topTracks.isEmpty() || topArtists.isEmpty() || songRecommendations.contains("Error")) {
             StringBuilder errorMsg = getErrorMsg(topTracks, topArtists, songRecommendations);

@@ -162,14 +162,16 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
 
     @Override
     public List<String> getCurrentTopTracks() {
-        List<String> topTracks = new ArrayList<>();
-        topTracks.add("(sic)");
-        topTracks.add("Left Behind");
-        topTracks.add("Spit It Out");
-        topTracks.add("People = Shit");
-        topTracks.add("Metabolic");
-        topTracks.add("Everything Ends");
-        return topTracks;
+        // Used for testing
+//        List<String> topTracks = new ArrayList<>();
+//        topTracks.add("(sic)");
+//        topTracks.add("Left Behind");
+//        topTracks.add("Spit It Out");
+//        topTracks.add("People = Shit");
+//        topTracks.add("Metabolic");
+//        topTracks.add("Everything Ends");
+//        return topTracks;
+        return currentTopTracks;
     }
 
     @Override
@@ -184,13 +186,15 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
 
     @Override
     public List<String> getCurrentTopArtists() {
-        List<String> topArtists = new ArrayList<>();
-        topArtists.add("Slipknot");
-        topArtists.add("Soulfly");
-        topArtists.add("Korn");
-        topArtists.add("(Sepultura)");
-        topArtists.add("System Of A Down");
-        return topArtists;
+        // Used for testing
+//        List<String> topArtists = new ArrayList<>();
+//        topArtists.add("Slipknot");
+//        topArtists.add("Soulfly");
+//        topArtists.add("Korn");
+//        topArtists.add("(Sepultura)");
+//        topArtists.add("System Of A Down");
+//        return topArtists;
+        return currentTopArtists;
     }
 
 

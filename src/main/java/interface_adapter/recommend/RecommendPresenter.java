@@ -23,7 +23,6 @@ public class RecommendPresenter implements RecommendOutputBoundary {
 
     @Override
     public void prepareSuccessView(RecommendOutputData output) {
-        System.out.println("recommend output token: " + loggedInViewModel.getState().getAccessToken());
         final RecommendState recommendState = recommendViewModel.getState();
         recommendState.setAccessToken(output.getAccessToken());
         recommendState.setTopArtists(output.getCurrentTopArtists());

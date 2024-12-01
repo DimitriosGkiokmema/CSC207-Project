@@ -1,14 +1,11 @@
 package data_access;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import entity.User;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
-import use_case.recommend.RecommendUserDataAccessInterface;
-import use_case.top_items.TopItemsUserDataAccessInterface;
 
 /**
  * In-memory implementation of the DAO for storing user data. This implementation does
@@ -19,7 +16,7 @@ public class InMemoryUserDataAccessObject implements
         LogoutUserDataAccessInterface {
     private final Map<String, User> users = new HashMap<>();
 
-    private String currentUsername;
+    private String accessToken;
 
     @Override
     public boolean existsByName(String identifier) {
@@ -37,12 +34,12 @@ public class InMemoryUserDataAccessObject implements
     }
 
     @Override
-    public void setCurrentAccessToken(String name) {
-        this.currentUsername = name;
+    public void setCurrentAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
     @Override
     public String getCurrentAccessToken() {
-        return this.currentUsername;
+        return this.accessToken;
     }
 }

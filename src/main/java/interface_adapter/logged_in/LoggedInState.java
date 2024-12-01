@@ -6,11 +6,6 @@ package interface_adapter.logged_in;
 public class LoggedInState {
     private String accessToken = "";
 
-    public LoggedInState(LoggedInState copy) {
-        accessToken = copy.accessToken;
-    }
-
-    // Because of the previous copy constructor, the default constructor must be explicit.
     public LoggedInState() {
 
     }

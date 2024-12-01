@@ -1,13 +1,11 @@
 package data_access;
 
-import use_case.recommend.RecommendSpotifyDataAccessInterface;
 import use_case.recommend.RecommendUserDataAccessInterface;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecommendTestDataAccessObject implements RecommendSpotifyDataAccessInterface,
-        RecommendUserDataAccessInterface {
+public class RecommendTestDataAccessObject implements RecommendUserDataAccessInterface {
     private List<String> topTracks;
     private List<String> topArtists;
 

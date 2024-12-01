@@ -39,7 +39,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private RecommendController recommendController;
     private SimilarListenersController similarListenersController;
 
-    private final JLabel username;
+    private String accessToken = "Error: access token not displaying";
     private final JButton logOut;
     private final JPanel searchButtons = new JPanel();
     private final JPanel appButtons = new JPanel();
@@ -51,18 +51,27 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         final JLabel title = new JLabel("Home Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        final JPanel profile = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        final JLabel usernameInfo = new JLabel("Currently logged in: ");
-        username = new JLabel();
+        final JPanel profile = new JPanel();
+        profile.setLayout(new BoxLayout(profile, BoxLayout.Y_AXIS));
+        final JLabel usernameInfo = new JLabel("Currently logged in: " + accessToken);
         logOut = new JButton("Log Out");
         profile.add(usernameInfo);
-        profile.add(username);
         profile.add(logOut);
 
         final JButton description = new JButton("Search song by description");
         searchButtons.add(description);
         final JButton keyword = new JButton("Search song by keyword");
         searchButtons.add(keyword);
+        final JButton home = new JButton("Home");
+        appButtons.add(home);
+        final JButton recommendations = new JButton("Recommendations");
+        appButtons.add(recommendations);
+        final JButton topItems = new JButton("Top Items");
+        appButtons.add(topItems);
+        final JButton similarListeners = new JButton("Similar listeners");
+        appButtons.add(similarListeners);
+
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         // Add ActionListener for the "Search song by keyword" button
         keyword.addActionListener(evt -> {
             if (evt.getSource().equals(keyword)) {
@@ -91,16 +100,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 frame.revalidate(); // Refresh the frame to display the new content
             }
         });
-        final JButton home = new JButton("Home");
-        appButtons.add(home);
-        final JButton recommendations = new JButton("Recommendations");
-        appButtons.add(recommendations);
-        final JButton topItems = new JButton("Top Items");
-        appButtons.add(topItems);
-        final JButton similarListeners = new JButton("Similar listeners");
-        appButtons.add(similarListeners);
-
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         logOut.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
@@ -129,11 +128,9 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         recommendations.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(recommendations)) {
-                        final List<String> topTracks = new ArrayList<>();
-                        final List<String> topArtists = new ArrayList<>();
                         final String accessToken = loggedInViewModel.getState().getAccessToken();
-//                        System.out.println("rec clicked, token: " + accessToken);
-                        recommendController.execute(topTracks, topArtists, accessToken);
+                        System.out.println("Recommend btn clicked in loggedInView, token: " + accessToken);
+                        recommendController.execute(accessToken);
                     }
                 }
         );
@@ -179,8 +176,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
         // Add components to the panel
         this.add(title);
-        this.add(usernameInfo);
-        this.add(username);
         this.add(profile);
         this.add(searchButtons);
         this.add(appButtons);
@@ -190,13 +185,13 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
             final LoggedInState state = (LoggedInState) evt.getNewValue();
-            username.setText(state.getAccessToken());
+            accessToken = state.getAccessToken();
+            System.out.println("property change loggedInView: the token entered is " + accessToken);
         }
         else if (evt.getPropertyName().equals("password")) {
             final LoggedInState state = (LoggedInState) evt.getNewValue();
             JOptionPane.showMessageDialog(null, "password updated for " + state.getAccessToken());
         }
-
     }
 
     public String getViewName() {

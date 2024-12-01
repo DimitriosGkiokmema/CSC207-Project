@@ -7,22 +7,10 @@ import java.util.Map;
  * The Input Data for the Recommend Use Case.
  */
 public class RecommendInputData {
-    private final List<String> topTracks;
-    private final List<String> topArtists;
     private String accessToken;
 
-    public RecommendInputData(List<String> topTracks, List<String> topArtists, String accessToken) {
-        this.topTracks = topTracks;
-        this.topArtists = topArtists;
+    public RecommendInputData(String accessToken) {
         this.accessToken = accessToken;
-    }
-
-    public List<String> getTopTracks() {
-        return topTracks;
-    }
-
-    public List<String> getTopArtists() {
-        return topArtists;
     }
 
     public String getAccessToken() {

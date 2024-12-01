@@ -28,7 +28,7 @@ public class RecommendInteractor implements RecommendInputBoundary {
         final String songRecommendations = userDataAccessObject.getRecommendations(topTracks, topArtists);
         // Gets spotify access token
         final String accessToken = recommendInputData.getAccessToken();
-//        System.out.println("Access Token in interactor: " + accessToken);
+        System.out.println("Access Token in interactor: " + accessToken);
 
         if (topTracks.isEmpty() || topArtists.isEmpty() || songRecommendations.contains("Error")) {
             StringBuilder errorMsg = getErrorMsg(topTracks, topArtists, songRecommendations);
@@ -42,7 +42,7 @@ public class RecommendInteractor implements RecommendInputBoundary {
 
     @NotNull
     private static StringBuilder getErrorMsg(List<String> topTracks, List<String> topArtists, String songRecommendations) {
-        StringBuilder errorMsg = new StringBuilder("Unfortunately ");
+        StringBuilder errorMsg = new StringBuilder("Error: ");
         if (topTracks.isEmpty()) {
             errorMsg.append("song tracks, ");
         }
@@ -54,6 +54,8 @@ public class RecommendInteractor implements RecommendInputBoundary {
         }
         // Deletes ", " from end of string
         errorMsg.delete(errorMsg.length() - 2, errorMsg.length());
+
+        errorMsg.append(" are not available.");
 
         return errorMsg;
     }

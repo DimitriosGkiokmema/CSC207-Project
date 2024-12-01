@@ -91,6 +91,11 @@ public class AppBuilder {
     private SimilarListenersView similarListenersView;
     private RecommendationsView recommendationsView;
 
+    // These variables are initialized in addLoggedInView()
+    private LoginOutputBoundary loginOutputBoundary = null;
+    private LoginInputBoundary loginInteractor = null;
+    private LoginController loginController = null;
+
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
     }
@@ -107,6 +112,20 @@ public class AppBuilder {
     }
 
     /**
+     * Adds the LoggedIn View to the application.
+     * @return this builder
+     */
+    public AppBuilder addLoggedInView() {
+        loggedInViewModel = new LoggedInViewModel();
+        loggedInView = new LoggedInView(loggedInViewModel);
+        cardPanel.add(loggedInView, loggedInView.getViewName());
+        loginOutputBoundary = new LoginPresenter(viewManagerModel, loggedInViewModel, loginViewModel);
+        loginInteractor = new LoginInteractor(userDataAccessObject, loginOutputBoundary);
+        loginController = new LoginController(loginInteractor);
+        return this;
+    }
+
+    /**
      * Adds the Search View to the application.
      * @return this builder
      */
@@ -114,11 +133,6 @@ public class AppBuilder {
         searchViewModel = new SearchViewModel();
         searchView = new SearchView(searchViewModel);
         cardPanel.add(searchView, searchView.getViewName());
-        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
-                loggedInViewModel, loginViewModel);
-        final LoginInputBoundary loginInteractor = new LoginInteractor(
-                userDataAccessObject, loginOutputBoundary);
-        final LoginController loginController = new LoginController(loginInteractor);
         searchView.setLoginController(loginController);
         return this;
     }
@@ -131,17 +145,6 @@ public class AppBuilder {
         recommendViewModel = new RecommendViewModel();
         recommendationsView = new RecommendationsView(recommendViewModel);
         cardPanel.add(recommendationsView, recommendationsView.getViewName());
-        return this;
-    }
-
-    /**
-     * Adds the LoggedIn View to the application.
-     * @return this builder
-     */
-    public AppBuilder addLoggedInView() {
-        loggedInViewModel = new LoggedInViewModel();
-        loggedInView = new LoggedInView(loggedInViewModel);
-        cardPanel.add(loggedInView, loggedInView.getViewName());
         return this;
     }
 
@@ -172,12 +175,6 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addLoginUseCase() {
-        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
-                loggedInViewModel, loginViewModel);
-        final LoginInputBoundary loginInteractor = new LoginInteractor(
-                userDataAccessObject, loginOutputBoundary);
-
-        final LoginController loginController = new LoginController(loginInteractor);
         loginView.setLoginController(loginController);
         return this;
     }
@@ -203,12 +200,6 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addSearchUseCase() {
-        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
-                loggedInViewModel, loginViewModel);
-        final LoginInputBoundary loginInteractor = new LoginInteractor(
-                userDataAccessObject, loginOutputBoundary);
-
-        final LoginController loginController = new LoginController(loginInteractor);
         searchView.setLoginController(loginController);
 
         final SearchOutputBoundary searchOutputBoundary = new SearchPresenter(viewManagerModel,
@@ -228,13 +219,6 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addTopItemsUseCase() {
-
-        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
-                loggedInViewModel, loginViewModel);
-        final LoginInputBoundary loginInteractor = new LoginInteractor(
-                userDataAccessObject, loginOutputBoundary);
-
-        final LoginController loginController = new LoginController(loginInteractor);
         topItemsView.setLoginController(loginController);
 
         final TopItemsOutputBoundary topItemsOutputBoundary = new TopItemsPresenter(viewManagerModel,
@@ -253,16 +237,10 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addRecommendUseCase() {
-        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
-                loggedInViewModel, loginViewModel);
-        final LoginInputBoundary loginInteractor = new LoginInteractor(
-                userDataAccessObject, loginOutputBoundary);
-
-        final LoginController loginController = new LoginController(loginInteractor);
         recommendationsView.setLoginController(loginController);
 
         final RecommendOutputBoundary recommendOutputBoundary =
-                new RecommendPresenter(viewManagerModel, recommendViewModel);
+                new RecommendPresenter(viewManagerModel, loggedInViewModel, recommendViewModel);
         final RecommendInputBoundary recommendInputBoundary =
                 new RecommendInteractor(recommendUserDataAccessObject, recommendOutputBoundary);
 
@@ -272,12 +250,6 @@ public class AppBuilder {
     }
 
     public AppBuilder addSimilarListenersUseCase() {
-        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
-                loggedInViewModel, loginViewModel);
-        final LoginInputBoundary loginInteractor = new LoginInteractor(
-                userDataAccessObject, loginOutputBoundary);
-
-        final LoginController loginController = new LoginController(loginInteractor);
         similarListenersView.setLoginController(loginController);
 
         final SimilarListenersOutputBoundary similarListenersOutputBoundary =

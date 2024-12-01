@@ -29,7 +29,6 @@ public class LoginPresenter implements LoginOutputBoundary {
 
         final LoggedInState loggedInState = loggedInViewModel.getState();
         loggedInState.setAccessToken(response.getAccessToken());
-        System.out.println("loginPresenter storing token: " + response.getAccessToken());
         this.loggedInViewModel.setState(loggedInState);
         this.loggedInViewModel.firePropertyChanged();
 

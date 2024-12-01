@@ -5,7 +5,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import interface_adapter.login.LoginState;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.apache.hc.core5.http.ParseException;
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.enums.ModelObjectType;
@@ -16,15 +22,16 @@ import se.michaelthelin.spotify.requests.data.follow.GetUsersFollowedArtistsRequ
 import se.michaelthelin.spotify.requests.data.personalization.simplified.GetUsersTopArtistsRequest;
 import se.michaelthelin.spotify.requests.data.personalization.simplified.GetUsersTopTracksRequest;
 import use_case.recommend.RecommendUserDataAccessInterface;
-import use_case.similar_listeners.SimilarListenersUserDataAccessInterface;
-import use_case.top_items.TopItemsUserDataAccessInterface;
+import use_case.keyword.KeywordDataAccessInterface;
+import use_case.similar_listeners.SimilarListenersDataAccessInterface;
+import use_case.top_items.TopItemsDataAccessInterface;
 
 /**
  * DAO for getting relevant information from Spotify API.
  */
-public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
-        SimilarListenersUserDataAccessInterface,
-        RecommendUserDataAccessInterface {
+
+public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
+        SimilarListenersDataAccessInterface, RecommendUserDataAccessInterface, KeywordDataAccessInterface{
     public static final int OFFSET = 4;
     public static final int OFFSET2 = 0;
 
@@ -32,6 +39,7 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
     private String accessToken;
     private List<String> currentTopTracks;
     private List<String> currentTopArtists;
+    private List<String> currentSearchResults;
     private SpotifyApi spotifyApi;
     private GetUsersTopTracksRequest getTopTracksRequest;
     private GetUsersTopArtistsRequest getTopArtistsRequest;
@@ -172,6 +180,46 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
             System.out.println("Error: " + e.getMessage());
         }
     }
+    /**
+     * A helper method to get the current users search results from spotify.
+     * @param artistName the name of the artist the user is searching for.
+     * @param keyword the keyword search the user is making.
+     */
+    private void getSearchResultsSync(String artistName, String keyword) {
+        final String SEARCH_URL = "https://api.spotify.com/v1/search";
+        OkHttpClient client = new OkHttpClient();
+
+        // Build the search query URL
+        HttpUrl url = HttpUrl.parse(SEARCH_URL).newBuilder()
+                .addQueryParameter("q", "artist:" + artistName + " " + keyword) // Combine artist and keyword
+                .addQueryParameter("type", "track")
+                .build();
+
+        // Prepare the API request
+        Request request = new Request.Builder()
+                .url(url)
+                .addHeader("Authorization", "Bearer " + accessToken) // Use the provided access token
+                .get()
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            if (response.isSuccessful() && response.body() != null) {
+                JsonObject jsonObject = JsonParser.parseString(response.body().string()).getAsJsonObject();
+                List<String> songs = new ArrayList<String>();
+
+                // Extract tracks from the response
+                jsonObject.getAsJsonObject("tracks").getAsJsonArray("items").forEach(track -> {
+                    String songName = track.getAsJsonObject().get("name").getAsString();
+                    songs.add(songName); // Add the track name to the list
+                });
+                currentSearchResults = songs;
+            } else {
+                throw new RuntimeException("Failed to search songs: " + response.message());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Error searching songs", e);
+        }
+    }
 
     @Override
     public List<String> getCurrentTopTracks() {
@@ -238,6 +286,26 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
     @Override
     public void setCurrentFollowedArtists(List<String> followedArtists) {
         this.currFollowedArtists = followedArtists;
+
+    }
+
+    @Override
+    public List<String> fetchSongs(String artist, String keyword) {
+        return List.of();
+    }
+
+    @Override
+    public List<String> searchSongs(String artistName, String keyword) {
+        getSearchResultsSync(artistName, keyword);
+        return getCurrentSearchResults();
+    }
+
+    public List<String> getCurrentSearchResults() {
+        return currentSearchResults;
+    }
+
+    public void setCurrentSearchResults(List<String> currentSearchResults) {
+        this.currentSearchResults = currentSearchResults;
     }
 }
 

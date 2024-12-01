@@ -1,8 +1,5 @@
 package interface_adapter.search;
 
-
-import use_case.login.LoginInputBoundary;
-import use_case.login.LoginInputData;
 import use_case.search.SearchInputBoundary;
 
 /**

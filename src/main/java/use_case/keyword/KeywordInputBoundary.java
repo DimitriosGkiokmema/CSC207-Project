@@ -7,4 +7,15 @@ public interface KeywordInputBoundary {
      * @param inputData The input data containing the artist's name and keyword.
      */
     void searchByKeyword(KeywordInputData inputData);
+
+    /**
+     * takes us to the keyword use case.
+     */
+    void execute(String accessToken);
+
+    /**
+     * Executes the keyword search use case.
+     */
+    void executeSearch(String accessToken, String artist, String keyword);
+
 }

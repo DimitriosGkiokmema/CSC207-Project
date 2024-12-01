@@ -1,86 +1,134 @@
 package view;
 
 import interface_adapter.keyword.KeywordController;
+import interface_adapter.keyword.KeywordState;
 import interface_adapter.keyword.KeywordViewModel;
-import interface_adapter.logged_in.LoggedInViewModel;
+import interface_adapter.login.LoginController;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-public class KeywordView {
-    private final KeywordController controller;
-    private final KeywordViewModel viewModel;
+public class KeywordView extends JPanel implements PropertyChangeListener {
+    private final KeywordViewModel keywordViewModel;
+    private final String viewName = "keyword";
+    private KeywordController keywordController;
+    private LoginController loginController;
 
-    public KeywordView(KeywordController controller, KeywordViewModel viewModel) {
-        this.controller = controller;
-        this.viewModel = viewModel;
-    }
+    private final JButton homeButton;
+    private final JScrollPane scrollPane;
+    private final JTextArea resultsArea;
+    private final JButton searchButton;
+    private final JTextField artistField;
+    private final JTextField keywordField;
+    private final JLabel keywordLabel;
+    private final JLabel artistLabel;
+    private final JPanel panel = new JPanel();
 
-    public JPanel getPanel(JFrame frame) {
-        JPanel panel = new JPanel();
-        panel.setLayout(null);
+    public KeywordView(KeywordViewModel keywordViewModel) {
+        this.keywordViewModel = keywordViewModel;
+        this.keywordViewModel.addPropertyChangeListener(this);
 
-        JLabel artistLabel = new JLabel("Artist Name:");
-        artistLabel.setBounds(50, 30, 100, 30);
-        panel.add(artistLabel);
+        setLayout(new BorderLayout(10, 10)); // Add spacing between sections
+        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Add padding around the panel
 
-        JTextField artistField = new JTextField();
-        artistField.setBounds(150, 30, 400, 30);
-        panel.add(artistField);
+        // Input Panel
+        JPanel inputPanel = new JPanel();
+        inputPanel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5); // Add spacing between components
+        gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        JLabel keywordLabel = new JLabel("Keyword:");
-        keywordLabel.setBounds(50, 80, 100, 30);
-        panel.add(keywordLabel);
+        // Artist Name Label and TextField
+        artistLabel = new JLabel("Artist Name:");
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        inputPanel.add(artistLabel, gbc);
 
-        JTextField keywordField = new JTextField();
-        keywordField.setBounds(150, 80, 400, 30);
-        panel.add(keywordField);
+        artistField = new JTextField();
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        inputPanel.add(artistField, gbc);
 
-        JButton searchButton = new JButton("Search");
-        searchButton.setBounds(580, 30, 100, 80);
-        panel.add(searchButton);
+        // Keyword Label and TextField
+        keywordLabel = new JLabel("Keyword:");
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.weightx = 0;
+        inputPanel.add(keywordLabel, gbc);
 
-        JTextArea resultsArea = new JTextArea();
+        keywordField = new JTextField();
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.weightx = 1.0;
+        inputPanel.add(keywordField, gbc);
+
+        // Search Button
+        searchButton = new JButton("Search");
+        gbc.gridx = 2;
+        gbc.gridy = 0;
+        gbc.gridheight = 2;
+        gbc.fill = GridBagConstraints.BOTH;
+        inputPanel.add(searchButton, gbc);
+
+        // Results Panel
+        resultsArea = new JTextArea();
         resultsArea.setEditable(false);
-        JScrollPane scrollPane = new JScrollPane(resultsArea);
-        scrollPane.setBounds(50, 140, 650, 200); // Adjust size as needed
-        panel.add(scrollPane);
+        scrollPane = new JScrollPane(resultsArea);
+        scrollPane.setBorder(BorderFactory.createTitledBorder("Results"));
 
-        // Add ActionListener for the "Search" button
-        searchButton.addActionListener(e -> {
-            String artistName = artistField.getText();
-            String keyword = keywordField.getText();
+        // Button Panel
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+        homeButton = new JButton("Home");
+        buttonPanel.add(homeButton);
 
-            // Trigger search and update viewModel
-            viewModel.setLoading(true);
-            controller.searchByKeyword(artistName, keyword);
-
-            // Check results and update the UI accordingly
-            if (viewModel.isProper_input()) {
-                resultsArea.setText("Artist and keyword can not be empty");
-            } else if (viewModel.hasError()) {
-                resultsArea.setText("Error: " + viewModel.getErrorMessage());
-            } else if (viewModel.getSongs() == null && viewModel.getSongs().isEmpty()) {
-                // No results found
-                resultsArea.setText("Sorry, no songs found matching the keyword \"" + keyword + "\" for artist \"" + artistName + "\".");
-            } else if (viewModel.getSongs() != null) {
-                // Display the list of songs
-                resultsArea.setText(String.join("\n", viewModel.getSongs()));
+        // Add Listeners
+        searchButton.addActionListener(evt -> {
+            if (evt.getSource().equals(searchButton)) {
+                final String accessToken = keywordViewModel.getState().getAccessToken();
+                keywordController.executeSearch(accessToken, artistField.getText(), keywordField.getText());
             }
         });
 
-        JButton homeButton = new JButton("Return Home");
-        homeButton.setBounds(580, 350, 150, 30); // Positioned at the bottom-right corner
-        panel.add(homeButton);
-
-        homeButton.addActionListener(e -> {
-            LoggedInView loggedInPage = new LoggedInView(new LoggedInViewModel());
-            frame.setContentPane(loggedInPage);
-            frame.revalidate();
+        homeButton.addActionListener(evt -> {
+            if (evt.getSource().equals(homeButton)) {
+                final String accessToken = keywordViewModel.getState().getAccessToken();
+                loginController.execute(accessToken);
+            }
         });
 
-        return panel;
+        // Add Components to Main Panel
+        panel.setLayout(new BorderLayout(10, 10));
+        panel.add(inputPanel, BorderLayout.NORTH);
+        panel.add(scrollPane, BorderLayout.CENTER);
+        panel.add(buttonPanel, BorderLayout.SOUTH);
+
+        this.add(panel);
     }
 
-    public void show() {
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        final KeywordState state = (KeywordState) evt.getNewValue();
+        setFields(state);
+    }
+
+    private void setFields(KeywordState state) {
+        resultsArea.setText(state.getDisplayText());
+    }
+
+    public String getViewName() {
+        return viewName;
+    }
+
+    public void setKeywordController(KeywordController keywordController) {
+        this.keywordController = keywordController;
+    }
+
+    public void setLoginController(LoginController loginController) {
+        this.loginController = loginController;
     }
 }

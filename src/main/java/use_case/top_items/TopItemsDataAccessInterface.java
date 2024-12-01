@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * DAO for the Top Tracks Use Case.
  */
-public interface TopItemsUserDataAccessInterface {
+public interface TopItemsDataAccessInterface {
 
     /**
      * Returns the top track list of the current user of the application.

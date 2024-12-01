@@ -6,10 +6,10 @@ import java.util.List;
  * SimilarListeners Interactor.
  */
 public class SimilarListenersInteractor implements SimilarListenersInputBoundary {
-    private final SimilarListenersUserDataAccessInterface userDataAccessObject;
+    private final SimilarListenersDataAccessInterface userDataAccessObject;
     private final SimilarListenersOutputBoundary similarListenersPresenter;
 
-    public SimilarListenersInteractor(SimilarListenersUserDataAccessInterface userDataAccessInterface,
+    public SimilarListenersInteractor(SimilarListenersDataAccessInterface userDataAccessInterface,
                                       SimilarListenersOutputBoundary similarListenersOutputBoundary) {
         this.userDataAccessObject = userDataAccessInterface;
         this.similarListenersPresenter = similarListenersOutputBoundary;
@@ -24,7 +24,7 @@ public class SimilarListenersInteractor implements SimilarListenersInputBoundary
         }
         else {
             final List<String> followedArtists = userDataAccessObject.getFollowedArtists();
-            userDataAccessObject.setCurrentFollowedArtists(followedArtists);
+            // userDataAccessObject.setCurrentFollowedArtists(followedArtists);
             final String accessToken = similarListenersInputData.getAccessToken();
             final SimilarListenersOutputData similarListenersOutputData = new SimilarListenersOutputData(
                     followedArtists, false, accessToken);

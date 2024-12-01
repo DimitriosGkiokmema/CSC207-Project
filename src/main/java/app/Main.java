@@ -22,6 +22,7 @@ public class Main {
                 .addSearchView()
                 .addTopItemsView()
                 .addLoginUseCase()
+                .addKeywordView()
                 .addLoggedInView()
                 .addSimilarListenersView()
                 .addLogoutUseCase()
@@ -29,6 +30,7 @@ public class Main {
                 .addSearchUseCase()
                 .addTopItemsUseCase()
                 .addSimilarListenersUseCase()
+                .addKeywordUseCase()
                 .build();
 
         application.pack();

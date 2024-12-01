@@ -1,7 +1,5 @@
 package interface_adapter.search;
 
-import interface_adapter.logged_in.LoggedInState;
-
 /**
  * The state for the SearchViewModel.
  */

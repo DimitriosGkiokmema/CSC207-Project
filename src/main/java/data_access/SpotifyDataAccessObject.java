@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import entity.CommonUserFactory;
+import entity.User;
+import entity.UserFactory;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import interface_adapter.login.LoginState;
@@ -36,6 +39,8 @@ public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
     public static final int OFFSET2 = 0;
 
     private LoginState loginState = new LoginState();
+    private UserFactory userFactory = new CommonUserFactory();
+    private User user = userFactory.create(loginState.getLoginToken());
     private String accessToken;
     private List<String> currentTopTracks;
     private List<String> currentTopArtists;
@@ -51,7 +56,7 @@ public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
     private GetRecommendationsRequest getRecommendationsRequest;
 
     public SpotifyDataAccessObject() {
-        this.accessToken = loginState.getLoginToken();
+        this.accessToken = user.getAccessToken();
         this.spotifyApi = new SpotifyApi.Builder()
                 .setAccessToken(accessToken)
                 .build();
@@ -118,7 +123,7 @@ public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
 
         } catch (IOException | SpotifyWebApiException | ParseException e) {
             System.out.println("Error: " + e.getMessage());
-            return null;
+            return new ArrayList<>();
         }
     }
 
@@ -143,7 +148,7 @@ public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
 
         } catch (IOException | SpotifyWebApiException | ParseException e) {
             System.out.println("Error: " + e.getMessage());
-            return null;
+            return new ArrayList<>();
         }
     }
 
@@ -239,14 +244,13 @@ public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
     public String getTopArtists() {
         final List<String> lst = currentTopArtists;
         final StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < lst.size(); i ++) {
+        if (lst != null) {for (int i = 0; i < lst.size(); i ++) {
             sb.append(lst.get(i));
 
             if (i != lst.size() - 1) {
                 sb.append(", ");
             }
-        }
+        }}
 
         return sb.toString();
     }

@@ -13,4 +13,5 @@ public class KeywordViewModel extends ViewModel<KeywordState> {
         super("keyword");
         setState(new KeywordState());
     }
+
 }

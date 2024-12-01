@@ -40,4 +40,8 @@ public class KeywordOutputData {
     public boolean hasError() {
         return errorMessage != null;
     }
+
+    public String getDisplayText() {
+        return "";
+    }
 }

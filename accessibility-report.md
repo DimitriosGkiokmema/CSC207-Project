@@ -1,30 +1,30 @@
 Principles of Universal Design
-	1.	Equitable Use
-	•	Our “search songs by description” feature is useful for users with diverse preferences, such as those who may not remember a song title but can describe its theme or mood.
-	•	In the future, we could ensure all features are accessible to screen readers so users with visual impairments can benefit equally.
-	2.	Flexibility in Use
-	•	Users can search for songs using either keywords or artist names, providing flexibility based on their preferences or the information they have.
-	•	Features like “get song recommendations based on your music preferences” adapt to the user’s individual music taste, offering personalized results.
-	3.	Simple and Intuitive Use
-	•	The interface for searching songs and getting recommendations will be designed with clear buttons and instructions, making it easy for first-time users to navigate.
-	•	We could implement a guided onboarding process to explain each feature briefly to ensure users understand how to use the program effectively.
-	4.	Perceptible Information
-	•	We could provide visual cues (e.g., icons for search and recommendations) alongside textual labels for clarity.
-	•	In the future, adding audio feedback or haptic signals for critical actions could further ensure the program communicates effectively to users with varying sensory abilities.
-	5.	Tolerance for Error
-	•	When searching for songs, the program allows partial matches or spelling mistakes, reducing the chance of user frustration from errors.
-	•	Features like “get similar artists” and “get top tracks” are forgiving if a user does not know specific song titles or artist names, broadening the scope of results.
-	6.	Low Physical Effort
-	•	The program minimizes effort by enabling users to perform all tasks with a few clicks or taps, such as retrieving top tracks or similar artists in one action.
-	•	We could implement voice commands in the future to allow hands-free operation, further reducing physical effort.
-	7.	Size and Space for Approach and Use
-	•	The interface will be designed with large, clickable buttons and clear spacing to accommodate users with limited dexterity or those using touchscreen devices.
-	•	Future versions could include customizable font sizes and layouts to improve usability for individuals with visual impairments or different screen sizes.
+	1.	Equitable Use:
+	•	Our program adheres to equitable use by offering features such as “search songs by description” and “search songs by keyword and artist,” which allow users with diverse music preferences to easily find songs regardless of specific knowledge about artists or genres.
+	•	Future enhancements could include adding a text-to-speech feature to ensure visually impaired users can interact with the program seamlessly.
+	2.	Flexibility in Use:
+	•	Features like “get song recommendations based on your music preferences” adapt to different user tastes and listening behaviors, offering personalized recommendations.
+	•	We could add language options in the future to accommodate non-English speakers, ensuring the interface is accessible to a broader audience.
+	3.	Simple and Intuitive Use:
+	•	The program’s interface for “search songs by keyword and artist” is designed to be straightforward, so even first-time users can understand and interact with it effectively.
+	•	Tooltips or brief explanations could be added to further improve intuitiveness, helping users unfamiliar with some features.
+	4.	Perceptible Information:
+	•	Users can clearly view and navigate their “top tracks” and “song recommendations” without requiring prior knowledge, thanks to a well-organized and readable display.
+	•	To improve accessibility, we could implement audio cues for visually impaired users.
+	5.	Tolerance for Error:
+	•	If users make typos while using the “search songs by keyword and artist” feature, the program could provide suggestions for corrections or display close matches.
+	•	Future updates could include an undo feature to revert accidental actions, such as removing a song from a playlist.
+	6.	Low Physical Effort:
+	•	The program minimizes physical effort by providing quick access to “top tracks” and “similar listeners” through single-click or tap actions.
+	•	Voice command integration could be a future addition, further reducing physical interaction requirements.
+	7.	Size and Space for Approach and Use:
+	•	The program’s interface is responsive and designed for both desktop and mobile platforms, ensuring that it remains functional and accessible regardless of the user’s device or screen size.
+	•	Future updates could optimize the app further for assistive devices, like screen readers or one-handed operation.
 
-Marketing the Program
+Target Market
 
-Our program, Spotify Companions, would be marketed primarily to music enthusiasts who seek a more personalized and engaging experience with their music library. This includes individuals who enjoy discovering new music, exploring similar artists, or curating playlists based on mood or preferences. Students, professionals, and casual listeners alike would benefit from features like keyword searches and recommendations, as these streamline the process of finding music that resonates with them. Additionally, by leveraging Spotify’s existing user base, our program appeals to a wide demographic of people who already interact with music streaming services.
+If we were to market the program, our primary audience would include music enthusiasts and Spotify users who want to enhance their music discovery experience. This includes students seeking new music for studying or relaxation, casual listeners looking for recommendations, and advanced users who want insights like “similar listeners.” Additionally, our program could appeal to professionals in creative fields, like writers or designers, who use music to inspire their work. By focusing on personalization and intuitive search features, we aim to attract users who value ease of use and customization in their music experience.
 
-Demographics Less Likely to Use the Program
+Demographic Considerations
 
-Certain demographics might be less likely to use our program, particularly those who are not active users of Spotify or other music streaming services. People unfamiliar with digital music platforms or those with limited internet access may find the program less appealing or accessible. Moreover, users with disabilities such as visual impairments might face challenges if we do not implement accessibility features like screen reader compatibility or alternative input methods. To address this, we should prioritize accessibility considerations in our design, ensuring that the program does not unintentionally exclude users from diverse backgrounds. This aligns with the principles of ethical software design and inclusivity discussed in our embedded ethics modules.
+Our program is less likely to be used by people who do not use Spotify, as all features are designed around Spotify’s API and ecosystem. Additionally, some demographics may face barriers, such as those without internet access, non-English speakers, or users unfamiliar with digital music platforms. To mitigate this, we could add offline features or expand language support. Drawing from the ethics modules, we recognize the importance of accessibility for users with disabilities. As such, we plan to incorporate features like text-to-speech, voice commands, and screen reader compatibility to ensure that our program does not exclude these demographics. By addressing these considerations, we aim to create a more inclusive and universally appealing tool.

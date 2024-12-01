@@ -1,6 +1,5 @@
 package use_case.search;
 
-import use_case.logout.LogoutOutputData;
 /**
  * The output boundary for the Search Use Case.
  */

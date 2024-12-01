@@ -19,7 +19,7 @@ public class SpotifyService {
         this.accessToken = accessToken;
     }
 
-    public List<String> searchSongs(String artistName, String keyword) {
+    public List<String> searchsongs(String artistName, String keyword) {
         OkHttpClient client = new OkHttpClient();
 
         // Build the search query URL

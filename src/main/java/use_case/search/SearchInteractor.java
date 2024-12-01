@@ -1,10 +1,5 @@
 package use_case.search;
 
-import data_access.DBUserDataAccessObject;
-import data_access.InMemoryUserDataAccessObject;
-import use_case.login.LoginInputData;
-import use_case.logout.LogoutOutputData;
-
 /**
  * The Search Interactor.
  */

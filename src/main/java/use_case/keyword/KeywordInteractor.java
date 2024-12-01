@@ -1,7 +1,8 @@
 package use_case.keyword;
 
-import data_access.SpotifyService;
+import use_case.search.SearchOutputData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,18 +10,18 @@ import java.util.List;
  * Handles the business logic and interacts with the Spotify API service.
  */
 public class KeywordInteractor implements KeywordInputBoundary {
-    private final SpotifyService spotifyService; // Interacts with Spotify API
-    private final KeywordOutputBoundary outputBoundary; // Sends results to the presenter
+    private final KeywordDataAccessInterface keywordDataAccessInterface; // Interacts with Spotify API
+    private final KeywordOutputBoundary keywordPresenter; // Sends results to the presenter
 
     /**
      * Constructs a KeywordInteractor.
      *
-     * @param spotifyService   The data_access.SpotifyService to handle API calls.
+     * @param keywordDataAccessInterface   The data_access.SpotifyDataAccessObject to handle API calls.
      * @param outputBoundary   The output boundary to send results or errors to the presenter.
      */
-    public KeywordInteractor(SpotifyService spotifyService, KeywordOutputBoundary outputBoundary) {
-        this.spotifyService = spotifyService;
-        this.outputBoundary = outputBoundary;
+    public KeywordInteractor(KeywordDataAccessInterface keywordDataAccessInterface, KeywordOutputBoundary outputBoundary) {
+        this.keywordDataAccessInterface = keywordDataAccessInterface;
+        this.keywordPresenter = outputBoundary;
     }
 
     /**
@@ -35,18 +36,34 @@ public class KeywordInteractor implements KeywordInputBoundary {
             String keyword = inputData.getKeyword();
 
             // Use data_access.SpotifyService to fetch and filter songs
-            List<String> songs = spotifyService.searchSongs(artistName, keyword);
+            List<String> songs = keywordDataAccessInterface.searchSongs(artistName, keyword);
 
             if (songs.isEmpty()) {
                 // No songs found matching the keyword
-                outputBoundary.presentResults(new KeywordOutputData("No songs found matching the keyword."));
+                keywordPresenter.prepareSuccessView(new KeywordOutputData("No songs found matching the keyword."));
             } else {
                 // Pass the list of songs to the presenter
-                outputBoundary.presentResults(new KeywordOutputData(songs));
+                keywordPresenter.prepareSuccessView(new KeywordOutputData("placeholder token",songs));
             }
         } catch (Exception e) {
             // Pass any exception as an error message to the presenter
-            outputBoundary.presentResults(new KeywordOutputData("Error: " + e.getMessage()));
+            keywordPresenter.prepareSuccessView(new KeywordOutputData("Error: " + e.getMessage()));
         }
+    }
+
+    @Override
+    public void execute(String accessToken) {
+        List<String> songs = new ArrayList<String>();
+        songs.add("");
+        final KeywordOutputData search = new KeywordOutputData(accessToken,songs);
+        keywordPresenter.prepareSuccessView(search);
+    }
+
+    @Override
+    public void executeSearch(String accessToken, String artist, String keyword){
+
+        final List<String> songs = keywordDataAccessInterface.searchSongs(artist,keyword);
+        final KeywordOutputData search = new KeywordOutputData(accessToken,songs);
+        keywordPresenter.prepareSuccessView(search);
     }
 }

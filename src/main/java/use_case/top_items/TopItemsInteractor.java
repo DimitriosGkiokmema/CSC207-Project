@@ -6,10 +6,10 @@ import java.util.List;
  * The TopItems Interactor.
  */
 public class TopItemsInteractor implements TopItemsInputBoundary {
-    private TopItemsUserDataAccessInterface userDataAccessObject;
+    private TopItemsDataAccessInterface userDataAccessObject;
     private TopItemsOutputBoundary topItemsOutputBoundary;
 
-    public TopItemsInteractor(TopItemsUserDataAccessInterface userDataAccessObject,
+    public TopItemsInteractor(TopItemsDataAccessInterface userDataAccessObject,
                               TopItemsOutputBoundary topItemsOutputBoundary) {
         this.userDataAccessObject = userDataAccessObject;
         this.topItemsOutputBoundary = topItemsOutputBoundary;

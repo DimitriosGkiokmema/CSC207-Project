@@ -1,7 +1,5 @@
 package interface_adapter.similar_listeners;
 
-import java.util.ArrayList;
-
 import use_case.similar_listeners.SimilarListenersInputBoundary;
 import use_case.similar_listeners.SimilarListenersInputData;
 

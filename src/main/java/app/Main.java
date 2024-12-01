@@ -1,7 +1,7 @@
 package app;
 
 import javax.swing.*;
-import java.Constants;
+//import java.Constants;
 import java.awt.*;
 
 /**
@@ -17,13 +17,18 @@ public class Main {
         final AppBuilder appBuilder = new AppBuilder();
         final JFrame application = appBuilder
                 .addLoginView()
-                .addLoginUseCase()
+                .addLoggedInView()
+                .addRecommendationsView()
                 .addSearchView()
                 .addTopItemsView()
+                .addLoginUseCase()
                 .addLoggedInView()
+                .addSimilarListenersView()
                 .addLogoutUseCase()
+                .addRecommendUseCase()
                 .addSearchUseCase()
                 .addTopItemsUseCase()
+                .addSimilarListenersUseCase()
                 .build();
 
         application.pack();

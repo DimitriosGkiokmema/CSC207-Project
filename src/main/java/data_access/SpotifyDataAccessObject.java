@@ -2,15 +2,11 @@ package data_access;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
-import entity.CommonUser;
-import entity.User;
 
 import interface_adapter.login.LoginState;
 import org.apache.hc.core5.http.ParseException;
-import org.json.JSONException;
-import org.json.JSONObject;
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.enums.ModelObjectType;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
@@ -19,6 +15,7 @@ import se.michaelthelin.spotify.requests.data.browse.GetRecommendationsRequest;
 import se.michaelthelin.spotify.requests.data.follow.GetUsersFollowedArtistsRequest;
 import se.michaelthelin.spotify.requests.data.personalization.simplified.GetUsersTopArtistsRequest;
 import se.michaelthelin.spotify.requests.data.personalization.simplified.GetUsersTopTracksRequest;
+import use_case.recommend.RecommendUserDataAccessInterface;
 import use_case.similar_listeners.SimilarListenersUserDataAccessInterface;
 import use_case.top_items.TopItemsUserDataAccessInterface;
 
@@ -26,7 +23,8 @@ import use_case.top_items.TopItemsUserDataAccessInterface;
  * DAO for getting relevant information from Spotify API.
  */
 public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
-        SimilarListenersUserDataAccessInterface {
+        SimilarListenersUserDataAccessInterface,
+        RecommendUserDataAccessInterface {
     public static final int OFFSET = 4;
     public static final int OFFSET2 = 0;
 
@@ -70,17 +68,6 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
     // Constructor used for testing.
     public SpotifyDataAccessObject(String accessToken) {
         this.accessToken = accessToken;
-        this.spotifyApi = new SpotifyApi.Builder()
-                .setAccessToken(accessToken)
-                .build();
-        this.getTopTracksRequest = spotifyApi.getUsersTopTracks()
-                .offset(OFFSET)
-                .time_range("medium_term")
-                .build();
-        this.getTopArtistsRequest = spotifyApi.getUsersTopArtists()
-                .offset(OFFSET2)
-                .time_range("medium_term")
-                .build();
         this.spotifyApi = new SpotifyApi.Builder()
                 .setAccessToken(accessToken)
                 .build();
@@ -164,11 +151,13 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
             for (Artist artist : artists) {
                 followedArtists.add(artist.getName());
             }
+            // System.out.println(followedArtists);
             return followedArtists;
         } catch (IOException | SpotifyWebApiException | ParseException e) {
             System.out.println("Error: " + e.getMessage());
             return new ArrayList<>();
         }
+
     }
 
     /**
@@ -187,6 +176,42 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
     @Override
     public List<String> getCurrentTopTracks() {
         return this.currentTopTracks;
+    }
+
+    @Override
+    public List<String> getTopTracks() {
+        return getUsersTopTracksSync();
+    }
+
+    public void setTopTracks(List<String> topTracks) {
+        this.currentTopTracks = topTracks;
+    }
+
+    @Override
+    public String getTopArtists() {
+        final List<String> lst = currentTopArtists;
+        final StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < lst.size(); i ++) {
+            sb.append(lst.get(i));
+
+            if (i != lst.size() - 1) {
+                sb.append(", ");
+            }
+        }
+
+        return sb.toString();
+    }
+
+    @Override
+    public void setTopArtists(String artists) {
+        this.currentTopArtists = new ArrayList<>();
+        this.currentTopArtists.addAll(Arrays.asList(artists.split(", ")));
+    }
+
+    @Override
+    public String getRecommendations(List<String> songs, String topArtists) {
+        return "";
     }
 
     @Override
@@ -213,7 +238,6 @@ public class SpotifyDataAccessObject implements TopItemsUserDataAccessInterface,
     @Override
     public void setCurrentFollowedArtists(List<String> followedArtists) {
         this.currFollowedArtists = followedArtists;
-
     }
 }
 

@@ -4,10 +4,7 @@ import java.awt.*;
 
 import javax.swing.*;
 
-import data_access.InMemoryUserDataAccessObject;
-import data_access.LanguageModelDataAccessObject;
-import data_access.SpotifyDataAccessObject;
-import data_access.TopItemsUserDataAccessObject;
+import data_access.*;
 import entity.CommonUserFactory;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
@@ -17,9 +14,15 @@ import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.logout.LogoutPresenter;
+import interface_adapter.recommend.RecommendController;
+import interface_adapter.recommend.RecommendPresenter;
+import interface_adapter.recommend.RecommendViewModel;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchPresenter;
 import interface_adapter.search.SearchViewModel;
+import interface_adapter.similar_listeners.SimilarListenersController;
+import interface_adapter.similar_listeners.SimilarListenersPresenter;
+import interface_adapter.similar_listeners.SimilarListenersViewModel;
 import interface_adapter.top_items.TopItemsController;
 import interface_adapter.top_items.TopItemsPresenter;
 import interface_adapter.top_items.TopItemsViewModel;
@@ -29,17 +32,24 @@ import use_case.login.LoginOutputBoundary;
 import use_case.logout.LogoutInputBoundary;
 import use_case.logout.LogoutInteractor;
 import use_case.logout.LogoutOutputBoundary;
-
+import use_case.recommend.RecommendInputBoundary;
+import use_case.recommend.RecommendInteractor;
+import use_case.recommend.RecommendOutputBoundary;
 import use_case.search.SearchInputBoundary;
 import use_case.search.SearchInteractor;
 import use_case.search.SearchOutputBoundary;
+import use_case.similar_listeners.SimilarListenersInputBoundary;
+import use_case.similar_listeners.SimilarListenersInteractor;
+import use_case.similar_listeners.SimilarListenersOutputBoundary;
 import use_case.top_items.TopItemsInputBoundary;
 import use_case.top_items.TopItemsInteractor;
 import use_case.top_items.TopItemsOutputBoundary;
 import view.LoggedInView;
 import view.LoginView;
+import view.RecommendationsView;
 import view.SearchView;
 import view.TopItemsView;
+import view.SimilarListenersView;
 
 import view.ViewManager;
 
@@ -64,20 +74,22 @@ public class AppBuilder {
 
     // thought question: is the hard dependency below a problem?
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
-    private final TopItemsUserDataAccessObject topItemsUserDataAccessObject = new TopItemsUserDataAccessObject();
     private final LanguageModelDataAccessObject languageModelDataAccessObject = new LanguageModelDataAccessObject();
-    private final SpotifyDataAccessObject spotifyDataAccessObject = new SpotifyDataAccessObject("BQDPmgxEeX6U1nUlJKfSiF3dgCNVDFE1qR1lprhYgMMDVMyYb1zsGQ5uYVMOXvk0odD9pQWaLDRN3yuSD_nqeoh9Q3N96EerOA-67bLSNJ3zf-Qtj_EBRiE33I8zraNf7Q5g_LeLHLTIPELxrB0QYotzB6gl8hFFo_NhqWmV7yVwBald5ncDDdILNwj5ymgwiRNdB_icKVhjKJtSrA");
+    private final RecommendUserDataAccessObject recommendUserDataAccessObject = new RecommendUserDataAccessObject();
+    private final SpotifyDataAccessObject spotifyDataAccessObject = new SpotifyDataAccessObject();
 
-//    Will remove since our project does not cover signing up, only logging in
     private LoginViewModel loginViewModel;
     private LoggedInViewModel loggedInViewModel;
     private TopItemsViewModel topTracksAndArtistsViewModel;
+    private RecommendViewModel recommendViewModel;
     private SearchViewModel searchViewModel;
+    private SimilarListenersViewModel similarListenersViewModel;
     private LoggedInView loggedInView;
     private LoginView loginView;
     private SearchView searchView;
     private TopItemsView topItemsView;
-
+    private SimilarListenersView similarListenersView;
+    private RecommendationsView recommendationsView;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -112,6 +124,17 @@ public class AppBuilder {
     }
 
     /**
+     * Adds the Recommendation View to the application.
+     * @return this builder
+     */
+    public AppBuilder addRecommendationsView() {
+        recommendViewModel = new RecommendViewModel();
+        recommendationsView = new RecommendationsView(recommendViewModel);
+        cardPanel.add(recommendationsView, recommendationsView.getViewName());
+        return this;
+    }
+
+    /**
      * Adds the LoggedIn View to the application.
      * @return this builder
      */
@@ -130,6 +153,17 @@ public class AppBuilder {
         topTracksAndArtistsViewModel = new TopItemsViewModel();
         topItemsView = new TopItemsView(topTracksAndArtistsViewModel);
         cardPanel.add(topItemsView, topItemsView.getViewName());
+        return this;
+    }
+
+    /**
+     * Adds the SimilarListeners View to the application.
+     * @return this builder
+     */
+    public AppBuilder addSimilarListenersView() {
+        similarListenersViewModel = new SimilarListenersViewModel();
+        similarListenersView = new SimilarListenersView(similarListenersViewModel);
+        cardPanel.add(similarListenersView, similarListenersView.getViewName());
         return this;
     }
 
@@ -194,6 +228,15 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addTopItemsUseCase() {
+
+        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
+                loggedInViewModel, loginViewModel);
+        final LoginInputBoundary loginInteractor = new LoginInteractor(
+                userDataAccessObject, loginOutputBoundary);
+
+        final LoginController loginController = new LoginController(loginInteractor);
+        topItemsView.setLoginController(loginController);
+
         final TopItemsOutputBoundary topItemsOutputBoundary = new TopItemsPresenter(viewManagerModel,
                 topTracksAndArtistsViewModel);
 
@@ -202,6 +245,48 @@ public class AppBuilder {
 
         final TopItemsController topItemsController = new TopItemsController(topItemsInputBoundary);
         loggedInView.setTopTracksController(topItemsController);
+        return this;
+    }
+
+    /**
+     * Adds the Recommend Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addRecommendUseCase() {
+        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
+                loggedInViewModel, loginViewModel);
+        final LoginInputBoundary loginInteractor = new LoginInteractor(
+                userDataAccessObject, loginOutputBoundary);
+
+        final LoginController loginController = new LoginController(loginInteractor);
+        recommendationsView.setLoginController(loginController);
+
+        final RecommendOutputBoundary recommendOutputBoundary =
+                new RecommendPresenter(viewManagerModel, recommendViewModel);
+        final RecommendInputBoundary recommendInputBoundary =
+                new RecommendInteractor(recommendUserDataAccessObject, recommendOutputBoundary);
+
+        final RecommendController recommendController = new RecommendController(recommendInputBoundary);
+        loggedInView.setRecommendController(recommendController);
+        return this;
+    }
+
+    public AppBuilder addSimilarListenersUseCase() {
+        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
+                loggedInViewModel, loginViewModel);
+        final LoginInputBoundary loginInteractor = new LoginInteractor(
+                userDataAccessObject, loginOutputBoundary);
+
+        final LoginController loginController = new LoginController(loginInteractor);
+        similarListenersView.setLoginController(loginController);
+
+        final SimilarListenersOutputBoundary similarListenersOutputBoundary =
+                new SimilarListenersPresenter(similarListenersViewModel, viewManagerModel);
+        final SimilarListenersInputBoundary similarListenersInputBoundary =
+                new SimilarListenersInteractor(spotifyDataAccessObject, similarListenersOutputBoundary);
+        final SimilarListenersController similarListenersController =
+                new SimilarListenersController(similarListenersInputBoundary);
+        loggedInView.setSimilarListenersController(similarListenersController);
         return this;
     }
 

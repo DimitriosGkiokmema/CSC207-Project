@@ -1,6 +1,6 @@
 package view;
 
-import java.awt.Component;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -16,6 +16,7 @@ import interface_adapter.keyword.KeywordViewModel;
 import interface_adapter.logged_in.LoggedInState;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.logout.LogoutController;
+import interface_adapter.recommend.RecommendController;
 import interface_adapter.search.SearchController;
 
 import interface_adapter.similar_listeners.SimilarListenersController;
@@ -35,6 +36,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private LogoutController logoutController;
     private SearchController searchController;
     private TopItemsController topItemsController;
+    private RecommendController recommendController;
     private SimilarListenersController similarListenersController;
 
     private final JLabel username;
@@ -49,11 +51,12 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         final JLabel title = new JLabel("Home Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        final JPanel profile = new JPanel(new FlowLayout(FlowLayout.LEFT));
         final JLabel usernameInfo = new JLabel("Currently logged in: ");
         username = new JLabel();
-
-        final JPanel profile = new JPanel();
         logOut = new JButton("Log Out");
+        profile.add(usernameInfo);
+        profile.add(username);
         profile.add(logOut);
 
         final JButton description = new JButton("Search song by description");
@@ -110,6 +113,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                     }
                 }
         );
+
         description.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 evt -> {
@@ -122,20 +126,27 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 }
         );
 
-        topItems.addActionListener(
+        recommendations.addActionListener(
                 evt -> {
-
-                    if (evt.getSource().equals(topItems)) {
+                    if (evt.getSource().equals(recommendations)) {
                         final List<String> topTracks = new ArrayList<>();
-                        final List<String> topArtists = new ArrayList<>();
+                        final String topArtists = "";
                         final String accessToken = loggedInViewModel.getState().getUsername();
-
-                        topItemsController.execute(topTracks, topArtists, accessToken);
+                        recommendController.execute(topTracks, topArtists, accessToken);
                     }
                 }
         );
 
-        // Add an ActionListener to open the Keyword window
+        topItems.addActionListener(
+                evt -> {
+
+                    if (evt.getSource().equals(topItems)) {
+                        final String accessToken = loggedInViewModel.getState().getUsername();
+                        topItemsController.execute(accessToken);
+                    }
+                }
+        );
+
         // Add an ActionListener to open the Keyword window
         keyword.addActionListener(new ActionListener() {
             @Override
@@ -165,8 +176,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 }
         );
 
-// Add components to the panel
-
+        // Add components to the panel
         this.add(title);
         this.add(usernameInfo);
         this.add(username);
@@ -192,10 +202,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         return viewName;
     }
 
-//    public void setChangePasswordController(ChangePasswordController changePasswordController) {
-//        this.changePasswordController = changePasswordController;
-//    }
-
     public void setLogoutController(LogoutController logoutController) {
         this.logoutController = logoutController;
     }
@@ -203,10 +209,15 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     public void setSearchController(SearchController searchController) {
         this.searchController = searchController;
     }
+
     public void setTopTracksController(TopItemsController topItemsController) {
         this.topItemsController = topItemsController;
     }
     public void setSimilarListenersController(SimilarListenersController similarListenersController) {
         this.similarListenersController = similarListenersController;
+    }
+
+    public void setRecommendController(RecommendController recommendController) {
+        this.recommendController = recommendController;
     }
 }

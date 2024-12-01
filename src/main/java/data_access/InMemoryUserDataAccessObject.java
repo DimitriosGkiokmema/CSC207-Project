@@ -6,8 +6,6 @@ import java.util.Map;
 import entity.User;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
-import use_case.recommend.RecommendUserDataAccessInterface;
-import use_case.top_items.TopItemsUserDataAccessInterface;
 
 /**
  * In-memory implementation of the DAO for storing user data. This implementation does

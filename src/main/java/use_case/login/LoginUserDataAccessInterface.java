@@ -7,6 +7,8 @@ import entity.User;
  */
 public interface LoginUserDataAccessInterface {
 
+    boolean existsByName(String identifier);
+
     /**
      * Saves the user.
      * @param user the user to save

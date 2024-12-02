@@ -31,6 +31,7 @@ public class SimilarListenersView extends JPanel implements PropertyChangeListen
         final JLabel title = new JLabel("Your Similar Listeners: ");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         listOfArtists = new JTextArea("list of names appear here");
+        listOfArtists.setPreferredSize(new Dimension(50,50));
         listOfArtists.setEditable(true);
         final JPanel similarListenersInfo = new JPanel();
         similarListenersInfo.add(title);

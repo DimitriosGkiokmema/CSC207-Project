@@ -12,12 +12,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TopItemsInteractorTest {
     private TopItemsDataAccessInterface dummyObject;
-    private TopItemsInputData dummyInput;
 
     @BeforeEach
     public void setUp() {
         dummyObject = new TopItemsDataAccessObject();
-        dummyInput = new TopItemsInputData();
     }
 
     @Test
@@ -49,7 +47,7 @@ public class TopItemsInteractorTest {
         };
 
         TopItemsInputBoundary topItemsInteractor = new TopItemsInteractor(dummyObject, success);
-        topItemsInteractor.execute(dummyInput);
+        topItemsInteractor.execute();
     }
 
     @Test
@@ -77,7 +75,7 @@ public class TopItemsInteractorTest {
         };
 
         TopItemsInputBoundary topItemsInteractor = new TopItemsInteractor(dummyObject, fail);
-        topItemsInteractor.execute(dummyInput);
+        topItemsInteractor.execute();
 
     }
 
@@ -107,7 +105,7 @@ public class TopItemsInteractorTest {
         };
 
         TopItemsInputBoundary topItemsInteractor = new TopItemsInteractor(dummyObject, fail);
-        topItemsInteractor.execute(dummyInput);
+        topItemsInteractor.execute();
     }
 
     @Test
@@ -132,7 +130,7 @@ public class TopItemsInteractorTest {
         };
 
         TopItemsInputBoundary topItemsInteractor = new TopItemsInteractor(dummyObject, fail);
-        topItemsInteractor.execute(dummyInput);
+        topItemsInteractor.execute();
     }
 
 }

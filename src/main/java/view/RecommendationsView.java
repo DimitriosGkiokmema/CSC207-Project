@@ -2,6 +2,7 @@ package view;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -79,8 +80,11 @@ public class RecommendationsView extends JPanel implements PropertyChangeListene
 
     private void setFields(RecommendState state) {
         topArtists = new JLabel();
-        String topArtistsText = state.getTopArtists() != null ? state.getTopArtists() : "No top artists available";
-        topArtists.setText(topArtistsText);
+        StringBuilder topArtistsText = new StringBuilder();
+        for (String topArtist : state.getTopArtists()) {
+            topArtistsText.append(topArtist);
+        }
+        topArtists.setText(topArtistsText.toString());
         songsTextArea.setText(state.getSongRecommendations());
     }
 

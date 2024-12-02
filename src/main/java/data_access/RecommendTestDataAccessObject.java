@@ -1,15 +1,13 @@
 package data_access;
 
-import use_case.recommend.RecommendSpotifyDataAccessInterface;
 import use_case.recommend.RecommendUserDataAccessInterface;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecommendTestDataAccessObject implements RecommendSpotifyDataAccessInterface,
-        RecommendUserDataAccessInterface {
+public class RecommendTestDataAccessObject implements RecommendUserDataAccessInterface {
     private List<String> topTracks;
-    private String topArtists;
+    private List<String> topArtists;
 
     public RecommendTestDataAccessObject(){
         topTracks = new ArrayList<>();
@@ -20,31 +18,36 @@ public class RecommendTestDataAccessObject implements RecommendSpotifyDataAccess
         topTracks.add("Metabolic");
         topTracks.add("Everything Ends");
 
-        topArtists = "Slipknot, Soulfly, Korn, Sepultura, System Of A Down";
+        topArtists = new ArrayList<>();
+        topArtists.add("Slipknot");
+        topArtists.add("Soulfly");
+        topArtists.add("Korn");
+        topArtists.add("(Sepultura)");
+        topArtists.add("System Of A Down");
     }
 
     @Override
-    public List<String> getTopTracks() {
+    public List<String> getCurrentTopTracks() {
         return topTracks;
     }
 
     @Override
-    public void setTopTracks(List<String> topTracks) {
+    public void setCurrentTopTracks(List<String> topTracks) {
         this.topTracks = topTracks;
     }
 
     @Override
-    public String getTopArtists() {
+    public List<String> getCurrentTopArtists() {
         return topArtists;
     }
 
     @Override
-    public void setTopArtists(String topArtists) {
+    public void setCurrentTopArtists(List<String> topArtists) {
         this.topArtists = topArtists;
     }
 
     @Override
-    public String getRecommendations(List<String> songs, String topArtists) {
+    public String getRecommendations(List<String> songs, List<String> topArtists) {
         return "";
     }
 }

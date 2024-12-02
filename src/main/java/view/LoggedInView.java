@@ -45,19 +45,25 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
         final JLabel title = new JLabel("Home Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        final JPanel profile = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        final JLabel usernameInfo = new JLabel("Currently logged in: ");
-        accessToken = new JLabel();
+        final JPanel profile = new JPanel();
+        profile.setLayout(new BoxLayout(profile, BoxLayout.Y_AXIS));
+        final JLabel usernameInfo = new JLabel("Currently logged in: " + accessToken);
         logOut = new JButton("Log Out");
         profile.add(usernameInfo);
-        profile.add(accessToken);
         profile.add(logOut);
 
         final JButton description = new JButton("Search song by description");
         searchButtons.add(description);
         final JButton keyword = new JButton("Search song by keyword");
         searchButtons.add(keyword);
+        final JButton recommendations = new JButton("Recommendations");
+        appButtons.add(recommendations);
+        final JButton topItems = new JButton("Top Items");
+        appButtons.add(topItems);
+        final JButton similarListeners = new JButton("Similar listeners");
+        appButtons.add(similarListeners);
+
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         // Add ActionListener for the "Search song by keyword" button
         /*
         keyword.addActionListener(evt -> {
@@ -122,10 +128,8 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         recommendations.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(recommendations)) {
-                        final List<String> topTracks = new ArrayList<>();
-                        final String topArtists = "";
                         final String accessToken = loggedInViewModel.getState().getAccessToken();
-                        recommendController.execute(topTracks, topArtists, accessToken);
+                        recommendController.execute(accessToken);
                     }
                 }
         );
@@ -197,7 +201,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
             final LoggedInState state = (LoggedInState) evt.getNewValue();
             JOptionPane.showMessageDialog(null, "password updated for " + state.getAccessToken());
         }
-
     }
 
     public String getViewName() {

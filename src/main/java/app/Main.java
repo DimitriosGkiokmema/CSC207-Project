@@ -1,8 +1,6 @@
 package app;
 
 import javax.swing.*;
-//import java.Constants;
-import java.awt.*;
 
 /**
  * The Main class of our application.

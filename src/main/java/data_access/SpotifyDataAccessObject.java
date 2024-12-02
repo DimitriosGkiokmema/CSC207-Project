@@ -172,6 +172,19 @@ public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
 
     }
 
+    @Override
+    public List<String> getCurrentTopTracks() {
+        // Used for testing
+//        List<String> topTracks = new ArrayList<>();
+//        topTracks.add("(sic)");
+//        topTracks.add("Left Behind");
+//        topTracks.add("Spit It Out");
+//        topTracks.add("People = Shit");
+//        topTracks.add("Metabolic");
+//        topTracks.add("Everything Ends");
+//        return topTracks;
+        return currentTopTracks;
+
     /**
      * A helper method to get the current users recommendations from spotify.
      */
@@ -261,8 +274,8 @@ public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
     }
 
     @Override
-    public String getRecommendations(List<String> songs, String topArtists) {
-        return "";
+    public String getRecommendations(List<String> songs, List<String> topArtists) {
+        return getRecommendations(currentTopTracks, currentTopArtists);
     }
 
     @Override
@@ -272,7 +285,15 @@ public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
 
     @Override
     public List<String> getCurrentTopArtists() {
-        return this.currentTopArtists;
+        // Used for testing
+//        List<String> topArtists = new ArrayList<>();
+//        topArtists.add("Slipknot");
+//        topArtists.add("Soulfly");
+//        topArtists.add("Korn");
+//        topArtists.add("(Sepultura)");
+//        topArtists.add("System Of A Down");
+//        return topArtists;
+        return currentTopArtists;
     }
 
 

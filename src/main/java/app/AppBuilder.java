@@ -101,6 +101,11 @@ public class AppBuilder {
     private KeywordViewModel keywordViewModel;
 
 
+    // These variables are initialized in addLoggedInView()
+    private LoginOutputBoundary loginOutputBoundary = null;
+    private LoginInputBoundary loginInteractor = null;
+    private LoginController loginController = null;
+
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
     }
@@ -113,6 +118,20 @@ public class AppBuilder {
         loginViewModel = new LoginViewModel();
         loginView = new LoginView(loginViewModel);
         cardPanel.add(loginView, loginView.getViewName());
+        return this;
+    }
+
+    /**
+     * Adds the LoggedIn View to the application.
+     * @return this builder
+     */
+    public AppBuilder addLoggedInView() {
+        loggedInViewModel = new LoggedInViewModel();
+        loggedInView = new LoggedInView(loggedInViewModel);
+        cardPanel.add(loggedInView, loggedInView.getViewName());
+        loginOutputBoundary = new LoginPresenter(viewManagerModel, loggedInViewModel, loginViewModel);
+        loginInteractor = new LoginInteractor(userDataAccessObject, loginOutputBoundary);
+        loginController = new LoginController(loginInteractor);
         return this;
     }
 
@@ -141,17 +160,6 @@ public class AppBuilder {
         recommendViewModel = new RecommendViewModel();
         recommendationsView = new RecommendationsView(recommendViewModel);
         cardPanel.add(recommendationsView, recommendationsView.getViewName());
-        return this;
-    }
-
-    /**
-     * Adds the LoggedIn View to the application.
-     * @return this builder
-     */
-    public AppBuilder addLoggedInView() {
-        loggedInViewModel = new LoggedInViewModel();
-        loggedInView = new LoggedInView(loggedInViewModel);
-        cardPanel.add(loggedInView, loggedInView.getViewName());
         return this;
     }
 
@@ -199,6 +207,7 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addLoginUseCase() {
+
         final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
                 loggedInViewModel, loginViewModel);
         final LoginInputBoundary loginInteractor = new LoginInteractor(
@@ -277,7 +286,6 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addTopItemsUseCase() {
-
         final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
                 loggedInViewModel, loginViewModel);
         final LoginInputBoundary loginInteractor = new LoginInteractor(
@@ -311,7 +319,7 @@ public class AppBuilder {
         recommendationsView.setLoginController(loginController);
 
         final RecommendOutputBoundary recommendOutputBoundary =
-                new RecommendPresenter(viewManagerModel, recommendViewModel);
+                new RecommendPresenter(viewManagerModel, loggedInViewModel, recommendViewModel);
         final RecommendInputBoundary recommendInputBoundary =
                 new RecommendInteractor(recommendUserDataAccessObject, recommendOutputBoundary);
 

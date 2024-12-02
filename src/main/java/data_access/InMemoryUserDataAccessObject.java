@@ -16,7 +16,7 @@ public class InMemoryUserDataAccessObject implements
         LogoutUserDataAccessInterface {
     private final Map<String, User> users = new HashMap<>();
 
-    private String currentUsername;
+    private String accessToken;
 
     @Override
     public boolean existsByName(String identifier) {
@@ -34,12 +34,12 @@ public class InMemoryUserDataAccessObject implements
     }
 
     @Override
-    public void setCurrentAccessToken(String name) {
-        this.currentUsername = name;
+    public void setCurrentAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
     @Override
     public String getCurrentAccessToken() {
-        return this.currentUsername;
+        return this.accessToken;
     }
 }

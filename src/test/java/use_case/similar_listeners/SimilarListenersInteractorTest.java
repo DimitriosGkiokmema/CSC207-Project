@@ -12,7 +12,6 @@ public class SimilarListenersInteractorTest {
 
     @Test
     void successTest() {
-        SimilarListenersInputData inputData = new SimilarListenersInputData("token");
         SimilarListenersDataAccessInterface accessObject = new SimilarListenersTestDataAccessObject();
 
         // For the success test, we need to add Paul to the data access repository before we log in.
@@ -31,7 +30,6 @@ public class SimilarListenersInteractorTest {
                 // check that the output data contains the username of who logged out
                 assertEquals(allfollowedArtists, outputData.getSimilarArtists());
                 assertEquals("Madonna", outputData.getSimilarArtists().get(2));
-                assertEquals("token", outputData.getAccessToken());
             }
 
             @Override
@@ -41,12 +39,11 @@ public class SimilarListenersInteractorTest {
         };
 
         SimilarListenersInputBoundary interactor = new SimilarListenersInteractor(accessObject, successPresenter);
-        interactor.execute(inputData);
+        interactor.execute();
     }
 
     @Test
     void failTest() {
-        SimilarListenersInputData inputData = new SimilarListenersInputData("token");
         SimilarListenersDataAccessInterface accessObject = new SimilarListenersTestDataAccessObject();
 
         List<String> allfollowedArtists = new ArrayList<>();
@@ -66,17 +63,10 @@ public class SimilarListenersInteractorTest {
             }
         };
         SimilarListenersInputBoundary interactor = new SimilarListenersInteractor(accessObject, successPresenter);
-        interactor.execute(inputData);
+        interactor.execute();
 
     }
-    @Test
-    void tokenTest() {
-        SimilarListenersOutputData outputData =
-                new SimilarListenersOutputData(new ArrayList<>(), false, "token");
-        outputData.setAccessToken("new token");
-        assertEquals("new token", outputData.getAccessToken());
 
-        }
     }
 
 

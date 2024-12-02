@@ -16,18 +16,15 @@ public class SimilarListenersInteractor implements SimilarListenersInputBoundary
     }
 
     @Override
-    public void execute(SimilarListenersInputData similarListenersInputData) {
-        // final String accessToken = similarListenersInputData.getAccessToken();
+    public void execute() {
         if (userDataAccessObject.getFollowedArtists().isEmpty()) {
             similarListenersPresenter.prepareFailView("You do not follow any artists. "
                     + "Similar Listeners cannot be determined.");
         }
         else {
             final List<String> followedArtists = userDataAccessObject.getFollowedArtists();
-            // userDataAccessObject.setCurrentFollowedArtists(followedArtists);
-            final String accessToken = similarListenersInputData.getAccessToken();
             final SimilarListenersOutputData similarListenersOutputData = new SimilarListenersOutputData(
-                    followedArtists, false, accessToken);
+                    followedArtists, false);
             similarListenersPresenter.prepareSuccessView(similarListenersOutputData);
         }
     }

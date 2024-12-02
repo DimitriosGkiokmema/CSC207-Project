@@ -1,5 +1,8 @@
 package use_case.similar_listeners;
 
+/**
+ * The output boundary for the SimilarListeners Use Case.
+ */
 public interface SimilarListenersOutputBoundary {
     /**
      * Prepares the success view for the Similar Listeners Use Case.

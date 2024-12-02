@@ -96,7 +96,6 @@ public class KeywordView extends JPanel implements PropertyChangeListener {
 
         homeButton.addActionListener(evt -> {
             if (evt.getSource().equals(homeButton)) {
-                final String accessToken = keywordViewModel.getState().getAccessToken();
                 loginController.execute();
             }
         });

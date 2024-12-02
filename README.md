@@ -63,10 +63,14 @@ many other operating systems would also work.
    3. Click on the name of the app you have just created (My App)
    4. Click on the Settings button
    5. The Client ID can be found here, it is essential for the next part of the process so record it somewhere safe. The Client Secret can be found behind the View client secret link this is also required for the next step.
-   6. To request an access token navigate to https://hoppscotch.io/ and Send a POST request to the token endpoint URI.
-   7. Add the Content-Type header set to the application/x-www-form-urlencoded value.
-   8. Add an HTTP body containing the Client ID and Client Secret, along with the grant_type parameter set to client_credentials.
-   9. The response will be a spotify access token which is valid for 1 hour and can be used to log in to the app.
+   6. To request an access token navigate to https://hoppscotch.io/ and Send and enter to the Authorization screen.
+         a) Select OAuth 2.0 from the dropdown menu.
+         b) Enter https://accounts.spotify.com/authorize into the Authorization Endpoint.
+         c) Enter https://accounts.spotify.com/api/token into the Token Endpoint.
+         d) Enter your Client ID from spotify into Client ID.
+         e) Enter your Client Secret from spotify into Client Secret.
+         f) Enter user-top-read user-follow-read into scopes.
+   7. Once you press generate there will be a spotify access token which is valid for 1 hour and can be used to log in to the app.
 4. In order to access the other API used in this project you must add a file called keys(with no file type extension) to the src directory of the project.
 5. Then you must paste in the Azure openAI api key used for the project, if you don't have this key, and you need access to it email quinn.reynolds@mail.utoronto.ca.
 6. After these steps the app should work for you, keep in mind you will need to regenerate a Spotify API key every hour. 

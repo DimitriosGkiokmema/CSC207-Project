@@ -30,7 +30,7 @@ class SearchInteractorTest {
         };
 
         SearchInteractor interactor = new SearchInteractor(dummyLanguageModel, successPresenter);
-        interactor.executeSearch("Generic Token", "A song in which a man steals a car part by part");
+        interactor.executeSearch( "A song in which a man steals a car part by part");
     }
 
     @Test
@@ -39,7 +39,7 @@ class SearchInteractorTest {
         SearchOutputBoundary successPresenter = new SearchOutputBoundary() {
             @Override
             public void prepareSuccessView(SearchOutputData outputData) {
-                assertEquals("Generic Token", outputData.getAccessToken());
+                assertEquals("This is where the response will appear.", outputData.getDisplayText());
             }
 
             @Override
@@ -49,7 +49,7 @@ class SearchInteractorTest {
         };
 
         SearchInteractor interactor = new SearchInteractor(dummyLanguageModel, successPresenter);
-        interactor.execute("Generic Token");
+        interactor.execute();
     }
 
 }

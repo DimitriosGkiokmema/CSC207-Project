@@ -24,6 +24,7 @@ import se.michaelthelin.spotify.requests.data.browse.GetRecommendationsRequest;
 import se.michaelthelin.spotify.requests.data.follow.GetUsersFollowedArtistsRequest;
 import se.michaelthelin.spotify.requests.data.personalization.simplified.GetUsersTopArtistsRequest;
 import se.michaelthelin.spotify.requests.data.personalization.simplified.GetUsersTopTracksRequest;
+import use_case.login.LoginDataAccessInterface;
 import use_case.recommend.RecommendUserDataAccessInterface;
 import use_case.keyword.KeywordDataAccessInterface;
 import use_case.similar_listeners.SimilarListenersDataAccessInterface;
@@ -34,13 +35,11 @@ import use_case.top_items.TopItemsDataAccessInterface;
  */
 
 public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
-        SimilarListenersDataAccessInterface, RecommendUserDataAccessInterface, KeywordDataAccessInterface{
+        SimilarListenersDataAccessInterface, RecommendUserDataAccessInterface, KeywordDataAccessInterface, LoginDataAccessInterface {
     public static final int OFFSET = 4;
     public static final int OFFSET2 = 0;
 
     private LoginState loginState = new LoginState();
-    private UserFactory userFactory = new CommonUserFactory();
-    private User user = userFactory.create(loginState.getLoginToken());
     private String accessToken;
     private List<String> currentTopTracks;
     private List<String> currentTopArtists;
@@ -56,7 +55,7 @@ public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
     private GetRecommendationsRequest getRecommendationsRequest;
 
     public SpotifyDataAccessObject() {
-        this.accessToken = user.getAccessToken();
+        this.accessToken = "this should never be reached";
         this.spotifyApi = new SpotifyApi.Builder()
                 .setAccessToken(accessToken)
                 .build();
@@ -310,6 +309,11 @@ public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
 
     public void setCurrentSearchResults(List<String> currentSearchResults) {
         this.currentSearchResults = currentSearchResults;
+    }
+
+    @Override
+    public void setAccessToken(String newToken) {
+        this.accessToken = newToken;
     }
 }
 

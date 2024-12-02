@@ -17,6 +17,7 @@ import interface_adapter.search.SearchController;
 
 import interface_adapter.similar_listeners.SimilarListenersController;
 import interface_adapter.top_items.TopItemsController;
+import use_case.keyword.KeywordInteractor;
 
 
 /**
@@ -136,8 +137,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 evt -> {
 
                     if (evt.getSource().equals(topItems)) {
-                        final String accessToken = loggedInViewModel.getState().getAccessToken();
-                        topItemsController.execute(accessToken);
+                        topItemsController.execute();
                     }
                 }
         );

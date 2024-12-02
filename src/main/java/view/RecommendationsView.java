@@ -54,10 +54,8 @@ public class RecommendationsView extends JPanel implements PropertyChangeListene
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 evt -> {
                     if (evt.getSource().equals(homeButton)) {
-                        // 1. get the state out of the searchViewModel. It contains the username.
-                        final String accessToken = recommendViewModel.getState().getAccessToken();
-                        // 2. Execute the search Controller.
-                        loginController.execute(accessToken);
+                        // 1. Execute the search Controller.
+                        loginController.execute();
 
                     }
                 }

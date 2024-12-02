@@ -10,6 +10,9 @@ public class LoginInputData {
     public LoginInputData(String loginToken) {
         this.loginToken = loginToken;
     }
+    public LoginInputData() {
+        loginToken = "noToken";
+    }
 
     String getLoginToken() {
         return loginToken;

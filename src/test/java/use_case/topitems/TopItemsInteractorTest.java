@@ -17,7 +17,7 @@ public class TopItemsInteractorTest {
     @BeforeEach
     public void setUp() {
         dummyObject = new TopItemsDataAccessObject();
-        dummyInput = new TopItemsInputData("accessToken");
+        dummyInput = new TopItemsInputData();
     }
 
     @Test
@@ -40,7 +40,6 @@ public class TopItemsInteractorTest {
             public void prepareSuccessView(TopItemsOutputData outputData) {
                 assertEquals(topTracks, outputData.getTracks());
                 assertEquals(topArtists, outputData.getArtists());
-                assertEquals("accessToken", outputData.getAccessToken());
             }
 
             @Override

@@ -59,11 +59,8 @@ public class SearchView extends JPanel implements PropertyChangeListener {
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 evt -> {
                     if (evt.getSource().equals(returnHome)) {
-                        // 1. get the state out of the searchViewModel. It contains the username.
-                        final String accessToken = searchViewModel.getState().getAccessToken();
-                        // 2. Execute the search Controller.
-                        this.searchInputField.setText("");
-                        loginController.execute(accessToken);
+                        // 1. Execute the home Controller.
+                        loginController.execute();
 
                     }
                 }

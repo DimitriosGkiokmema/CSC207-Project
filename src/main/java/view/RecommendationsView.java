@@ -2,7 +2,6 @@ package view;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -20,7 +19,7 @@ import interface_adapter.recommend.RecommendViewModel;
  */
 public class RecommendationsView extends JPanel implements PropertyChangeListener {
 
-    private final String viewName = "recommendations";
+    private static final String VIEWNAME = "recommendations";
     private final RecommendViewModel recommendViewModel;
     private LoginController loginController;
 
@@ -89,7 +88,7 @@ public class RecommendationsView extends JPanel implements PropertyChangeListene
     }
 
     public String getViewName() {
-        return viewName;
+        return VIEWNAME;
     }
 
     public void setLoginController(LoginController loginController) {

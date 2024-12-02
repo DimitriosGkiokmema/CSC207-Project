@@ -6,10 +6,6 @@ import java.util.List;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import entity.CommonUser;
-import entity.CommonUserFactory;
-import entity.UserFactory;
-import entity.User;
 import interface_adapter.login.LoginState;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -213,26 +209,6 @@ public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
         } catch (IOException e) {
             throw new RuntimeException("Error searching songs", e);
         }
-    }
-
-    @Override
-    public List<String> getCurrentTopTracks2() {
-        return currentTopTracks;
-    }
-
-    @Override
-    public void setCurrentTopTracks2(List<String> tracks) {
-        currentTopTracks = tracks;
-    }
-
-    @Override
-    public List<String> getCurrentTopArtists2() {
-        return currentTopArtists;
-    }
-
-    @Override
-    public void setCurrentTopArtists2(List<String> artists) {
-        this.currentTopArtists = artists;
     }
 
     @Override

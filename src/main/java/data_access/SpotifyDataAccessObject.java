@@ -314,6 +314,31 @@ public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
     @Override
     public void setAccessToken(String newToken) {
         this.accessToken = newToken;
+
+        this.spotifyApi = new SpotifyApi.Builder()
+                .setAccessToken(accessToken)
+                .build();
+        this.getTopTracksRequest = spotifyApi.getUsersTopTracks()
+                .offset(OFFSET)
+                .time_range("medium_term")
+                .build();
+        this.getTopArtistsRequest = spotifyApi.getUsersTopArtists()
+                .offset(OFFSET2)
+                .time_range("medium_term")
+                .build();
+        this.currentTopTracks = getUsersTopTracksSync();
+        this.currentTopArtists = getUsersTopArtistsSync();
+
+        this.getUsersFollowedArtistsRequest = spotifyApi.getUsersFollowedArtists(type).build();
+        this.currFollowedArtists = getUsersFollowedArtistsSync();
+
+        this.getRecommendationsRequest = spotifyApi.getRecommendations()
+                .build();
+
+        getUsersFollowedArtistsSync();
+        getUsersTopArtistsSync();
+        getUsersTopTracksSync();
+
     }
 }
 

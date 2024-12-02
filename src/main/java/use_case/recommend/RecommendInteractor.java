@@ -1,7 +1,5 @@
 package use_case.recommend;
 
-import data_access.LanguageModelDataAccessObject;
-import data_access.SpotifyDataAccessObject;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -11,11 +9,11 @@ import java.util.List;
  */
 public class RecommendInteractor implements RecommendInputBoundary {
     private RecommendDataAccessInterface userDataAccessObject;
-    private LanguageModelDataAccessObject languageModelDataAccessObject;
+    private RecommendLanguageModelDataAccessInterface languageModelDataAccessObject;
     private final RecommendOutputBoundary recommendationOutputBoundary;
 
     public RecommendInteractor(RecommendDataAccessInterface userDataAccessObject,
-                               LanguageModelDataAccessObject languageModelDataAccessObject,
+                               RecommendLanguageModelDataAccessInterface languageModelDataAccessObject,
                                RecommendOutputBoundary recommendOutputBoundary) {
         this.userDataAccessObject = userDataAccessObject;
         this.languageModelDataAccessObject = languageModelDataAccessObject;
@@ -25,12 +23,9 @@ public class RecommendInteractor implements RecommendInputBoundary {
     @Override
     public void execute(RecommendInputData recommendInputData) {
         // Calls Spotify API to get user data
-        //userDataAccessObject = new SpotifyDataAccessObject("BQAU6VReKznwuhEObC_4OfxnZ4Mkmwf8iGF5mN8ryXiD7BXSsFO9UUN9kHt8Z-po9UOzCbX6BFxEfAJgENqnleqOYpwJPRPlE-Z09CcwudNzpwG2Kvh092u15fnBf5pc3bIRjJMMf8KJMiirKf4_TipGZmvXjCV8NpahMZV6AhW5Hw7OtU64ASKjAOD_DeWhqQ7hndqY4Ds25qRp2MrkK2cf__8");
-        final List<String> topTracks = userDataAccessObject.getCurrentTopTracks2();
-        final List<String> topArtists = userDataAccessObject.getCurrentTopArtists2();
-        System.out.println("Rec interface: " + topTracks);
+        final List<String> topTracks = userDataAccessObject.getCurrentTopTracks();
+        final List<String> topArtists = userDataAccessObject.getCurrentTopArtists();
         // Takes user data and asks Azure for recommendations
-//        System.out.println("Calling spotify api with songs: " + topTracks);
         final String songRecommendations = languageModelDataAccessObject.getRecommendations(topTracks, topArtists);
         // Gets spotify access token
         final String accessToken = recommendInputData.getAccessToken();

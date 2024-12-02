@@ -17,7 +17,7 @@ public class TopItemsInteractorTest {
     @BeforeEach
     public void setUp() {
         dummyObject = new TopItemsDataAccessObject();
-        dummyInput = new TopItemsInputData("accessToken");
+        dummyInput = new TopItemsInputData();
     }
 
     @Test

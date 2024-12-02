@@ -92,7 +92,7 @@ public class LanguageModelDataAccessObject implements RecommendLanguageModelData
     }
 
     @Override
-    public String getRecommendations(List<String> songs, String topArtists) {
+    public String getRecommendations(List<String> songs, List<String> topArtists) {
         if (accessToken.isEmpty()) {
             return "Error getting access token";
         }

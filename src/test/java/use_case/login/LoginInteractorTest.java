@@ -1,6 +1,7 @@
 package use_case.login;
 
 import data_access.InMemoryUserDataAccessObject;
+import data_access.LoginTestDataAccessObject;
 import entity.CommonUserFactory;
 import entity.User;
 import entity.UserFactory;
@@ -14,6 +15,7 @@ class LoginInteractorTest {
     void successTest() {
         LoginInputData inputData = new LoginInputData("Generic token");
         LoginUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+        LoginTestDataAccessObject spotify = new LoginTestDataAccessObject();
 
         // For the success test, we need to add Paul to the data access repository before we log in.
         UserFactory factory = new CommonUserFactory();
@@ -24,7 +26,7 @@ class LoginInteractorTest {
         LoginOutputBoundary successPresenter = new LoginOutputBoundary() {
             @Override
             public void prepareSuccessView(LoginOutputData user) {
-                assertEquals("Generic token", user.getAccessToken());
+                assertFalse(user.isUseCaseFailed());
             }
 
             @Override
@@ -33,12 +35,37 @@ class LoginInteractorTest {
             }
         };
 
-        LoginInputBoundary interactor = new LoginInteractor(userRepository, successPresenter);
+        LoginInputBoundary interactor = new LoginInteractor(userRepository, spotify, successPresenter);
+        interactor.execute(inputData);
+    }
+
+    @Test
+    void successHomeTest() {
+        LoginInputData inputData = new LoginInputData();
+        LoginUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+        LoginTestDataAccessObject spotify = new LoginTestDataAccessObject();
+
+
+        // This creates a successPresenter that tests whether the test case is as we expect.
+        LoginOutputBoundary successPresenter = new LoginOutputBoundary() {
+            @Override
+            public void prepareSuccessView(LoginOutputData user) {
+                assertFalse(user.isUseCaseFailed());
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                fail("Use case failure is unexpected.");
+            }
+        };
+
+        LoginInputBoundary interactor = new LoginInteractor(userRepository, spotify, successPresenter);
         interactor.execute(inputData);
     }
 
     @Test
     void successUserLoggedInTest() {
+        LoginTestDataAccessObject spotify = new LoginTestDataAccessObject();
         LoginInputData inputData = new LoginInputData("Generic token");
         LoginUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
 
@@ -60,7 +87,7 @@ class LoginInteractorTest {
             }
         };
 
-        LoginInputBoundary interactor = new LoginInteractor(userRepository, successPresenter);
+        LoginInputBoundary interactor = new LoginInteractor(userRepository,spotify, successPresenter);
         assertEquals(null, userRepository.getCurrentAccessToken());
 
         interactor.execute(inputData);

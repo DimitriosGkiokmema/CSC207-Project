@@ -4,14 +4,12 @@ package use_case.search;
  */
 public class SearchOutputData {
 
-    private String accessToken;
     private String displayText;
-    private boolean useCaseFailed;
+    final private boolean useCaseFailed;
 
-    public SearchOutputData(String token, boolean useCaseFailed) {
+    public SearchOutputData(boolean useCaseFailed) {
         this.displayText = "This is where the response will appear.";
         this.useCaseFailed = useCaseFailed;
-        this.accessToken = token;
 
     }
 
@@ -19,13 +17,6 @@ public class SearchOutputData {
         return useCaseFailed;
     }
 
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-    }
 
     public String getDisplayText() {
         return displayText;

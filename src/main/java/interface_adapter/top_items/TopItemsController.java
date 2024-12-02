@@ -17,10 +17,9 @@ public class TopItemsController {
 
     /**
      * Executes the TopItems Use Case.
-     * @param accessToken the access Token of the user.
      */
-    public void execute(String accessToken) {
-        final TopItemsInputData topItemsInputData = new TopItemsInputData(accessToken);
+    public void execute() {
+        final TopItemsInputData topItemsInputData = new TopItemsInputData();
 
         topItemsUseCaseInteractor.execute(topItemsInputData);
     }

@@ -101,6 +101,11 @@ public class AppBuilder {
     private KeywordViewModel keywordViewModel;
 
 
+    // These variables are initialized in addLoggedInView()
+    private LoginOutputBoundary loginOutputBoundary = null;
+    private LoginInputBoundary loginInteractor = null;
+    private LoginController loginController = null;
+
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
     }
@@ -117,6 +122,20 @@ public class AppBuilder {
     }
 
     /**
+     * Adds the LoggedIn View to the application.
+     * @return this builder
+     */
+    public AppBuilder addLoggedInView() {
+        loggedInViewModel = new LoggedInViewModel();
+        loggedInView = new LoggedInView(loggedInViewModel);
+        cardPanel.add(loggedInView, loggedInView.getViewName());
+        loginOutputBoundary = new LoginPresenter(viewManagerModel, loggedInViewModel, loginViewModel);
+        loginInteractor = new LoginInteractor(userDataAccessObject,spotifyDataAccessObject, loginOutputBoundary);
+        loginController = new LoginController(loginInteractor);
+        return this;
+    }
+
+    /**
      * Adds the Search View to the application.
      * @return this builder
      */
@@ -127,7 +146,7 @@ public class AppBuilder {
         final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
                 loggedInViewModel, loginViewModel);
         final LoginInputBoundary loginInteractor = new LoginInteractor(
-                userDataAccessObject, loginOutputBoundary);
+                userDataAccessObject,spotifyDataAccessObject, loginOutputBoundary);
         final LoginController loginController = new LoginController(loginInteractor);
         searchView.setLoginController(loginController);
         return this;
@@ -141,17 +160,6 @@ public class AppBuilder {
         recommendViewModel = new RecommendViewModel();
         recommendationsView = new RecommendationsView(recommendViewModel);
         cardPanel.add(recommendationsView, recommendationsView.getViewName());
-        return this;
-    }
-
-    /**
-     * Adds the LoggedIn View to the application.
-     * @return this builder
-     */
-    public AppBuilder addLoggedInView() {
-        loggedInViewModel = new LoggedInViewModel();
-        loggedInView = new LoggedInView(loggedInViewModel);
-        cardPanel.add(loggedInView, loggedInView.getViewName());
         return this;
     }
 
@@ -188,7 +196,7 @@ public class AppBuilder {
         final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
                 loggedInViewModel, loginViewModel);
         final LoginInputBoundary loginInteractor = new LoginInteractor(
-                userDataAccessObject, loginOutputBoundary);
+                userDataAccessObject,spotifyDataAccessObject, loginOutputBoundary);
         final LoginController loginController = new LoginController(loginInteractor);
         keywordView.setLoginController(loginController);
         return this;
@@ -199,10 +207,11 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addLoginUseCase() {
+
         final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
                 loggedInViewModel, loginViewModel);
         final LoginInputBoundary loginInteractor = new LoginInteractor(
-                userDataAccessObject, loginOutputBoundary);
+                userDataAccessObject,spotifyDataAccessObject, loginOutputBoundary);
 
         final LoginController loginController = new LoginController(loginInteractor);
         loginView.setLoginController(loginController);
@@ -232,7 +241,7 @@ public class AppBuilder {
         final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
                 loggedInViewModel, loginViewModel);
         final LoginInputBoundary loginInteractor = new LoginInteractor(
-                userDataAccessObject, loginOutputBoundary);
+                userDataAccessObject,spotifyDataAccessObject, loginOutputBoundary);
 
         final LoginController loginController = new LoginController(loginInteractor);
         keywordView.setLoginController(loginController);
@@ -256,13 +265,12 @@ public class AppBuilder {
         final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
                 loggedInViewModel, loginViewModel);
         final LoginInputBoundary loginInteractor = new LoginInteractor(
-                userDataAccessObject, loginOutputBoundary);
+                userDataAccessObject,spotifyDataAccessObject, loginOutputBoundary);
 
         final LoginController loginController = new LoginController(loginInteractor);
         searchView.setLoginController(loginController);
 
-        final SearchOutputBoundary searchOutputBoundary = new SearchPresenter(viewManagerModel,
-                loggedInViewModel, searchViewModel);
+        final SearchOutputBoundary searchOutputBoundary = new SearchPresenter(viewManagerModel, searchViewModel);
 
         final SearchInputBoundary searchInteractor =
                 new SearchInteractor(languageModelDataAccessObject, searchOutputBoundary);
@@ -278,11 +286,10 @@ public class AppBuilder {
      * @return this builder
      */
     public AppBuilder addTopItemsUseCase() {
-
         final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
                 loggedInViewModel, loginViewModel);
         final LoginInputBoundary loginInteractor = new LoginInteractor(
-                userDataAccessObject, loginOutputBoundary);
+                userDataAccessObject,spotifyDataAccessObject, loginOutputBoundary);
 
         final LoginController loginController = new LoginController(loginInteractor);
         topItemsView.setLoginController(loginController);
@@ -306,13 +313,13 @@ public class AppBuilder {
         final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
                 loggedInViewModel, loginViewModel);
         final LoginInputBoundary loginInteractor = new LoginInteractor(
-                userDataAccessObject, loginOutputBoundary);
+                userDataAccessObject,spotifyDataAccessObject, loginOutputBoundary);
 
         final LoginController loginController = new LoginController(loginInteractor);
         recommendationsView.setLoginController(loginController);
 
         final RecommendOutputBoundary recommendOutputBoundary =
-                new RecommendPresenter(viewManagerModel, recommendViewModel);
+                new RecommendPresenter(viewManagerModel, loggedInViewModel, recommendViewModel);
         final RecommendInputBoundary recommendInputBoundary =
                 new RecommendInteractor(recommendUserDataAccessObject, recommendOutputBoundary);
 
@@ -325,7 +332,7 @@ public class AppBuilder {
         final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
                 loggedInViewModel, loginViewModel);
         final LoginInputBoundary loginInteractor = new LoginInteractor(
-                userDataAccessObject, loginOutputBoundary);
+                userDataAccessObject,spotifyDataAccessObject, loginOutputBoundary);
 
         final LoginController loginController = new LoginController(loginInteractor);
         similarListenersView.setLoginController(loginController);
@@ -353,7 +360,7 @@ public class AppBuilder {
 
         application.add(cardPanel);
 
-        viewManagerModel.setState(loggedInViewModel.getViewName());
+        viewManagerModel.setState(loginViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
 
         return application;

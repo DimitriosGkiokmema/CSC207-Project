@@ -8,8 +8,7 @@ public class KeywordOutputData {
     private String spotifyToken;
 
     // Constructor for successful results
-    public KeywordOutputData(String spotifyToken,List<String> songs) {
-        this.spotifyToken = spotifyToken;
+    public KeywordOutputData(List<String> songs) {
         this.songs = songs;
         this.errorMessage = null;
     }

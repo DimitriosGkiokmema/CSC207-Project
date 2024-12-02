@@ -1,7 +1,5 @@
 package use_case.keyword;
 
-import use_case.search.SearchOutputData;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,46 +22,25 @@ public class KeywordInteractor implements KeywordInputBoundary {
         this.keywordPresenter = outputBoundary;
     }
 
-    /**
-     * Processes the input data, fetches song data from Spotify, and passes results to the output boundary.
-     *
-     * @param inputData Input data containing the artist's name and the keyword.
-     */
-    @Override
-    public void searchByKeyword(KeywordInputData inputData) {
-        try {
-            String artistName = inputData.getArtistName();
-            String keyword = inputData.getKeyword();
 
-            // Use data_access.SpotifyService to fetch and filter songs
-            List<String> songs = keywordDataAccessInterface.searchSongs(artistName, keyword);
-
-            if (songs.isEmpty()) {
-                // No songs found matching the keyword
-                keywordPresenter.prepareSuccessView(new KeywordOutputData("No songs found matching the keyword."));
-            } else {
-                // Pass the list of songs to the presenter
-                keywordPresenter.prepareSuccessView(new KeywordOutputData("placeholder token",songs));
-            }
-        } catch (Exception e) {
-            // Pass any exception as an error message to the presenter
-            keywordPresenter.prepareSuccessView(new KeywordOutputData("Error: " + e.getMessage()));
-        }
-    }
 
     @Override
-    public void execute(String accessToken) {
+    public void execute() {
         List<String> songs = new ArrayList<String>();
         songs.add("");
-        final KeywordOutputData search = new KeywordOutputData(accessToken,songs);
+        final KeywordOutputData search = new KeywordOutputData(songs);
         keywordPresenter.prepareSuccessView(search);
     }
 
     @Override
-    public void executeSearch(String accessToken, String artist, String keyword){
+    public void executeSearch(String artist, String keyword){
+        if ((artist == null || artist.trim().isEmpty()) && (keyword == null || keyword.trim().isEmpty())) {
+            keywordPresenter.prepareFailView("Error: Artist and keyword cannot both be empty.");
+            return;
+        }
 
         final List<String> songs = keywordDataAccessInterface.searchSongs(artist,keyword);
-        final KeywordOutputData search = new KeywordOutputData(accessToken,songs);
+        final KeywordOutputData search = new KeywordOutputData(songs);
         keywordPresenter.prepareSuccessView(search);
     }
 }

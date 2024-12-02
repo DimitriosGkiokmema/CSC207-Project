@@ -1,14 +1,15 @@
 package interface_adapter.recommend;
 
+import java.util.List;
+
 /**
  * The state for the Recommendation View Model.
  */
 public class RecommendState {
     private String songRecommendations;
     private String accessToken;
-    private String topArtists;
+    private List<String> topArtists;
 
-    // Because of the previous copy constructor, the default constructor must be explicit.
     public RecommendState() {
 
     }
@@ -29,11 +30,11 @@ public class RecommendState {
         return accessToken;
     }
 
-    public void setTopArtists(String topArtists) {
+    public void setTopArtists(List<String> topArtists) {
         this.topArtists = topArtists;
     }
 
-    public String getTopArtists() {
+    public List<String> getTopArtists() {
         return topArtists;
     }
 }

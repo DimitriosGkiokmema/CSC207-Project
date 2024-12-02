@@ -1,8 +1,6 @@
 package view;
 
-import interface_adapter.logged_in.LoggedInState;
 import interface_adapter.login.LoginController;
-import interface_adapter.login.LoginState;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchState;
 import interface_adapter.search.SearchViewModel;
@@ -59,11 +57,8 @@ public class SearchView extends JPanel implements PropertyChangeListener {
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 evt -> {
                     if (evt.getSource().equals(returnHome)) {
-                        // 1. get the state out of the searchViewModel. It contains the username.
-                        final String accessToken = searchViewModel.getState().getAccessToken();
-                        // 2. Execute the search Controller.
-                        this.searchInputField.setText("");
-                        loginController.execute(accessToken);
+                        // 1. Execute the home Controller.
+                        loginController.execute();
 
                     }
                 }
@@ -73,10 +68,7 @@ public class SearchView extends JPanel implements PropertyChangeListener {
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 evt -> {
                     if (evt.getSource().equals(searchButton)) {
-                        // 1. get the state out of the searchViewModel. It contains the username.
-                        final String accessToken = searchViewModel.getState().getAccessToken();
-                        // 2. Execute the search Controller.
-                        searchController.executeSearch(accessToken, searchInputField.getText());
+                        searchController.executeSearch( searchInputField.getText());
 
                     }
                 }

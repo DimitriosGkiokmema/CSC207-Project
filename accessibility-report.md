@@ -1,4 +1,5 @@
 Principles of Universal Design
+
 	1.	Equitable Use:
 	•	Our program adheres to equitable use by offering features such as “search songs by description” and “search songs by keyword and artist,” which allow users with diverse music preferences to easily find songs regardless of specific knowledge about artists or genres.
 	•	Future enhancements could include adding a text-to-speech feature to ensure visually impaired users can interact with the program seamlessly.

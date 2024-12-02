@@ -25,7 +25,6 @@ public class TopItemsPresenter implements TopItemsOutputBoundary {
         final TopItemsState topItemsState = topItemsViewModel.getState();
         topItemsState.setTracks(outputData.getTracks());
         topItemsState.setArtists(outputData.getArtists());
-        topItemsState.setAccessToken(outputData.getAccessToken());
 
         this.topItemsViewModel.setState(topItemsState);
         topItemsViewModel.firePropertyChanged();

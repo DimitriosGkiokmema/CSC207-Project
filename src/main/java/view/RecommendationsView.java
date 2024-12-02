@@ -2,6 +2,7 @@ package view;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -54,10 +55,8 @@ public class RecommendationsView extends JPanel implements PropertyChangeListene
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 evt -> {
                     if (evt.getSource().equals(homeButton)) {
-                        // 1. get the state out of the searchViewModel. It contains the username.
-                        final String accessToken = recommendViewModel.getState().getAccessToken();
-                        // 2. Execute the search Controller.
-                        loginController.execute(accessToken);
+                        // 1. Execute the search Controller.
+                        loginController.execute();
 
                     }
                 }
@@ -81,8 +80,11 @@ public class RecommendationsView extends JPanel implements PropertyChangeListene
 
     private void setFields(RecommendState state) {
         topArtists = new JLabel();
-        String topArtistsText = state.getTopArtists() != null ? state.getTopArtists() : "No top artists available";
-        topArtists.setText(topArtistsText);
+        StringBuilder topArtistsText = new StringBuilder();
+        for (String topArtist : state.getTopArtists()) {
+            topArtistsText.append(topArtist);
+        }
+        topArtists.setText(topArtistsText.toString());
         songsTextArea.setText(state.getSongRecommendations());
     }
 

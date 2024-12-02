@@ -28,6 +28,7 @@ import se.michaelthelin.spotify.requests.data.browse.GetRecommendationsRequest;
 import se.michaelthelin.spotify.requests.data.follow.GetUsersFollowedArtistsRequest;
 import se.michaelthelin.spotify.requests.data.personalization.simplified.GetUsersTopArtistsRequest;
 import se.michaelthelin.spotify.requests.data.personalization.simplified.GetUsersTopTracksRequest;
+import use_case.login.LoginDataAccessInterface;
 import use_case.recommend.RecommendUserDataAccessInterface;
 import use_case.keyword.KeywordDataAccessInterface;
 import use_case.similar_listeners.SimilarListenersDataAccessInterface;
@@ -38,13 +39,11 @@ import use_case.top_items.TopItemsDataAccessInterface;
  */
 
 public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
-        SimilarListenersDataAccessInterface, RecommendUserDataAccessInterface, KeywordDataAccessInterface{
+        SimilarListenersDataAccessInterface, RecommendUserDataAccessInterface, KeywordDataAccessInterface, LoginDataAccessInterface {
     public static final int OFFSET = 4;
     public static final int OFFSET2 = 0;
 
     private LoginState loginState = new LoginState();
-    private UserFactory userFactory = new CommonUserFactory();
-    private User user = userFactory.create(loginState.getLoginToken());
     private String accessToken;
     private List<String> currentTopTracks;
     private List<String> currentTopArtists;
@@ -60,7 +59,7 @@ public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
     private GetRecommendationsRequest getRecommendationsRequest;
 
     public SpotifyDataAccessObject() {
-        this.accessToken = user.getAccessToken();
+        this.accessToken = "this should never be reached";
         this.spotifyApi = new SpotifyApi.Builder()
                 .setAccessToken(accessToken)
                 .build();
@@ -177,6 +176,19 @@ public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
 
     }
 
+    @Override
+    public List<String> getCurrentTopTracks() {
+        // Used for testing
+//        List<String> topTracks = new ArrayList<>();
+//        topTracks.add("(sic)");
+//        topTracks.add("Left Behind");
+//        topTracks.add("Spit It Out");
+//        topTracks.add("People = Shit");
+//        topTracks.add("Metabolic");
+//        topTracks.add("Everything Ends");
+//        return topTracks;
+        return currentTopTracks;
+    }
     /**
      * A helper method to get the current users recommendations from spotify.
      */
@@ -230,11 +242,7 @@ public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
         }
     }
 
-    @Override
-    public List<String> getCurrentTopTracks() {
-        return this.currentTopTracks;
-    }
-
+    /*
     @Override
     public List<String> getTopTracks() {
         return getUsersTopTracksSync();
@@ -264,10 +272,11 @@ public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
         this.currentTopArtists = new ArrayList<>();
         this.currentTopArtists.addAll(Arrays.asList(artists.split(", ")));
     }
+    */
 
     @Override
-    public String getRecommendations(List<String> songs, String topArtists) {
-        return "";
+    public String getRecommendations(List<String> songs, List<String> topArtists) {
+        return getRecommendations(currentTopTracks, currentTopArtists);
     }
 
     @Override
@@ -277,7 +286,15 @@ public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
 
     @Override
     public List<String> getCurrentTopArtists() {
-        return this.currentTopArtists;
+        // Used for testing
+//        List<String> topArtists = new ArrayList<>();
+//        topArtists.add("Slipknot");
+//        topArtists.add("Soulfly");
+//        topArtists.add("Korn");
+//        topArtists.add("(Sepultura)");
+//        topArtists.add("System Of A Down");
+//        return topArtists;
+        return currentTopArtists;
     }
 
 
@@ -314,6 +331,36 @@ public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
 
     public void setCurrentSearchResults(List<String> currentSearchResults) {
         this.currentSearchResults = currentSearchResults;
+    }
+
+    @Override
+    public void setAccessToken(String newToken) {
+        this.accessToken = newToken;
+
+        this.spotifyApi = new SpotifyApi.Builder()
+                .setAccessToken(accessToken)
+                .build();
+        this.getTopTracksRequest = spotifyApi.getUsersTopTracks()
+                .offset(OFFSET)
+                .time_range("medium_term")
+                .build();
+        this.getTopArtistsRequest = spotifyApi.getUsersTopArtists()
+                .offset(OFFSET2)
+                .time_range("medium_term")
+                .build();
+        this.currentTopTracks = getUsersTopTracksSync();
+        this.currentTopArtists = getUsersTopArtistsSync();
+
+        this.getUsersFollowedArtistsRequest = spotifyApi.getUsersFollowedArtists(type).build();
+        this.currFollowedArtists = getUsersFollowedArtistsSync();
+
+        this.getRecommendationsRequest = spotifyApi.getRecommendations()
+                .build();
+
+        getUsersFollowedArtistsSync();
+        getUsersTopArtistsSync();
+        getUsersTopTracksSync();
+
     }
 }
 

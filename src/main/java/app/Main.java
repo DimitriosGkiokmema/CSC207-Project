@@ -1,8 +1,6 @@
 package app;
 
 import javax.swing.*;
-//import java.Constants;
-import java.awt.*;
 
 /**
  * The Main class of our application.
@@ -17,14 +15,13 @@ public class Main {
         final AppBuilder appBuilder = new AppBuilder();
         final JFrame application = appBuilder
                 .addLoginView()
-                .addLoggedInView()
                 .addRecommendationsView()
                 .addSearchView()
                 .addTopItemsView()
-                .addLoginUseCase()
                 .addKeywordView()
                 .addLoggedInView()
                 .addSimilarListenersView()
+                .addLoginUseCase()
                 .addLogoutUseCase()
                 .addRecommendUseCase()
                 .addSearchUseCase()

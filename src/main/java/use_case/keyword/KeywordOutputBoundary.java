@@ -1,6 +1,6 @@
+
 package use_case.keyword;
 
-import use_case.search.SearchOutputData;
 /**
  * The output boundary for the keyword Search Use Case.
  */

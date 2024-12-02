@@ -26,10 +26,10 @@ import use_case.search.SearchLanguageModelDataAccessInterface;
 public class LanguageModelDataAccessObject implements RecommendLanguageModelDataAccessInterface,
         SearchLanguageModelDataAccessInterface {
 
-    final private String endpoint = "https://spotifycompanion.openai.azure.com/";
-    final private String accessToken;
-    private boolean keyExists;
-    final private String errorMessage ="The file which should contain the " +
+    private static final String ENDPOINT = "https://spotifycompanion.openai.azure.com/";
+    private final String accessToken;
+    private static boolean keyExists;
+    private static final String errorMessage ="The file which should contain the " +
             "azure access token does not exist in the correct place. Either create the file and place a valid api key in it or move the file to the src folder";
 
     public LanguageModelDataAccessObject() {
@@ -67,12 +67,12 @@ public class LanguageModelDataAccessObject implements RecommendLanguageModelData
 
     @Override
     public String query(String prompt) {
-        if (!this.keyExists) {
+        if (!keyExists) {
             return errorMessage;
         }
         final OpenAIClient client = new OpenAIClientBuilder()
                 .credential(new AzureKeyCredential(accessToken))
-                .endpoint(endpoint)
+                .endpoint(ENDPOINT)
                 .buildClient();
         final List<ChatRequestMessage> chatMessages = new ArrayList<>();
         chatMessages.add(new ChatRequestSystemMessage("You are a Spotify analyst, you will either send back a "
@@ -105,7 +105,7 @@ public class LanguageModelDataAccessObject implements RecommendLanguageModelData
 
         final OpenAIClient client = new OpenAIClientBuilder()
                 .credential(new AzureKeyCredential(accessToken))
-                .endpoint(endpoint)
+                .endpoint(ENDPOINT)
                 .buildClient();
         final List<ChatRequestMessage> chatMessages = new ArrayList<>();
         chatMessages.add(new ChatRequestSystemMessage("You are a Spotify analyst, you will send back a "

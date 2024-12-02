@@ -7,13 +7,12 @@ import interface_adapter.login.LoginController;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class KeywordView extends JPanel implements PropertyChangeListener {
     private final KeywordViewModel keywordViewModel;
-    private final String viewName = "keyword";
+    private static final String VIEWNAME = "keyword";
     private KeywordController keywordController;
     private LoginController loginController;
 
@@ -120,7 +119,7 @@ public class KeywordView extends JPanel implements PropertyChangeListener {
     }
 
     public String getViewName() {
-        return viewName;
+        return VIEWNAME;
     }
 
     public void setKeywordController(KeywordController keywordController) {

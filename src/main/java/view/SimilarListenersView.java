@@ -2,15 +2,11 @@ package view;
 
 import java.util.List;
 
-import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginController;
-import interface_adapter.login.LoginViewModel;
 import interface_adapter.similar_listeners.SimilarListenersState;
 import interface_adapter.similar_listeners.SimilarListenersViewModel;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -23,7 +19,7 @@ public class SimilarListenersView extends JPanel implements PropertyChangeListen
     private final JButton back;
     private final JTextArea listOfArtists;
 
-    public <T> SimilarListenersView(SimilarListenersViewModel similarListenersViewModel) {
+    public SimilarListenersView(SimilarListenersViewModel similarListenersViewModel) {
         this.similarListenersViewModel = similarListenersViewModel;
         this.similarListenersViewModel.addPropertyChangeListener(this);
 
@@ -48,7 +44,6 @@ public class SimilarListenersView extends JPanel implements PropertyChangeListen
                 }
         );
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        //this.add(title);
         this.add(similarListenersInfo);
         this.add(back);
 

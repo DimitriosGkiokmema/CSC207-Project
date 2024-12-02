@@ -7,4 +7,9 @@ public class LoginTestDataAccessObject implements LoginDataAccessInterface {
     public void setAccessToken(String newToken) {
 
     }
+
+    @Override
+    public boolean checkAccessToken(String token) {
+        return true;
+    }
 }

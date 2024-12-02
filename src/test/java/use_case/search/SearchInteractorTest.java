@@ -11,7 +11,7 @@ class SearchInteractorTest {
 
     @BeforeEach
     void setUp() {
-         dummyLanguageModel = new SearchTestDataAccessObject();
+        dummyLanguageModel = new SearchTestDataAccessObject();
     }
 
     @Test

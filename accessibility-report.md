@@ -16,7 +16,7 @@ Principles of Universal Design
 	•	If users make typos while using the “search songs by keyword and artist” feature, the program could provide suggestions for corrections or display close matches.
 	•	Future updates could include an undo feature to revert accidental actions, such as removing a song from a playlist.
 	6.	Low Physical Effort:
-	•	The program minimizes physical effort by providing quick access to “top tracks” and “similar listeners” through single-click or tap actions.
+	•	The program minimizes physical effort by providing quick access to “top tracks” and “similar artists” through single-click or tap actions.
 	•	Voice command integration could be a future addition, further reducing physical interaction requirements.
 	7.	Size and Space for Approach and Use:
 	•	The program’s interface is responsive and designed for both desktop and mobile platforms, ensuring that it remains functional and accessible regardless of the user’s device or screen size.

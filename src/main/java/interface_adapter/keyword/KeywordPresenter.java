@@ -27,7 +27,6 @@ public class KeywordPresenter implements KeywordOutputBoundary {
     @Override
     public void prepareSuccessView(KeywordOutputData outputData) {
         final KeywordState keywordState = keywordViewModel.getState();
-        keywordState.setAccessToken(outputData.getSpotifyToken());
         keywordState.setDisplayText(outputData.getSongs());
         keywordViewModel.setState(keywordState);
         keywordViewModel.firePropertyChanged();

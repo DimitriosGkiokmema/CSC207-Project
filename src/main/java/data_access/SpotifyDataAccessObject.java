@@ -314,6 +314,7 @@ public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
     @Override
     public void setAccessToken(String newToken) {
         this.accessToken = newToken;
+
         this.spotifyApi = new SpotifyApi.Builder()
                 .setAccessToken(accessToken)
                 .build();

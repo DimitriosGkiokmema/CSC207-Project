@@ -12,15 +12,9 @@ public class TopItemsState {
     private String artistsError;
     private String accessToken;
 
-    public TopItemsState(TopItemsState copy) {
-        tracks = copy.tracks;
-        tracksError = copy.tracksError;
-        accessToken = copy.accessToken;
-    }
-
     // Because of the previous copy constructor, the default constructor must be explicit.
     public TopItemsState() {
-
+        // There is no need to assign anything in this constructor. The methods are do the assignment.
     }
 
     public List<String> getTracks() {

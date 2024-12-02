@@ -6,8 +6,8 @@ import java.util.List;
  * The TopItems Interactor.
  */
 public class TopItemsInteractor implements TopItemsInputBoundary {
-    private TopItemsDataAccessInterface userDataAccessObject;
-    private TopItemsOutputBoundary topItemsOutputBoundary;
+    private final TopItemsDataAccessInterface userDataAccessObject;
+    private final TopItemsOutputBoundary topItemsOutputBoundary;
 
     public TopItemsInteractor(TopItemsDataAccessInterface userDataAccessObject,
                               TopItemsOutputBoundary topItemsOutputBoundary) {
@@ -16,7 +16,7 @@ public class TopItemsInteractor implements TopItemsInputBoundary {
     }
 
     @Override
-    public void execute(TopItemsInputData topItemsInputData) {
+    public void execute() {
         if (userDataAccessObject.getCurrentTopTracks().isEmpty() || userDataAccessObject.getCurrentTopArtists()
                 .isEmpty()) {
             if (userDataAccessObject.getCurrentTopArtists().isEmpty() && userDataAccessObject.getCurrentTopTracks()

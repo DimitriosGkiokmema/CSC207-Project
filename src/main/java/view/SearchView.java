@@ -16,12 +16,12 @@ import java.beans.PropertyChangeListener;
  */
 public class SearchView extends JPanel implements PropertyChangeListener {
 
-    private final String viewName = "search";
+    private static final String VIEWNAME = "search";
     private final SearchViewModel searchViewModel;
     private SearchController searchController;
     private LoginController loginController;
 
-    private final int searchBoxSize = 50;
+    private static final int SEARCHBOXSIZE = 50;
 
     private final JButton returnHome;
     private final JButton searchButton;
@@ -44,7 +44,7 @@ public class SearchView extends JPanel implements PropertyChangeListener {
 
         final JLabel description = new JLabel("Type In the Song Description:");
         searchButtons.add(description);
-        searchInputField = new JTextField(searchBoxSize);
+        searchInputField = new JTextField(SEARCHBOXSIZE);
         searchButton = new JButton("Search");
         searchButtons.add(searchInputField);
         searchButtons.add(searchButton);
@@ -101,7 +101,7 @@ public class SearchView extends JPanel implements PropertyChangeListener {
     }
 
     public String getViewName() {
-        return viewName;
+        return VIEWNAME;
     }
 
     public void setSearchController(SearchController searchController) {

@@ -3,8 +3,6 @@ package view;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.*;
 
@@ -17,7 +15,6 @@ import interface_adapter.search.SearchController;
 
 import interface_adapter.similar_listeners.SimilarListenersController;
 import interface_adapter.top_items.TopItemsController;
-import use_case.keyword.KeywordInteractor;
 
 
 /**
@@ -25,7 +22,7 @@ import use_case.keyword.KeywordInteractor;
  */
 public class LoggedInView extends JPanel implements PropertyChangeListener {
 
-    private final String viewName = "logged in";
+    private static final String VIEWNAME = "logged in";
     private final LoggedInViewModel loggedInViewModel;
     private LogoutController logoutController;
     private SearchController searchController;
@@ -133,24 +130,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 }
         );
 
-        // Add an ActionListener to open the Keyword window
-        /*
-        keyword.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Initialize the required components
-                KeywordViewModel viewModel = new KeywordViewModel(); // Create a new ViewModel
-                KeywordPresenter presenter = new KeywordPresenter(viewModel); // Create a presenter
-                SpotifyService spotifyService = new SpotifyService("ACCESS_TOKEN_HERE"); // Replace with your access token
-                KeywordInteractor interactor = new KeywordInteractor(spotifyService, presenter); // Initialize interactor
-                KeywordController controller = new KeywordController(interactor, viewModel); // Initialize controller
-
-                // Create and show the KeywordView with required dependencies
-                KeywordView keywordWindow = new KeywordView(controller, viewModel);
-
-                keywordWindow.show();
-            }
-        });*/
-
         keyword.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(keyword)) {
@@ -189,7 +168,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     }
 
     public String getViewName() {
-        return viewName;
+        return VIEWNAME;
     }
 
     public void setKeywordController(KeywordController keywordController) {

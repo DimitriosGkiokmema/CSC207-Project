@@ -7,7 +7,6 @@ public interface TopItemsInputBoundary {
 
     /**
      * Executes the Logout use case.
-     * @param topItemsInputData the input data
      */
-    void execute(TopItemsInputData topItemsInputData);
+    void execute();
 }

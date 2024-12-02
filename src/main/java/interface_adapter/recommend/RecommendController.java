@@ -15,10 +15,11 @@ public class RecommendController {
 
     /**
      * Executes the Recommend Use Case.
-     * @param accessToken the user's spotify access token
      */
-    public void execute(String accessToken) {
-        final RecommendInputData recommendInputData = new RecommendInputData(accessToken);
+    public void execute() {
+        final RecommendInputData recommendInputData = new RecommendInputData(
+
+        );
 
         recommendUseCaseInteractor.execute(recommendInputData);
     }

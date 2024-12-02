@@ -82,7 +82,6 @@ public class AppBuilder {
     // thought question: is the hard dependency below a problem?
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
     private final LanguageModelDataAccessObject languageModelDataAccessObject = new LanguageModelDataAccessObject();
-    private final RecommendUserDataAccessObject recommendUserDataAccessObject = new RecommendUserDataAccessObject();
     private final SpotifyDataAccessObject spotifyDataAccessObject = new SpotifyDataAccessObject();
 
     private LoginViewModel loginViewModel;
@@ -321,7 +320,7 @@ public class AppBuilder {
         final RecommendOutputBoundary recommendOutputBoundary =
                 new RecommendPresenter(viewManagerModel, loggedInViewModel, recommendViewModel);
         final RecommendInputBoundary recommendInputBoundary =
-                new RecommendInteractor(recommendUserDataAccessObject, recommendOutputBoundary);
+                new RecommendInteractor(spotifyDataAccessObject, languageModelDataAccessObject, recommendOutputBoundary);
 
         final RecommendController recommendController = new RecommendController(recommendInputBoundary);
         loggedInView.setRecommendController(recommendController);

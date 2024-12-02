@@ -119,8 +119,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         recommendations.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(recommendations)) {
-                        final String accessToken = "placeholder";
-                        recommendController.execute(accessToken);
+                        recommendController.execute();
                     }
                 }
         );

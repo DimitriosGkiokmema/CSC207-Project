@@ -9,8 +9,7 @@ import java.util.Map;
 public class RecommendInputData {
     private String accessToken;
 
-    public RecommendInputData(String accessToken) {
-        this.accessToken = accessToken;
+    public RecommendInputData() {
     }
 
     public String getAccessToken() {

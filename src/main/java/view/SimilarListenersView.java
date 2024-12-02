@@ -42,8 +42,7 @@ public class SimilarListenersView extends JPanel implements PropertyChangeListen
         back.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(back)) {
-                        final String accessToken = similarListenersViewModel.getState().getAccessToken();
-                        loginController.execute(accessToken);
+                        loginController.execute();
                     }
                 }
         );

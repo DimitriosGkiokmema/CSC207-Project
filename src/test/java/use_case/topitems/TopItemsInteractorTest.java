@@ -1,6 +1,6 @@
 package use_case.topitems;
 
-import data_access.TopItemsUserDataAccessObject;
+import data_access.TopItemsDataAccessObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.top_items.*;
@@ -11,13 +11,13 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TopItemsInteractorTest {
-    private TopItemsUserDataAccessInterface dummyObject;
+    private TopItemsDataAccessInterface dummyObject;
     private TopItemsInputData dummyInput;
 
     @BeforeEach
     public void setUp() {
-        dummyObject = new TopItemsUserDataAccessObject();
-        dummyInput = new TopItemsInputData("accessToken");
+        dummyObject = new TopItemsDataAccessObject();
+        dummyInput = new TopItemsInputData();
     }
 
     @Test
@@ -40,7 +40,6 @@ public class TopItemsInteractorTest {
             public void prepareSuccessView(TopItemsOutputData outputData) {
                 assertEquals(topTracks, outputData.getTracks());
                 assertEquals(topArtists, outputData.getArtists());
-                assertEquals("accessToken", outputData.getAccessToken());
             }
 
             @Override

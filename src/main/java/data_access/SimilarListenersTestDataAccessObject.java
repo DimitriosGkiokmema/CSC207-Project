@@ -1,11 +1,10 @@
 package data_access;
 
-import use_case.similar_listeners.SimilarListenersUserDataAccessInterface;
+import use_case.similar_listeners.SimilarListenersDataAccessInterface;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class SimilarListenersTestDataAccessObject implements SimilarListenersUserDataAccessInterface {
+public class SimilarListenersTestDataAccessObject implements SimilarListenersDataAccessInterface {
 
     private List<String> followedArtists;
 

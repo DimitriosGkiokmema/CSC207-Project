@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * DAO for SimilarListeners use case.
  */
-public interface SimilarListenersUserDataAccessInterface {
+public interface SimilarListenersDataAccessInterface {
 
     /**
      * Return the artists that the current user follows.

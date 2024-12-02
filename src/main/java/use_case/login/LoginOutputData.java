@@ -5,16 +5,13 @@ package use_case.login;
  */
 public class LoginOutputData {
 
-    private final String accessToken;
     private final boolean useCaseFailed;
 
-    public LoginOutputData(String accessToken, boolean useCaseFailed) {
-        this.accessToken = accessToken;
+    public LoginOutputData( boolean useCaseFailed) {
         this.useCaseFailed = useCaseFailed;
     }
-
-    public String getAccessToken() {
-        return accessToken;
+    public boolean isUseCaseFailed() {
+        return useCaseFailed;
     }
 
 }

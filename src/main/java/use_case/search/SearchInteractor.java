@@ -1,10 +1,5 @@
 package use_case.search;
 
-import data_access.DBUserDataAccessObject;
-import data_access.InMemoryUserDataAccessObject;
-import use_case.login.LoginInputData;
-import use_case.logout.LogoutOutputData;
-
 /**
  * The Search Interactor.
  */
@@ -24,14 +19,14 @@ public class SearchInteractor implements SearchInputBoundary {
     }
 
     @Override
-    public void execute(String accessToken) {
-        final SearchOutputData search = new SearchOutputData(accessToken,false);
+    public void execute() {
+        final SearchOutputData search = new SearchOutputData(false);
         searchPresenter.prepareSuccessView(search);
     }
 
     @Override
-    public void executeSearch(String accessToken, String searchText){
-        final SearchOutputData search = new SearchOutputData(accessToken,false);
+    public void executeSearch( String searchText){
+        final SearchOutputData search = new SearchOutputData(false);
         final String response = modelDataAccess.query(searchText);
         search.setDisplayText(response);
         searchPresenter.prepareSuccessView(search);

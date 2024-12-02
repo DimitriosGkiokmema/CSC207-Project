@@ -1,10 +1,15 @@
 package use_case.keyword;
 
 public interface KeywordInputBoundary {
+
     /**
-     * Initiates the search for songs by the given artist name and keyword.
-     *
-     * @param inputData The input data containing the artist's name and keyword.
+     * takes us to the keyword use case.
      */
-    void searchByKeyword(KeywordInputData inputData);
+    void execute();
+
+    /**
+     * Executes the keyword search use case.
+     */
+    void executeSearch(String artist, String keyword);
+
 }

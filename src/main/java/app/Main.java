@@ -15,18 +15,19 @@ public class Main {
         final AppBuilder appBuilder = new AppBuilder();
         final JFrame application = appBuilder
                 .addLoginView()
-                .addLoggedInView()
                 .addRecommendationsView()
                 .addSearchView()
                 .addTopItemsView()
-                .addLoginUseCase()
+                .addKeywordView()
                 .addLoggedInView()
                 .addSimilarListenersView()
+                .addLoginUseCase()
                 .addLogoutUseCase()
                 .addRecommendUseCase()
                 .addSearchUseCase()
                 .addTopItemsUseCase()
                 .addSimilarListenersUseCase()
+                .addKeywordUseCase()
                 .build();
 
         application.pack();

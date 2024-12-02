@@ -9,7 +9,7 @@ import java.util.List;
  * The controller for the TopItems Use Case.
  */
 public class TopItemsController {
-    private TopItemsInputBoundary topItemsUseCaseInteractor;
+    final private TopItemsInputBoundary topItemsUseCaseInteractor;
 
     public TopItemsController(TopItemsInputBoundary topItemsUseCaseInteractor) {
         this.topItemsUseCaseInteractor = topItemsUseCaseInteractor;
@@ -17,10 +17,9 @@ public class TopItemsController {
 
     /**
      * Executes the TopItems Use Case.
-     * @param accessToken the access Token of the user.
      */
-    public void execute(String accessToken) {
-        final TopItemsInputData topItemsInputData = new TopItemsInputData(accessToken);
+    public void execute() {
+        final TopItemsInputData topItemsInputData = new TopItemsInputData();
 
         topItemsUseCaseInteractor.execute(topItemsInputData);
     }

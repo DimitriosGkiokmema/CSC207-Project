@@ -1,16 +1,15 @@
 package data_access;
 
-import use_case.top_items.TopItemsUserDataAccessInterface;
+import use_case.top_items.TopItemsDataAccessInterface;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class TopItemsUserDataAccessObject implements TopItemsUserDataAccessInterface {
+public class TopItemsDataAccessObject implements TopItemsDataAccessInterface {
 
     private List<String> tracks;
     private List<String> artists;
 
-    public TopItemsUserDataAccessObject() {
+    public TopItemsDataAccessObject() {
     }
 
     @Override

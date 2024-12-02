@@ -6,10 +6,10 @@ import java.util.List;
  * The TopItems Interactor.
  */
 public class TopItemsInteractor implements TopItemsInputBoundary {
-    private TopItemsUserDataAccessInterface userDataAccessObject;
+    private TopItemsDataAccessInterface userDataAccessObject;
     private TopItemsOutputBoundary topItemsOutputBoundary;
 
-    public TopItemsInteractor(TopItemsUserDataAccessInterface userDataAccessObject,
+    public TopItemsInteractor(TopItemsDataAccessInterface userDataAccessObject,
                               TopItemsOutputBoundary topItemsOutputBoundary) {
         this.userDataAccessObject = userDataAccessObject;
         this.topItemsOutputBoundary = topItemsOutputBoundary;
@@ -33,9 +33,7 @@ public class TopItemsInteractor implements TopItemsInputBoundary {
         else {
             final List<String> topTracks = userDataAccessObject.getCurrentTopTracks();
             final List<String> topArtists = userDataAccessObject.getCurrentTopArtists();
-            final String accessToken = topItemsInputData.getAccessToken();
-
-            final TopItemsOutputData outputData = new TopItemsOutputData(topTracks, topArtists, accessToken);
+            final TopItemsOutputData outputData = new TopItemsOutputData(topTracks, topArtists);
             topItemsOutputBoundary.prepareSuccessView(outputData);
 
         }

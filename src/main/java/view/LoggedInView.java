@@ -1,8 +1,6 @@
 package view;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -11,8 +9,6 @@ import java.util.List;
 import javax.swing.*;
 
 import interface_adapter.keyword.KeywordController;
-import interface_adapter.keyword.KeywordPresenter;
-import interface_adapter.keyword.KeywordViewModel;
 import interface_adapter.logged_in.LoggedInState;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.logout.LogoutController;
@@ -20,9 +16,7 @@ import interface_adapter.recommend.RecommendController;
 import interface_adapter.search.SearchController;
 
 import interface_adapter.similar_listeners.SimilarListenersController;
-import interface_adapter.similar_listeners.SimilarListenersViewModel;
 import interface_adapter.top_items.TopItemsController;
-import data_access.SpotifyService;
 import use_case.keyword.KeywordInteractor;
 
 
@@ -38,8 +32,9 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private TopItemsController topItemsController;
     private RecommendController recommendController;
     private SimilarListenersController similarListenersController;
+    private KeywordController keywordController;
 
-    private String accessToken = "Error: access token not displaying";
+    private final JLabel accessToken;
     private final JButton logOut;
     private final JPanel searchButtons = new JPanel();
     private final JPanel appButtons = new JPanel();
@@ -50,7 +45,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
         final JLabel title = new JLabel("Home Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
-
         final JPanel profile = new JPanel();
         profile.setLayout(new BoxLayout(profile, BoxLayout.Y_AXIS));
         final JLabel usernameInfo = new JLabel("Currently logged in: " + accessToken);
@@ -71,13 +65,14 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         // Add ActionListener for the "Search song by keyword" button
+        /*
         keyword.addActionListener(evt -> {
             if (evt.getSource().equals(keyword)) {
                 // Retrieve the current frame
                 JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
 
                 // Retrieve the access token
-                String accessToken = "BQCBkcgNkBgo48s7ZJlGRO2ohyiOJHc1nlBD-E6-6EsRsOILmexOHd3G81Bj3wKAymo8i1qOg8tvHPUSQASHL67WGTw4E_KlyXkpRyfMGIF67EOVLtY"; // Assuming the token is stored as the username
+                String accessToken = "BQB3C0RPRK-jw-xptb5X9nQ_A1yPkwIQBTtdhPbYa5oza3jmru20-sSaMGtPIBT7zcwHblQuYBTnh5Z_pgXC0RGrA5TagXUALHCr8hyXzc3Mxp0cgvI"; // Assuming the token is stored as the username
 
                 // Ensure the token exists
                 if (accessToken == null || accessToken.isEmpty()) {
@@ -89,7 +84,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 KeywordViewModel viewModel = new KeywordViewModel();
                 KeywordPresenter presenter = new KeywordPresenter(viewModel);
                 SpotifyService spotifyService = new SpotifyService(accessToken);
-                KeywordInteractor interactor = new KeywordInteractor(spotifyService, presenter);
+                KeywordInteractor interactor = new KeywordInteractor(spotifyData, presenter);
                 KeywordController keywordController = new KeywordController(interactor, viewModel);
 
                 // Create the Keyword view and set it as the content pane
@@ -97,7 +92,17 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 frame.setContentPane(keywordPage.getPanel(frame));
                 frame.revalidate(); // Refresh the frame to display the new content
             }
-        });
+        });*/
+        final JButton home = new JButton("Home");
+        appButtons.add(home);
+        final JButton recommendations = new JButton("Recommendations");
+        appButtons.add(recommendations);
+        final JButton topItems = new JButton("Top Items");
+        appButtons.add(topItems);
+        final JButton similarListeners = new JButton("Similar listeners");
+        appButtons.add(similarListeners);
+
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         logOut.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
@@ -115,10 +120,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 evt -> {
                     if (evt.getSource().equals(description)) {
-                        // 1. get the state out of the loggedInViewModel. It contains the username.
-                        final String accessToken = loggedInViewModel.getState().getAccessToken();
-                        // 2. Execute the logout Controller.
-                        searchController.execute(accessToken);
+                        searchController.execute();
                     }
                 }
         );
@@ -136,17 +138,15 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 evt -> {
 
                     if (evt.getSource().equals(topItems)) {
-                        final String accessToken = loggedInViewModel.getState().getAccessToken();
-                        topItemsController.execute(accessToken);
+                        topItemsController.execute();
                     }
                 }
         );
 
         // Add an ActionListener to open the Keyword window
+        /*
         keyword.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
-
                 // Initialize the required components
                 KeywordViewModel viewModel = new KeywordViewModel(); // Create a new ViewModel
                 KeywordPresenter presenter = new KeywordPresenter(viewModel); // Create a presenter
@@ -159,7 +159,17 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
                 keywordWindow.show();
             }
-        });
+        });*/
+
+        keyword.addActionListener(
+                evt -> {
+                    if (evt.getSource().equals(keyword)) {
+                        final String accessToken = loggedInViewModel.getState().getAccessToken();
+                        keywordController.execute();
+
+                    }
+                }
+        );
 
         similarListeners.addActionListener(
                 evt -> {
@@ -170,9 +180,9 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                     }
                 }
         );
-
         // Add components to the panel
         this.add(title);
+        this.add(usernameInfo);
         this.add(profile);
         this.add(searchButtons);
         this.add(appButtons);
@@ -182,7 +192,10 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
             final LoggedInState state = (LoggedInState) evt.getNewValue();
-            accessToken = state.getAccessToken();
+            accessToken.setText("This should be displayed");
+            String token = state.getAccessToken();
+            System.out.println(token);
+            accessToken.setText("token");
         }
         else if (evt.getPropertyName().equals("password")) {
             final LoggedInState state = (LoggedInState) evt.getNewValue();
@@ -192,6 +205,10 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
     public String getViewName() {
         return viewName;
+    }
+
+    public void setKeywordController(KeywordController keywordController) {
+        this.keywordController = keywordController;
     }
 
     public void setLogoutController(LogoutController logoutController) {

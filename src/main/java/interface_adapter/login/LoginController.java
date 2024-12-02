@@ -24,4 +24,14 @@ public class LoginController {
 
         loginUseCaseInteractor.execute(loginInputData);
     }
+
+    /**
+     * Executes the Login Use Case without changing the token.
+     */
+    public void execute() {
+        final LoginInputData loginInputData = new LoginInputData();
+
+        loginUseCaseInteractor.execute(loginInputData);
+    }
+
 }

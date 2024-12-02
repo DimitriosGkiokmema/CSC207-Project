@@ -184,7 +184,7 @@ public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
 //        topTracks.add("Everything Ends");
 //        return topTracks;
         return currentTopTracks;
-
+    }
     /**
      * A helper method to get the current users recommendations from spotify.
      */
@@ -238,11 +238,7 @@ public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
         }
     }
 
-    @Override
-    public List<String> getCurrentTopTracks() {
-        return this.currentTopTracks;
-    }
-
+    /*
     @Override
     public List<String> getTopTracks() {
         return getUsersTopTracksSync();
@@ -272,6 +268,7 @@ public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
         this.currentTopArtists = new ArrayList<>();
         this.currentTopArtists.addAll(Arrays.asList(artists.split(", ")));
     }
+    */
 
     @Override
     public String getRecommendations(List<String> songs, List<String> topArtists) {

@@ -130,7 +130,7 @@ public class AppBuilder {
         loggedInView = new LoggedInView(loggedInViewModel);
         cardPanel.add(loggedInView, loggedInView.getViewName());
         loginOutputBoundary = new LoginPresenter(viewManagerModel, loggedInViewModel, loginViewModel);
-        loginInteractor = new LoginInteractor(userDataAccessObject, loginOutputBoundary);
+        loginInteractor = new LoginInteractor(userDataAccessObject,spotifyDataAccessObject, loginOutputBoundary);
         loginController = new LoginController(loginInteractor);
         return this;
     }

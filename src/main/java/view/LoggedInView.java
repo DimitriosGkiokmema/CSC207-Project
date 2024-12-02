@@ -34,7 +34,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private SimilarListenersController similarListenersController;
     private KeywordController keywordController;
 
-    private final JLabel accessToken;
     private final JButton logOut;
     private final JPanel searchButtons = new JPanel();
     private final JPanel appButtons = new JPanel();
@@ -47,9 +46,9 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         final JPanel profile = new JPanel();
         profile.setLayout(new BoxLayout(profile, BoxLayout.Y_AXIS));
-        final JLabel usernameInfo = new JLabel("Currently logged in: " + accessToken);
+        //final JLabel usernameInfo = new JLabel("Currently logged in: " + accessToken);
         logOut = new JButton("Log Out");
-        profile.add(usernameInfo);
+        //profile.add(usernameInfo);
         profile.add(logOut);
 
         final JButton description = new JButton("Search song by description");
@@ -93,14 +92,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 frame.revalidate(); // Refresh the frame to display the new content
             }
         });*/
-        final JButton home = new JButton("Home");
-        appButtons.add(home);
-        final JButton recommendations = new JButton("Recommendations");
-        appButtons.add(recommendations);
-        final JButton topItems = new JButton("Top Items");
-        appButtons.add(topItems);
-        final JButton similarListeners = new JButton("Similar listeners");
-        appButtons.add(similarListeners);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -109,7 +100,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 evt -> {
                     if (evt.getSource().equals(logOut)) {
                         // 1. get the state out of the loggedInViewModel. It contains the username.
-                        final String name = loggedInViewModel.getState().getAccessToken();
+                        final String name ="placeholder";
                         // 2. Execute the logout Controller.
                         logoutController.execute(name);
                     }
@@ -128,7 +119,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         recommendations.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(recommendations)) {
-                        final String accessToken = loggedInViewModel.getState().getAccessToken();
+                        final String accessToken = "placeholder";
                         recommendController.execute(accessToken);
                     }
                 }
@@ -164,7 +155,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         keyword.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(keyword)) {
-                        final String accessToken = loggedInViewModel.getState().getAccessToken();
                         keywordController.execute();
 
                     }
@@ -174,7 +164,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         similarListeners.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(similarListeners)) {
-                        final String accessToken = loggedInViewModel.getState().getAccessToken();
+                        final String accessToken = "placeholder";
                         similarListenersController.execute(accessToken);
 
                     }
@@ -182,7 +172,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         );
         // Add components to the panel
         this.add(title);
-        this.add(usernameInfo);
+        //this.add(usernameInfo);
         this.add(profile);
         this.add(searchButtons);
         this.add(appButtons);
@@ -192,14 +182,10 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
             final LoggedInState state = (LoggedInState) evt.getNewValue();
-            accessToken.setText("This should be displayed");
-            String token = state.getAccessToken();
-            System.out.println(token);
-            accessToken.setText("token");
         }
         else if (evt.getPropertyName().equals("password")) {
             final LoggedInState state = (LoggedInState) evt.getNewValue();
-            JOptionPane.showMessageDialog(null, "password updated for " + state.getAccessToken());
+            JOptionPane.showMessageDialog(null, "password updated for user");
         }
     }
 

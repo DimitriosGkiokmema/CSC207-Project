@@ -11,7 +11,7 @@ public class LoginInputData {
         this.accessToken = accessToken;
     }
     public LoginInputData() {
-        loginToken = "noToken";
+        accessToken = "noToken";
     }
 
     String getAccessToken() {

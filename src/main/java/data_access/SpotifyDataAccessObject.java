@@ -2,12 +2,8 @@ package data_access;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import entity.CommonUserFactory;
-import entity.User;
-import entity.UserFactory;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import interface_adapter.login.LoginState;
@@ -25,7 +21,7 @@ import se.michaelthelin.spotify.requests.data.follow.GetUsersFollowedArtistsRequ
 import se.michaelthelin.spotify.requests.data.personalization.simplified.GetUsersTopArtistsRequest;
 import se.michaelthelin.spotify.requests.data.personalization.simplified.GetUsersTopTracksRequest;
 import use_case.login.LoginDataAccessInterface;
-import use_case.recommend.RecommendUserDataAccessInterface;
+import use_case.recommend.RecommendDataAccessInterface;
 import use_case.keyword.KeywordDataAccessInterface;
 import use_case.similar_listeners.SimilarListenersDataAccessInterface;
 import use_case.top_items.TopItemsDataAccessInterface;
@@ -35,7 +31,7 @@ import use_case.top_items.TopItemsDataAccessInterface;
  */
 
 public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
-        SimilarListenersDataAccessInterface, RecommendUserDataAccessInterface, KeywordDataAccessInterface, LoginDataAccessInterface {
+        SimilarListenersDataAccessInterface, RecommendDataAccessInterface, KeywordDataAccessInterface, LoginDataAccessInterface {
     public static final int OFFSET = 4;
     public static final int OFFSET2 = 0;
 
@@ -185,18 +181,7 @@ public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
 //        return topTracks;
         return currentTopTracks;
     }
-    /**
-     * A helper method to get the current users recommendations from spotify.
-     */
-    private void getRecommendationsSync() {
-        try {
-            final Recommendations recommendations = getRecommendationsRequest.execute();
 
-            System.out.println("Length: " + recommendations.getTracks().length);
-        } catch (IOException | SpotifyWebApiException | ParseException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-    }
     /**
      * A helper method to get the current users search results from spotify.
      * @param artistName the name of the artist the user is searching for.
@@ -238,41 +223,24 @@ public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
         }
     }
 
-    /*
     @Override
-    public List<String> getTopTracks() {
-        return getUsersTopTracksSync();
-    }
-
-    public void setTopTracks(List<String> topTracks) {
-        this.currentTopTracks = topTracks;
+    public List<String> getCurrentTopTracks2() {
+        return currentTopTracks;
     }
 
     @Override
-    public String getTopArtists() {
-        final List<String> lst = currentTopArtists;
-        final StringBuilder sb = new StringBuilder();
-        if (lst != null) {for (int i = 0; i < lst.size(); i ++) {
-            sb.append(lst.get(i));
-
-            if (i != lst.size() - 1) {
-                sb.append(", ");
-            }
-        }}
-
-        return sb.toString();
+    public void setCurrentTopTracks2(List<String> tracks) {
+        currentTopTracks = tracks;
     }
 
     @Override
-    public void setTopArtists(String artists) {
-        this.currentTopArtists = new ArrayList<>();
-        this.currentTopArtists.addAll(Arrays.asList(artists.split(", ")));
+    public List<String> getCurrentTopArtists2() {
+        return currentTopArtists;
     }
-    */
 
     @Override
-    public String getRecommendations(List<String> songs, List<String> topArtists) {
-        return getRecommendations(currentTopTracks, currentTopArtists);
+    public void setCurrentTopArtists2(List<String> artists) {
+        this.currentTopArtists = artists;
     }
 
     @Override

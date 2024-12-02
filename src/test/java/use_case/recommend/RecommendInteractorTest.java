@@ -1,5 +1,6 @@
 package use_case.recommend;
 
+import data_access.LanguageModelDataAccessObject;
 import data_access.RecommendTestDataAccessObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,12 +12,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class RecommendInteractorTest {
     private RecommendTestDataAccessObject dummySpotify;
+    private LanguageModelDataAccessObject languageModelDataAccessObject;
     private List<String> topArtists;
 
     @BeforeEach
      void setUp() {
         dummySpotify = new RecommendTestDataAccessObject();
-        topArtists = dummySpotify.getCurrentTopArtists();
+        languageModelDataAccessObject = new LanguageModelDataAccessObject();
+        topArtists = dummySpotify.getCurrentTopArtists2();
     }
 
     @Test
@@ -35,16 +38,16 @@ public class RecommendInteractorTest {
             }
         };
 
-        RecommendInputBoundary interactor = new RecommendInteractor(dummySpotify, successPresenter);
-        interactor.execute(new RecommendInputData("token"));
+        RecommendInputBoundary interactor = new RecommendInteractor(dummySpotify, languageModelDataAccessObject, successPresenter);
+        interactor.execute(new RecommendInputData());
     }
 
     @Test
     void failTest() {
         // Create empty track list and inputData object
         List<String> tracks = new ArrayList<>();
-        RecommendInputData inputData = new RecommendInputData("token");
-        dummySpotify.setCurrentTopTracks(tracks);
+        RecommendInputData inputData = new RecommendInputData();
+        dummySpotify.setCurrentTopTracks2(tracks);
 
         RecommendOutputBoundary successPresenter = new RecommendOutputBoundary() {
             @Override
@@ -58,7 +61,7 @@ public class RecommendInteractorTest {
             }
         };
 
-        RecommendInputBoundary interactor = new RecommendInteractor(dummySpotify, successPresenter);
+        RecommendInputBoundary interactor = new RecommendInteractor(dummySpotify, languageModelDataAccessObject, successPresenter);
         interactor.execute(inputData);
     }
 }

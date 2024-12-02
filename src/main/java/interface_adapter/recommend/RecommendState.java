@@ -7,11 +7,30 @@ import java.util.List;
  */
 public class RecommendState {
     private String songRecommendations;
-    private String accessToken;
     private List<String> topArtists;
+    private List<String> topTracks;
+    private String accessToken;
+    private String artistsError;
+    private String tracksError;
 
     public RecommendState() {
 
+    }
+
+    public List<String> getTracks() {
+        return topTracks;
+    }
+
+    public String getTracksError() {
+        return tracksError;
+    }
+
+    public void setTracks(List<String> topTracks) {
+        this.topTracks = topTracks;
+    }
+
+    public void setTracksError(String tracksError) {
+        this.tracksError = tracksError;
     }
 
     public void setSongRecommendations(String songRecommendations) {
@@ -37,4 +56,9 @@ public class RecommendState {
     public List<String> getTopArtists() {
         return topArtists;
     }
+
+    public void setArtistsError(String artistsError) {
+        this.artistsError = artistsError;
+    }
+
 }

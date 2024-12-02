@@ -19,7 +19,7 @@ import java.beans.PropertyChangeListener;
  * The View for when the user is opens Top Items Menu.
  */
 public class TopItemsView extends JPanel implements PropertyChangeListener {
-    private final String viewName = "Top Items";
+    private static final String VIEWNAME = "Top Items";
     private final TopItemsViewModel topItemsViewModel;
     private LoginController loginController;
 
@@ -80,7 +80,7 @@ public class TopItemsView extends JPanel implements PropertyChangeListener {
     }
 
     public String getViewName() {
-        return viewName;
+        return VIEWNAME;
     }
 
     public void setLoginController(LoginController loginController) {

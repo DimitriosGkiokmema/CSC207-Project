@@ -71,8 +71,7 @@ public class TopItemsView extends JPanel implements PropertyChangeListener {
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 evt -> {
                     if (evt.getSource().equals(homeButton)) {
-                        final String accessToken = topItemsViewModel.getState().getAccessToken();
-                        loginController.execute(accessToken);
+                        loginController.execute();
                     }
                 }
         );

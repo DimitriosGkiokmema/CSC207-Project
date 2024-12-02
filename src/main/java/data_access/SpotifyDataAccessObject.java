@@ -330,5 +330,17 @@ public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
         getUsersTopTracksSync();
 
     }
+
+    @Override
+    public boolean checkAccessToken(String testToken) {
+        String oldToken = accessToken;
+        setAccessToken(testToken);
+        List<String> output = getUsersTopTracksSync();
+        setAccessToken(oldToken);
+        if (output.size() == 0){
+            return false;
+        }
+        return true;
+    }
 }
 

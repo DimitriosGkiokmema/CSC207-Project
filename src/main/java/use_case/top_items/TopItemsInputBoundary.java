@@ -6,7 +6,7 @@ package use_case.top_items;
 public interface TopItemsInputBoundary {
 
     /**
-     * Executes the Logout use case.
+     * Executes the Top Items use case.
      */
     void execute();
 }

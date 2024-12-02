@@ -117,7 +117,6 @@ public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
             for (Track track : tracks) {
                 topTracks.add(track.getName());
             }
-            // System.out.println("Top Tracks: " + topTracks);
             return topTracks;
 
         } catch (IOException | SpotifyWebApiException | ParseException e) {
@@ -142,7 +141,6 @@ public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
             for (Artist artist : artists) {
                 topArtists.add(artist.getName());
             }
-            // System.out.println("Top Artists: " + topArtists);
             return topArtists;
 
         } catch (IOException | SpotifyWebApiException | ParseException e) {
@@ -163,7 +161,6 @@ public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
             for (Artist artist : artists) {
                 followedArtists.add(artist.getName());
             }
-            // System.out.println(followedArtists);
             return followedArtists;
         } catch (IOException | SpotifyWebApiException | ParseException e) {
             System.out.println("Error: " + e.getMessage());
@@ -174,15 +171,6 @@ public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
 
     @Override
     public List<String> getCurrentTopTracks() {
-        // Used for testing
-//        List<String> topTracks = new ArrayList<>();
-//        topTracks.add("(sic)");
-//        topTracks.add("Left Behind");
-//        topTracks.add("Spit It Out");
-//        topTracks.add("People = Shit");
-//        topTracks.add("Metabolic");
-//        topTracks.add("Everything Ends");
-//        return topTracks;
         return currentTopTracks;
     }
 
@@ -254,14 +242,6 @@ public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
 
     @Override
     public List<String> getCurrentTopArtists() {
-        // Used for testing
-//        List<String> topArtists = new ArrayList<>();
-//        topArtists.add("Slipknot");
-//        topArtists.add("Soulfly");
-//        topArtists.add("Korn");
-//        topArtists.add("(Sepultura)");
-//        topArtists.add("System Of A Down");
-//        return topArtists;
         return currentTopArtists;
     }
 

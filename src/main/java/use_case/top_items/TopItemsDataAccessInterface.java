@@ -3,7 +3,7 @@ package use_case.top_items;
 import java.util.List;
 
 /**
- * DAO for the Top Tracks Use Case.
+ * DAO for the Top Items Use Case.
  */
 public interface TopItemsDataAccessInterface {
 

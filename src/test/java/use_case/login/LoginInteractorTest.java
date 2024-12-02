@@ -26,7 +26,31 @@ class LoginInteractorTest {
         LoginOutputBoundary successPresenter = new LoginOutputBoundary() {
             @Override
             public void prepareSuccessView(LoginOutputData user) {
-                assertEquals("Generic token", user.getAccessToken());
+                assertFalse(user.isUseCaseFailed());
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                fail("Use case failure is unexpected.");
+            }
+        };
+
+        LoginInputBoundary interactor = new LoginInteractor(userRepository, spotify, successPresenter);
+        interactor.execute(inputData);
+    }
+
+    @Test
+    void successHomeTest() {
+        LoginInputData inputData = new LoginInputData();
+        LoginUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+        LoginTestDataAccessObject spotify = new LoginTestDataAccessObject();
+
+
+        // This creates a successPresenter that tests whether the test case is as we expect.
+        LoginOutputBoundary successPresenter = new LoginOutputBoundary() {
+            @Override
+            public void prepareSuccessView(LoginOutputData user) {
+                assertFalse(user.isUseCaseFailed());
             }
 
             @Override

@@ -261,8 +261,7 @@ public class AppBuilder {
         final LoginController loginController = new LoginController(loginInteractor);
         searchView.setLoginController(loginController);
 
-        final SearchOutputBoundary searchOutputBoundary = new SearchPresenter(viewManagerModel,
-                loggedInViewModel, searchViewModel);
+        final SearchOutputBoundary searchOutputBoundary = new SearchPresenter(viewManagerModel, searchViewModel);
 
         final SearchInputBoundary searchInteractor =
                 new SearchInteractor(languageModelDataAccessObject, searchOutputBoundary);

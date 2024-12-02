@@ -29,7 +29,13 @@ public class RecommendInteractor implements RecommendInputBoundary {
         // Gets spotify access token
         final String accessToken = recommendInputData.getAccessToken();
 
-        if (topTracks.isEmpty() || topArtists.isEmpty() || songRecommendations.contains("Error")) {
+        if (topTracks == null) {
+            recommendationOutputBoundary.prepareFailView("Error: spotify returns empty track list");
+        }
+        else if (topArtists == null) {
+            recommendationOutputBoundary.prepareFailView("Error: spotify returns empty artist list");
+        }
+        else if (topTracks.isEmpty() || topArtists.isEmpty() || songRecommendations.contains("Error")) {
             StringBuilder errorMsg = getErrorMsg(topTracks, topArtists, songRecommendations);
             recommendationOutputBoundary.prepareFailView(errorMsg.toString());
         }

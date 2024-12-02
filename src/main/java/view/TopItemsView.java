@@ -39,16 +39,6 @@ public class TopItemsView extends JPanel implements PropertyChangeListener {
         homeButton = new JButton("go back");
         homeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        /* dataset1.setValue("Artist 1", 200);
-        dataset1.setValue("Artist 2", 150);
-        dataset1.setValue("Artist 3", 180);
-
-        dataset2.addValue(300, "Track 1", "1'st");
-        dataset2.addValue(250, "Track 2", "2'nd");
-        dataset2.addValue(200, "Track 3", "3'rd");
-        dataset2.addValue(150, "Track 4", "4'th");
-        dataset2.addValue(100, "Track 5", "5'th"); */
-
         final JFreeChart chart = ChartFactory.createPieChart(
                 "Top Artists", dataset1, true, true, false);
 

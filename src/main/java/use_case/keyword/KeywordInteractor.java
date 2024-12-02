@@ -23,9 +23,11 @@ public class KeywordInteractor implements KeywordInputBoundary {
      * Constructs a KeywordInteractor.
      *
      * @param keywordDataAccessInterface The data access object to handle API calls, must not be null.
-     * @param outputBoundary             The output boundary to send results or errors to the presenter, must not be null.
+     * @param outputBoundary             The output boundary to send results or errors to the presenter, must not be
+     *                                  null.
      */
-    public KeywordInteractor(KeywordDataAccessInterface keywordDataAccessInterface, KeywordOutputBoundary outputBoundary) {
+    public KeywordInteractor(KeywordDataAccessInterface keywordDataAccessInterface,
+                             KeywordOutputBoundary outputBoundary) {
         this.keywordDataAccessInterface = keywordDataAccessInterface;
         this.keywordPresenter = outputBoundary;
     }
@@ -42,11 +44,11 @@ public class KeywordInteractor implements KeywordInputBoundary {
     public void executeSearch(String artist, String keyword) {
         if ((artist == null || artist.trim().isEmpty()) && (keyword == null || keyword.trim().isEmpty())) {
             keywordPresenter.prepareFailView("Error: Artist and keyword cannot both be empty.");
-            return;
         }
-
-        final List<String> songs = keywordDataAccessInterface.searchSongs(artist, keyword);
-        final KeywordOutputData search = new KeywordOutputData(songs);
-        keywordPresenter.prepareSuccessView(search);
+        else {
+            final List<String> songs = keywordDataAccessInterface.searchSongs(artist, keyword);
+            final KeywordOutputData search = new KeywordOutputData(songs);
+            keywordPresenter.prepareSuccessView(search);
+        }
     }
 }

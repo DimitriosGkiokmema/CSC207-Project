@@ -1,3 +1,4 @@
+
 package interface_adapter.keyword;
 
 import use_case.keyword.KeywordInputBoundary;

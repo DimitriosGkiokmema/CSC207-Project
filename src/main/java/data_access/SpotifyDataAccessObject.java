@@ -293,11 +293,6 @@ public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
     }
 
     @Override
-    public List<String> fetchSongs(String artist, String keyword) {
-        return List.of();
-    }
-
-    @Override
     public List<String> searchSongs(String artistName, String keyword) {
         getSearchResultsSync(artistName, keyword);
         return getCurrentSearchResults();

@@ -34,6 +34,10 @@ public class KeywordInteractor implements KeywordInputBoundary {
 
     @Override
     public void executeSearch(String artist, String keyword){
+        if ((artist == null || artist.trim().isEmpty()) && (keyword == null || keyword.trim().isEmpty())) {
+            keywordPresenter.prepareFailView("Error: Artist and keyword cannot both be empty.");
+            return;
+        }
 
         final List<String> songs = keywordDataAccessInterface.searchSongs(artist,keyword);
         final KeywordOutputData search = new KeywordOutputData(songs);

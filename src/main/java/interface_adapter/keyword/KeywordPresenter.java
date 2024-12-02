@@ -38,5 +38,9 @@ public class KeywordPresenter implements KeywordOutputBoundary {
 
     @Override
     public void prepareFailView(String errorMessage) {
+        final KeywordState keywordState = keywordViewModel.getState();
+        keywordState.setDisplayText(errorMessage); // Set error message to display
+        keywordViewModel.setState(keywordState);
+        keywordViewModel.firePropertyChanged(); // Notify view of changes
     }
 }

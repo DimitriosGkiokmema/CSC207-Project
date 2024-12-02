@@ -15,18 +15,16 @@ public class SearchController {
 
     /**
      * Goes to the search use case.
-     * @param accessToken the access token for spotify.
      */
-    public void execute(String accessToken) {
-        searchUseCaseInteractor.execute(accessToken);
+    public void execute() {
+        searchUseCaseInteractor.execute();
     }
 
     /**
      * Executes the Search Use Case.
      * @param searchText the search the user is inputting.
-     * @param accessToken the access token for spotify.
      */
-    public void executeSearch(String accessToken, String searchText) {
-        searchUseCaseInteractor.executeSearch(accessToken, searchText);
+    public void executeSearch( String searchText) {
+        searchUseCaseInteractor.executeSearch(searchText);
     }
 }

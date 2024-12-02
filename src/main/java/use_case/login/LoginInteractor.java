@@ -17,20 +17,15 @@ public class LoginInteractor implements LoginInputBoundary {
 
     @Override
     public void execute(LoginInputData loginInputData) {
-        try {
-            if (loginInputData.getLoginToken().equals("noToken")) {
-                final LoginOutputData loginOutputData = new LoginOutputData(false);
-                loginPresenter.prepareSuccessView(loginOutputData);
-            } else {
-                final String token = loginInputData.getLoginToken();
-                userDataAccessObject.setCurrentAccessToken(token);
-                final LoginOutputData loginOutputData = new LoginOutputData(false);
-                loginDataAccessObject.setAccessToken(token);
-                loginPresenter.prepareSuccessView(loginOutputData);
-            }
-        }
-        catch (Exception e) {
+
+        if (loginInputData.getLoginToken().equals("noToken")) {
             final LoginOutputData loginOutputData = new LoginOutputData(false);
+            loginPresenter.prepareSuccessView(loginOutputData);
+        } else {
+            final String token = loginInputData.getLoginToken();
+            userDataAccessObject.setCurrentAccessToken(token);
+            final LoginOutputData loginOutputData = new LoginOutputData(false);
+            loginDataAccessObject.setAccessToken(token);
             loginPresenter.prepareSuccessView(loginOutputData);
         }
 

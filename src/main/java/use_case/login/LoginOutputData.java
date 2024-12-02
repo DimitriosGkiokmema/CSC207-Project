@@ -10,5 +10,8 @@ public class LoginOutputData {
     public LoginOutputData( boolean useCaseFailed) {
         this.useCaseFailed = useCaseFailed;
     }
+    public boolean isUseCaseFailed() {
+        return useCaseFailed;
+    }
 
 }

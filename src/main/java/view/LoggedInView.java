@@ -164,7 +164,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 evt -> {
                     if (evt.getSource().equals(keyword)) {
                         final String accessToken = loggedInViewModel.getState().getAccessToken();
-                        keywordController.execute(accessToken);
+                        keywordController.execute();
 
                     }
                 }

@@ -1,15 +1,15 @@
 package use_case.recommend;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.List;
+
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The Recommendations Interactor.
  */
 public class RecommendInteractor implements RecommendInputBoundary {
-    private RecommendDataAccessInterface userDataAccessObject;
-    private RecommendLanguageModelDataAccessInterface languageModelDataAccessObject;
+    private final RecommendDataAccessInterface userDataAccessObject;
+    private final RecommendLanguageModelDataAccessInterface languageModelDataAccessObject;
     private final RecommendOutputBoundary recommendationOutputBoundary;
 
     public RecommendInteractor(RecommendDataAccessInterface userDataAccessObject,
@@ -27,8 +27,6 @@ public class RecommendInteractor implements RecommendInputBoundary {
         final List<String> topArtists = userDataAccessObject.getCurrentTopArtists();
         // Takes user data and asks Azure for recommendations
         final String songRecommendations = languageModelDataAccessObject.getRecommendations(topTracks, topArtists);
-        // Gets spotify access token
-        final String accessToken = recommendInputData.getAccessToken();
 
         if (topTracks == null) {
             recommendationOutputBoundary.prepareFailView("Error: spotify returns empty track list");
@@ -37,18 +35,19 @@ public class RecommendInteractor implements RecommendInputBoundary {
             recommendationOutputBoundary.prepareFailView("Error: spotify returns empty artist list");
         }
         else if (topTracks.isEmpty() || topArtists.isEmpty() || songRecommendations.contains("Error")) {
-            StringBuilder errorMsg = getErrorMsg(topTracks, topArtists, songRecommendations);
+            final StringBuilder errorMsg = getErrorMsg(topTracks, topArtists, songRecommendations);
             recommendationOutputBoundary.prepareFailView(errorMsg.toString());
         }
         else {
-            final RecommendOutputData outputData = new RecommendOutputData(songRecommendations, topArtists, accessToken);
+            final RecommendOutputData outputData = new RecommendOutputData(songRecommendations, topArtists);
             recommendationOutputBoundary.prepareSuccessView(outputData);
         }
     }
 
     @NotNull
-    private static StringBuilder getErrorMsg(List<String> topTracks, List<String> topArtists, String songRecommendations) {
-        StringBuilder errorMsg = new StringBuilder("Error: ");
+    private static StringBuilder getErrorMsg(List<String> topTracks, List<String> topArtists,
+                                             String songRecommendations) {
+        final StringBuilder errorMsg = new StringBuilder("Error: ");
         if (topTracks.isEmpty()) {
             errorMsg.append("song tracks, ");
         }

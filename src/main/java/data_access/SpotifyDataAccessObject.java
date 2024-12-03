@@ -20,9 +20,9 @@ import se.michaelthelin.spotify.requests.data.browse.GetRecommendationsRequest;
 import se.michaelthelin.spotify.requests.data.follow.GetUsersFollowedArtistsRequest;
 import se.michaelthelin.spotify.requests.data.personalization.simplified.GetUsersTopArtistsRequest;
 import se.michaelthelin.spotify.requests.data.personalization.simplified.GetUsersTopTracksRequest;
+import use_case.keyword.KeywordDataAccessInterface;
 import use_case.login.LoginDataAccessInterface;
 import use_case.recommend.RecommendDataAccessInterface;
-import use_case.keyword.KeywordDataAccessInterface;
 import use_case.similar_listeners.SimilarListenersDataAccessInterface;
 import use_case.top_items.TopItemsDataAccessInterface;
 

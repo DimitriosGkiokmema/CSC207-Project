@@ -210,7 +210,7 @@ public class AppBuilder {
         final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
                 loggedInViewModel, loginViewModel);
         final LoginInputBoundary loginInteractor = new LoginInteractor(
-                userDataAccessObject,spotifyDataAccessObject, loginOutputBoundary);
+                userDataAccessObject, spotifyDataAccessObject, loginOutputBoundary);
 
         final LoginController loginController = new LoginController(loginInteractor);
         loginView.setLoginController(loginController);
@@ -318,7 +318,7 @@ public class AppBuilder {
         recommendationsView.setLoginController(loginController);
 
         final RecommendOutputBoundary recommendOutputBoundary =
-                new RecommendPresenter(viewManagerModel, loggedInViewModel, recommendViewModel);
+                new RecommendPresenter(viewManagerModel, recommendViewModel);
         final RecommendInputBoundary recommendInputBoundary =
                 new RecommendInteractor(spotifyDataAccessObject, languageModelDataAccessObject, recommendOutputBoundary);
 

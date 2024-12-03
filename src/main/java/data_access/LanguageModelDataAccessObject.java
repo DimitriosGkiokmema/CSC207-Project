@@ -38,7 +38,7 @@ public class LanguageModelDataAccessObject implements RecommendLanguageModelData
 
     /**
      * This is a helper method to get the Azure API key.
-     * @return the access token stored in the local keys.txt file
+     * @return the access token stored in the local keys file
      */
     private String getKey() {
         final File file;

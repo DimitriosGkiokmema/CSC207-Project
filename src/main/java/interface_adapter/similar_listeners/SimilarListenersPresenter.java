@@ -1,10 +1,10 @@
 package interface_adapter.similar_listeners;
 
+import java.util.ArrayList;
+
 import interface_adapter.ViewManagerModel;
 import use_case.similar_listeners.SimilarListenersOutputBoundary;
 import use_case.similar_listeners.SimilarListenersOutputData;
-
-import java.util.ArrayList;
 
 /**
  * The Presenter for Similar Listeners use case.
@@ -24,7 +24,6 @@ public class SimilarListenersPresenter implements SimilarListenersOutputBoundary
     public void prepareSuccessView(SimilarListenersOutputData similarListenersOutputData) {
         final SimilarListenersState similarListenersState = similarListenersViewModel.getState();
         similarListenersState.setSimilarArtists(similarListenersOutputData.getSimilarArtists());
-        similarListenersState.setAccessToken(similarListenersOutputData.getAccessToken());
         this.similarListenersViewModel.setState(similarListenersState);
         similarListenersViewModel.firePropertyChanged();
 

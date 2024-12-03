@@ -142,8 +142,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         similarListeners.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(similarListeners)) {
-                        final String accessToken = "placeholder";
-                        similarListenersController.execute(accessToken);
+                        similarListenersController.execute();
 
                     }
                 }

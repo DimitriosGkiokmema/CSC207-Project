@@ -25,8 +25,8 @@ public class RecommendState {
         return tracksError;
     }
 
-    public void setTracks(List<String> topTracks) {
-        this.topTracks = topTracks;
+    public void setTracks(List<String> tracks) {
+        this.topTracks = tracks;
     }
 
     public void setTracksError(String tracksError) {

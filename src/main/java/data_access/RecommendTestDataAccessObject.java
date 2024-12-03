@@ -1,15 +1,20 @@
 package data_access;
 
-import use_case.recommend.RecommendDataAccessInterface;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecommendTestDataAccessObject implements RecommendDataAccessInterface {
+import use_case.recommend.RecommendDataAccessInterface;
+import use_case.recommend.RecommendLanguageModelDataAccessInterface;
+
+/**
+ * Test spotify DAO for the recommendations use case
+ */
+public class RecommendTestDataAccessObject implements RecommendDataAccessInterface,
+        RecommendLanguageModelDataAccessInterface {
     private List<String> topTracks;
     private List<String> topArtists;
 
-    public RecommendTestDataAccessObject(){
+    public RecommendTestDataAccessObject() {
         topTracks = new ArrayList<>();
         topTracks.add("(sic)");
         topTracks.add("Left Behind");
@@ -27,26 +32,27 @@ public class RecommendTestDataAccessObject implements RecommendDataAccessInterfa
     }
 
     @Override
-    public List<String> getCurrentTopTracks2() {
+    public List<String> getCurrentTopTracks() {
         return topTracks;
     }
 
     @Override
-    public void setCurrentTopTracks2(List<String> topTracks) {
-        this.topTracks = topTracks;
+    public void setCurrentTopTracks(List<String> tracks) {
+        this.topTracks = tracks;
     }
 
     @Override
-    public List<String> getCurrentTopArtists2() {
+    public List<String> getCurrentTopArtists() {
         return topArtists;
     }
 
     @Override
-    public void setCurrentTopArtists2(List<String> topArtists) {
-        this.topArtists = topArtists;
+    public void setCurrentTopArtists(List<String> artists) {
+        this.topArtists = artists;
     }
 
     @Override
-    public void setAccessToken(String accessToken) {
+    public String getRecommendations(List<String> prompt, List<String> artists) {
+        return "This is a sample response from Azure";
     }
 }

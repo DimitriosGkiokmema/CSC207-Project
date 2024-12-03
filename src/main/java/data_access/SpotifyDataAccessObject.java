@@ -6,10 +6,6 @@ import java.util.List;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import entity.CommonUser;
-import entity.CommonUserFactory;
-import entity.UserFactory;
-import entity.User;
 import interface_adapter.login.LoginState;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -24,9 +20,9 @@ import se.michaelthelin.spotify.requests.data.browse.GetRecommendationsRequest;
 import se.michaelthelin.spotify.requests.data.follow.GetUsersFollowedArtistsRequest;
 import se.michaelthelin.spotify.requests.data.personalization.simplified.GetUsersTopArtistsRequest;
 import se.michaelthelin.spotify.requests.data.personalization.simplified.GetUsersTopTracksRequest;
+import use_case.keyword.KeywordDataAccessInterface;
 import use_case.login.LoginDataAccessInterface;
 import use_case.recommend.RecommendDataAccessInterface;
-import use_case.keyword.KeywordDataAccessInterface;
 import use_case.similar_listeners.SimilarListenersDataAccessInterface;
 import use_case.top_items.TopItemsDataAccessInterface;
 
@@ -213,26 +209,6 @@ public class SpotifyDataAccessObject implements TopItemsDataAccessInterface,
         } catch (IOException e) {
             throw new RuntimeException("Error searching songs", e);
         }
-    }
-
-    @Override
-    public List<String> getCurrentTopTracks2() {
-        return currentTopTracks;
-    }
-
-    @Override
-    public void setCurrentTopTracks2(List<String> tracks) {
-        currentTopTracks = tracks;
-    }
-
-    @Override
-    public List<String> getCurrentTopArtists2() {
-        return currentTopArtists;
-    }
-
-    @Override
-    public void setCurrentTopArtists2(List<String> artists) {
-        this.currentTopArtists = artists;
     }
 
     @Override
